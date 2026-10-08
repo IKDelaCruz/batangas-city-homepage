@@ -30,11 +30,6 @@
   const photo = /[?&]photo\b/.test(location.search);
   if (photo) root.classList.add('photo');
 
-  const store = {
-    get(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
-    set(k, v) { try { sessionStorage.setItem(k, v); } catch (e) { /* private mode */ } }
-  };
-
   /* ------------------------------------------------------------ washes */
   /* One wash spreading once. */
   function bloom(el, dur = 1.5, vars = {}) {
@@ -47,15 +42,19 @@
   }
 
   /* ---------------------------------------------- prologue: the globe */
-  /* Natural Earth coastlines drawn in ink on a canvas: a turning globe, then
-     three falls - the archipelago, Batangas Bay, the shore - and the shoreline
-     straightens into the first stroke of the city drawing. */
+  /* Natural Earth coastlines drawn in ink on a canvas: a pencil circle, a globe
+     inked on it, the turn east until the islands rise over the horizon, a hold
+     while the sun finds them and the pen loops them, then three falls - the
+     archipelago, Batangas Bay, the shore - and the shoreline straightens into
+     the first stroke of the city drawing. */
   const globe = (() => {
     const cv = $('#globe');
     if (!cv || !motion) return null;
     const ctx = cv.getContext('2d');
     const D = Math.PI / 180;
-    const cam = { lam: -40, phi: 24, logR: 0, rot: 0, reveal: 0, l1: 0, l2: 0, fade: 1, morph: 0, on: 1 };
+    /* pencil: the construction circle · reveal: the inking · glow: the sun on the
+       islands · l0: the loop round them (0-1 drawn, 1-2 fading) · l1, l2: the labels */
+    const cam = { lam: -62, phi: 28, logR: 0, rot: 0, pencil: 0, reveal: 0, glow: 0, l0: 0, l1: 0, l2: 0, fade: 1, morph: 0, on: 1 };
     const imgs = {};
     let data = null;
     let morphSrc = null;
@@ -224,20 +223,22 @@
       ctx.fillText(txt, 0, 0);
       ctx.restore();
     }
-    function loop(cx, cy, r, a) {
-      if (a <= 0.01) return;
+    /* a hand-drawn loop; `frac` is how far round it the pen has got */
+    function loop(cx, cy, r, a, frac = 1, sx = 1.15, sy = 0.85) {
+      if (a <= 0.01 || frac <= 0) return;
       ctx.save();
       ctx.globalAlpha = a * cam.fade;
       ctx.beginPath();
       ctx.lineWidth = 1.7;
       ctx.strokeStyle = '#1c1b19';
       const n = 40;
-      for (let i = 0; i <= n; i++) {
+      const m = Math.round(n * clamp(frac, 0, 1));
+      for (let i = 0; i <= m; i++) {
         const t = i / n;
         const ang = -0.6 + t * Math.PI * 2.2;
         const g = r * (1 + 0.06 * t);
-        const x = cx + g * 1.15 * Math.cos(ang) + wob(i, 5);
-        const y = cy + g * 0.85 * Math.sin(ang) + wob(i, 9);
+        const x = cx + g * sx * Math.cos(ang) + wob(i, 5);
+        const y = cy + g * sy * Math.sin(ang) + wob(i, 9);
         if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y);
       }
       ctx.stroke();
@@ -261,12 +262,27 @@
         ink(ring, S, cam.reveal * 1.6, 200 + lat);
       }
       ctx.stroke();
+      // the pencil circle the rim is inked over: a construction line, wobblier than the ink
+      if (cam.pencil > 0.01) {
+        ctx.globalAlpha = a * cam.fade * 0.75;
+        ctx.lineWidth = 0.9;
+        ctx.beginPath();
+        const m = 72;
+        for (let i = 0; i <= m * clamp(cam.pencil, 0, 1); i++) {
+          const t = -2.4 + i / m * Math.PI * 2.04;
+          const x = S.cx + S.R * 1.012 * Math.cos(t) + wob(i, 11) * 1.6;
+          const y = S.cy + S.R * 1.012 * Math.sin(t) + wob(i, 13) * 1.6;
+          if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y);
+        }
+        ctx.stroke();
+        ctx.globalAlpha = a * cam.fade;
+      }
       // the rim, gone over by hand
       ctx.beginPath();
       ctx.strokeStyle = '#1c1b19';
       ctx.lineWidth = 1.5;
       const n = 72;
-      for (let i = 0; i <= n * (0.2 + 0.85 * clamp(cam.reveal * 1.8, 0, 1)); i++) {
+      for (let i = 0; i <= n * 1.05 * clamp(cam.reveal * 1.8, 0, 1); i++) {   // starts with the inking, over the pencil circle
         const t = -1.9 + i / n * Math.PI * 2;
         const x = S.cx + S.R * Math.cos(t) + wob(i, 3);
         const y = S.cy + S.R * Math.sin(t) + wob(i, 7);
@@ -286,7 +302,8 @@
       ctx.beginPath();
       const N = rings.length;
       rings.forEach((ring, i) => {
-        const frac = reveal ? clamp((reveal - 0.3 * (i / N)) / 0.7, 0, 1) : 1;
+        // `reveal` null: the set is complete; a number: how far the inking has got (0 is blank paper)
+        const frac = reveal == null ? 1 : clamp((reveal - 0.3 * (i / N)) / 0.7, 0, 1);
         if (frac > 0) ink(ring, S, frac, k0 + i);
       });
       ctx.stroke();
@@ -324,7 +341,8 @@
       ctx.clip(fill(land, S));
       sheet(imgs.land, S, 1.35);
       ctx.restore();
-      const gA = 0.55 * sm(600, 1600, R) * (1 - sm(5000, 16000, R));
+      // the sun finds the islands during the hold and goes with them into the first fall
+      const gA = 0.55 * cam.glow * (1 - sm(5000, 16000, R));
       if (gA > 0.01 && imgs.gold.complete && imgs.gold.naturalWidth) {
         const q = proj(PH, S, false);
         if (q) {
@@ -336,10 +354,12 @@
       ctx.restore();
       graticule(S, 1 - sm(900, 2400, R));
       coast(data.g, S, aG, 1000, cam.reveal);
-      coast(data.p, S, aP, 2000, 0);
-      coast(data.b, S, aB, 3000, 0);
-      // annotations
+      coast(data.p, S, aP, 2000, null);
+      coast(data.b, S, aB, 3000, null);
+      // the pen circles the islands on the globe; the fall goes through the loop as it fades
       const q1 = proj(PH, S, false);
+      if (q1 && cam.l0 > 0.01 && cam.l0 < 1.99) loop(q1[0], q1[1], R * 0.15, clamp(2 - cam.l0, 0, 1), cam.l0, 0.95, 1.25);
+      // annotations
       if (q1 && cam.l1 > 0.01) {
         const narrow = W < 700;
         const lx = narrow ? 22 : Math.min(q1[0] + R * 0.13, W - 300);
@@ -363,7 +383,7 @@
       const q3 = proj(BAY, S, false);
       if (q2 && cam.l2 > 0.01) {
         const rr = Math.max(40, R * 0.00026);
-        loop(q2[0], q2[1], rr, cam.l2);
+        loop(q2[0], q2[1], rr, Math.min(1, cam.l2 * 3), cam.l2);
         label('Batangas City', Math.min(q2[0] + rr * 1.3, W - 200), q2[1] - rr * 0.9, 32, 0, cam.l2);
         if (q3) label('Batangas Bay', q3[0] - 90, q3[1] + 44, 29, 0, cam.l2);
       }
@@ -522,11 +542,10 @@
     const box = scene.getBoundingClientRect();
     const dy = small ? innerHeight * 0.46 - (box.top + box.height * 0.66) : 0;
     const tl = gsap.timeline({ defaults: { ease: 'power2.inOut' } });
-    /* the globe plays once per visit; the city is still drawn, twice as fast */
-    const again = !!store.get('bc8-intro');
-    const pro = !again && globe && globe.ready();
-    if (again) { tl.timeScale(2); $('.intro__note').textContent = 'sketching Batangas City…'; }
-    else if (lite()) tl.timeScale(1.7);   // a phone gets the whole intro in under seven seconds
+    /* the globe plays on every load, a reload included (the user's decision,
+       2026-10-08); Skip intro, Esc and a tap on a phone skip it */
+    const pro = globe && globe.ready();
+    if (lite()) tl.timeScale(2.4);   // a phone gets the whole intro in under ten seconds
     let finished = false;
     const done = () => {
       if (finished) return;
@@ -534,14 +553,21 @@
       tl.progress(1);
       if (globe) { gsap.ticker.remove(globe.render); globe.cam.on = 0; globe.render(); }
       root.classList.remove('is-intro');
-      store.set('bc8-intro', '1');
       heroDraw();
       ST.refresh();
       fitLabels();   // the scene is at its resting size only now
     };
     tl.set(scene, { scale: s0, y: dy });
 
-    /* the prologue: a turning globe, three falls, the shoreline becomes the stroke */
+    /* the prologue, about seventeen seconds, slow and cinematic (the client asked
+       for drama and anticipation before the zoom, 2026-10-08, and then for slower
+       and more cinematic): blank paper, a pencil circle, the globe inked on it
+       while it barely turns, a long turn east until the islands rise over the
+       horizon and settle at centre, a slow push in while the sun finds them and
+       breathes and the pen loops them, the fall through the loop, a breath on the
+       archipelago that keeps pushing in, the fall to the bay, a slow push over the
+       bay, and the shoreline becomes the stroke. The camera never quite stops:
+       every hold is a slow push, every move eases in and out over seconds. */
     let t0 = 0;
     if (pro) {
       const cam = globe.cam;
@@ -549,24 +575,41 @@
       const R1 = innerHeight * 3.1;
       const R2 = Math.max(innerWidth, innerHeight * 0.9) * 80;
       globe.size();
-      Object.assign(cam, { lam: -40, phi: 24, logR: Math.log(R0), rot: 0, reveal: 0, l1: 0, l2: 0, fade: 1, morph: 0, on: 1 });
+      Object.assign(cam, { lam: -62, phi: 28, logR: Math.log(R0), rot: 0, pencil: 0, reveal: 0, glow: 0, l0: 0, l1: 0, l2: 0, fade: 1, morph: 0, on: 1 });
       addEventListener('resize', globe.size);
       gsap.ticker.add(globe.render);
-      tl.to(cam, { reveal: 1, duration: 1.3, ease: 'none' }, 0)
-        .to(cam, { lam: 121.6, phi: 12.8, duration: 2.0, ease: 'power2.inOut' }, 0.1)
-        .to(cam, { logR: Math.log(R1), lam: 122.3, phi: 12.0, duration: 1.0, ease: 'power2.inOut' }, 1.7)
-        .to(cam, { l1: 1, duration: 0.35, ease: 'none' }, 2.25)
-        .to(cam, { l1: 0, duration: 0.3, ease: 'none' }, 2.85)
-        .to(cam, { logR: Math.log(R2), lam: 121.085, phi: 13.70, rot: 90, duration: 1.05, ease: 'power2.inOut' }, 2.7)
-        .to(cam, { l2: 1, duration: 0.35, ease: 'none' }, 3.3)
-        .add(globe.startMorph, 3.8)
-        .to(cam, { morph: 1, fade: 0, duration: 0.7, ease: 'power2.inOut' }, 3.8)
-        .add(() => { $('.intro__note').textContent = 'sketching Batangas City…'; }, 3.9)
-        .set(hl('coast'), { strokeDashoffset: 0 }, 4.5)
-        .to(cam, { on: 0, duration: 0.25, ease: 'none' }, 4.5)
+      gsap.set('.intro__note', { opacity: 0 });   // the note waits for the turn
+      /* blank paper, then the globe is drawn: pencil first, then ink, the Atlantic side of the world, barely turning */
+      tl.to(cam, { pencil: 1, duration: 0.7, ease: 'none' }, 0.5)
+        .to(cam, { reveal: 1, duration: 2.2, ease: 'none' }, 0.8)
+        .to(cam, { lam: -55, duration: 2.6, ease: 'none' }, 0)
+        /* the turn east, four and a half seconds: the islands come over the eastern horizon at about 4.8 s and settle at centre */
+        .to(cam, { lam: 121.6, phi: 12.8, duration: 4.5, ease: 'sine.inOut' }, 2.6)
+        .to('.intro__note', { opacity: 1, duration: 0.8 }, 3.2)
+        /* the hold, a slow push in: the sun finds the islands and breathes, the pen circles them */
+        .to(cam, { lam: 122.3, logR: Math.log(R0 * 1.3), duration: 2.0, ease: 'sine.inOut' }, 7.1)
+        .to(cam, { glow: 1, duration: 1.4, ease: 'power1.out' }, 7.0)
+        .to(cam, { glow: 0.78, duration: 0.7, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 8.4)
+        .to(cam, { l0: 1, duration: 0.9, ease: 'none' }, 7.6)
+        /* the fall, slow to start then fast, through the loop; the breath on the archipelago keeps pushing in */
+        .to(cam, { logR: Math.log(R1), phi: 12.0, rot: 20, duration: 2.2, ease: 'power3.inOut' }, 9.1)
+        .to(cam, { l0: 2, duration: 1.0, ease: 'none' }, 9.6)
+        .to(cam, { logR: Math.log(R1 * 1.12), duration: 1.0, ease: 'none' }, 11.3)
+        .to(cam, { l1: 1, duration: 0.6, ease: 'none' }, 10.9)
+        .to(cam, { l1: 0, duration: 0.5, ease: 'none' }, 12.1)
+        /* the fall to the bay, banking until the coast lies along the sheet; a slow push over the bay */
+        .to(cam, { logR: Math.log(R2), lam: 121.085, phi: 13.70, rot: 90, duration: 2.0, ease: 'power2.inOut' }, 12.3)
+        .to(cam, { l2: 1, duration: 0.9, ease: 'none' }, 13.7)
+        .to(cam, { logR: Math.log(R2 * 1.05), duration: 1.2, ease: 'none' }, 14.3)
+        /* the shoreline straightens into the first stroke */
+        .add(globe.startMorph, 15.5)
+        .to(cam, { morph: 1, fade: 0, duration: 1.3, ease: 'power2.inOut' }, 15.5)
+        .add(() => { $('.intro__note').textContent = 'sketching Batangas City…'; }, 15.6)
+        .set(hl('coast'), { strokeDashoffset: 0 }, 16.8)
+        .to(cam, { on: 0, duration: 0.3, ease: 'none' }, 16.8)
         /* clear the sheet by hand: a dropped frame here would leave the map up */
-        .add(() => { gsap.ticker.remove(globe.render); cam.on = 0; globe.render(); }, 4.8);
-      t0 = 4.5;
+        .add(() => { gsap.ticker.remove(globe.render); cam.on = 0; globe.render(); }, 17.2);
+      t0 = 16.8;
     } else {
       $('.intro__note').textContent = 'sketching Batangas City…';
       tl.to(hl('coast'), { strokeDashoffset: 0, duration: 1.5, ease: 'power1.inOut' }, 0.7);
@@ -594,7 +637,7 @@
     if (coarse) d.addEventListener('pointerdown', done, { once: true });   // on touch, a tap anywhere skips
     d.addEventListener('keydown', e => { if (e.key === 'Escape' && !finished) done(); });
     /* if the tab is asleep and no frames arrive, do not hold the page hostage */
-    const guard = setTimeout(done, 18000);
+    const guard = setTimeout(done, 32000);
     window.__intro = { tl, pro, globe, hold: () => clearTimeout(guard) };
   }
 
@@ -1195,7 +1238,7 @@
   /* ------------------------------------------------------------------ go */
   if (motion) {
     const go = () => { if (!root.classList.contains('is-intro')) return; runIntro(); };
-    if (globe && !store.get('bc8-intro')) Promise.race([globe.loaded, new Promise(r => setTimeout(r, 1800))]).then(go, go);
+    if (globe) Promise.race([globe.loaded, new Promise(r => setTimeout(r, 1800))]).then(go, go);
     else go();
     chapters();
     ST.create({ trigger: '.street', start: 'top bottom', end: 'bottom top', scrub: 0.6, onUpdate(s) { panBase = s.progress; applyPan(); } });
