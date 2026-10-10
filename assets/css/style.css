@@ -147,6 +147,9 @@ h3{font-family:var(--serif);font-weight:600;letter-spacing:-.01em}
 .nav__links{display:flex;gap:clamp(1rem,2vw,2rem)}
 .nav__links a{font:600 .875rem/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:.7rem 0 .6rem;background:var(--wob) no-repeat left bottom/0 5px;transition:background-size .3s var(--ease)}
 .nav__links a:hover,.nav__links a:focus-visible,.nav__links a[aria-current]{background-size:100% 5px}
+.nav__links a{white-space:nowrap}
+@media (max-width:1599px){.nav__links{gap:1.15rem}.nav__links a{letter-spacing:.07em}}
+@media (min-width:1281px) and (max-width:1439px){.nav__name small{display:none}}
 .nav__tools{display:flex;gap:1.4rem}
 .nav__btn{display:flex;align-items:center;gap:.55rem;font:600 .875rem/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;padding:.7rem 0}
 .nav__btn .ico{width:1.35rem;height:1.2rem}

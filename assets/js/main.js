@@ -932,8 +932,8 @@
     poblacion: ['the old town', 'Poblacion', 'City Hall, the Basilica and Plaza Mabini stand within a few blocks of each other, a short way up the Calumpang from the bay.', 'Walk the old town', '#heritage'],
     port: ['ferries and cranes', 'The port', 'Batangas International Port, at Sta. Clara. Passenger ferries leave for Mindoro and the islands beyond, and container ships load beside them.', 'Port and logistics', '#business'],
     north: ['where the tollway ends', 'Alangilan & Balagtas', 'STAR Tollway arrives here from Manila, beside the bus terminal and the university campuses.', 'Getting to the city', 'visit.html#plan'],
-    coast: ['the working shore', 'The industrial coast', 'From Tabangao to Ilijan the bay is lined with fuel terminals, a petrochemical complex and power plants.', 'Doing business', '#business'],
-    uplands: ['the high ground', 'Mt. Banoy uplands', 'The city climbs from the bay to Mt. Banoy: farms, forest, and cooler air than the port will ever have.', 'Destinations', '#discover'],
+    coast: ['the working shore', 'The industrial coast', 'From Tabangao to Ilijan the coast holds fuel import terminals, a petrochemical complex and gas-fired power plants.', 'Doing business', '#business'],
+    uplands: ['the high ground', 'Mt. Banoy uplands', 'The city climbs from the bay to Mt. Banoy, its highest point at about 968 m, on the eastern edge in Talumpok Silangan.', 'Destinations', '#discover'],
     verde: ['across the water', 'Verde Island', 'Island barangays in the middle of the Verde Island Passage, reached by boat from the city.', 'The bay and the passage', '#discover']
   };
   const zoneGroups = $$('.scene--map .zone');
