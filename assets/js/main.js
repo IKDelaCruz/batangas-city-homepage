@@ -447,12 +447,14 @@
   const ht = n => $$(`.ink--hero [data-l="${n}"] text`);
   const hw = n => $(`.hero__scene > .wash[data-w="${n}"]`);
 
-  const word = $('.hero__word');
-  $('.hero__title').setAttribute('aria-label', 'Welcome to Batangas City');
-  $$('.hero__title > span').forEach(s => s.setAttribute('aria-hidden', 'true'));
-  word.innerHTML = Array.from(word.textContent.trim()).map(c => `<span class="l">${c}</span>`).join('');
-
-  if (motion) { stage.appendChild($('.hero__end')); stage.appendChild($('.hero__steps')); }
+  /* the ten inner pages share this script with the homepage: whatever is not on the page is skipped */
+  if (hero) {
+    const word = $('.hero__word');
+    $('.hero__title').setAttribute('aria-label', 'Welcome to Batangas City');
+    $$('.hero__title > span').forEach(s => s.setAttribute('aria-hidden', 'true'));
+    word.innerHTML = Array.from(word.textContent.trim()).map(c => `<span class="l">${c}</span>`).join('');
+    if (motion) { stage.appendChild($('.hero__end')); stage.appendChild($('.hero__steps')); }
+  }
 
   /* The hero is drawn in six steps that follow one another by themselves once
      the intro is over (the client's call: a drawing that has started finishes
@@ -704,7 +706,7 @@
         .to(river, { strokeDashoffset: 0, duration: 0.8, stagger: 1.6 / river.length, ease: 'power2.inOut' }, 1.0)
         .to({}, { duration: 1 });
     }, { threshold: 0.3 });
-    fio.observe(f);
+    if (f) fio.observe(f);
   }
 
   /* --------------------------------------------------------- 02 services */
@@ -713,7 +715,7 @@
   const dabs = $$('.scene--street .dab');
   const pan = $('.street__pan');
   const panBox = $('.street__scroll');
-  let current = 'certificates';
+  let current = $('main').dataset.svc || 'certificates';   // an inner page may name the building to light
   let hovered = null;
   let panBase = 0;
   let panOff = 0;
@@ -729,6 +731,7 @@
   }
   let panTo = 0;   // small screens: where the chosen building sits
   function applyPan() {
+    if (!pan) return;
     const over = pan.offsetWidth - panBox.clientWidth;
     if (over <= 0) { pan.style.transform = ''; return; }
     if (innerWidth < 900) { pan.style.transform = `translate3d(${-clamp(panTo, 0, over)}px,0,0)`; return; }
@@ -797,9 +800,15 @@
     hit.addEventListener('pointerleave', () => { hovered = null; paintStreet(); });
     hit.addEventListener('click', () => { selectSvc(g.dataset.svc, { reveal: innerWidth < 900 }); if (fold.matches) goSvc(g.dataset.svc); });
   });
-  selectSvc(current, { reveal: false });
-  if (fold.matches) closeSvc();
-  fold.addEventListener('change', () => { if (!fold.matches) selectSvc(current, { reveal: false }); });
+  if (svcItems.length) {
+    selectSvc(current, { reveal: false });
+    if (fold.matches) closeSvc();
+  } else if (svcGroups.length) {
+    /* a page that shows the street without the list (Emergency): its own building is the one lit */
+    paintStreet();
+    addEventListener('load', () => showBuilding(current));
+  }
+  fold.addEventListener('change', () => { if (!fold.matches && svcItems.length) selectSvc(current, { reveal: false }); });
 
   /* English and Tagalog, the words people actually type */
   const KEYS = {
@@ -856,7 +865,7 @@
   const ex = $('.explore');
   const exPin = $('.explore__pin');
   const track = $('#ex-track');
-  const spreads = $$('.spread', track);
+  const spreads = track ? $$('.spread', track) : [];
   const exNow = $('#ex-now');
   let pinned = false;
   let travel = 0;
@@ -886,6 +895,7 @@
     else track.scrollTo({ left: x, behavior });
   }
   function setupExplore() {
+    if (!ex) return;
     const want = motion && !coarse && innerWidth >= 900 && innerHeight >= 620;
     if (exTween) { exTween.scrollTrigger.kill(); exTween.kill(); exTween = null; gsap.set(track, { clearProps: 'transform' }); }
     pinned = want;
@@ -905,21 +915,23 @@
       .to(track, { x: -travel, duration: 1 }, 0)
       .fromTo('.thread path', { strokeDashoffset: 105, strokeDasharray: '100 110' }, { strokeDashoffset: 0, duration: 1 }, 0);
   }
-  track.addEventListener('scroll', () => { if (!pinned) setCount(track.scrollLeft); }, { passive: true });
-  $('#ex-prev').addEventListener('click', () => goSpread(exIndex - 1));
-  $('#ex-next').addEventListener('click', () => goSpread(exIndex + 1));
-  spreads.forEach((s, i) => s.addEventListener('focusin', () => {
-    if (!pinned) return;
-    exPin.scrollLeft = 0;
-    if (Math.abs(spreadX(i) - (scrollY - ex.offsetTop)) > s.offsetWidth * 0.35) goSpread(i, true);
-  }));
-  setCount(0);
+  if (ex) {
+    track.addEventListener('scroll', () => { if (!pinned) setCount(track.scrollLeft); }, { passive: true });
+    $('#ex-prev').addEventListener('click', () => goSpread(exIndex - 1));
+    $('#ex-next').addEventListener('click', () => goSpread(exIndex + 1));
+    spreads.forEach((s, i) => s.addEventListener('focusin', () => {
+      if (!pinned) return;
+      exPin.scrollLeft = 0;
+      if (Math.abs(spreadX(i) - (scrollY - ex.offsetTop)) > s.offsetWidth * 0.35) goSpread(i, true);
+    }));
+    setCount(0);
+  }
 
   /* -------------------------------------------------------------- 06 map */
   const ZONE = {
     poblacion: ['the old town', 'Poblacion', 'City Hall, the Basilica and Plaza Mabini stand within a few blocks of each other, a short way up the Calumpang from the bay.', 'Walk the old town', '#heritage'],
     port: ['ferries and cranes', 'The port', 'Batangas International Port, at Sta. Clara. Passenger ferries leave for Mindoro and the islands beyond, and container ships load beside them.', 'Port and logistics', '#business'],
-    north: ['where the tollway ends', 'Alangilan & Balagtas', 'STAR Tollway arrives here from Manila, beside the bus terminal and the university campuses.', 'Getting to the city', '#'],
+    north: ['where the tollway ends', 'Alangilan & Balagtas', 'STAR Tollway arrives here from Manila, beside the bus terminal and the university campuses.', 'Getting to the city', 'visit.html#plan'],
     coast: ['the working shore', 'The industrial coast', 'From Tabangao to Ilijan the bay is lined with fuel terminals, a petrochemical complex and power plants.', 'Doing business', '#business'],
     uplands: ['the high ground', 'Mt. Banoy uplands', 'The city climbs from the bay to Mt. Banoy: farms, forest, and cooler air than the port will ever have.', 'Destinations', '#discover'],
     verde: ['across the water', 'Verde Island', 'Island barangays in the middle of the Verde Island Passage, reached by boat from the city.', 'The bay and the passage', '#discover']
@@ -930,7 +942,7 @@
   const card = $('#zone-card');
   let zone = null;
   function setZone(key) {
-    if (!ZONE[key] || key === zone) return;
+    if (!card || !ZONE[key] || key === zone) return;
     zone = key;
     zoneGroups.forEach(g => g.classList.toggle('is-on', g.dataset.zone === key));
     zoneWashes.forEach(w => {
@@ -964,8 +976,8 @@
 
   /* ----------------------------------------------------------- 07 people */
   const pScene = $('.scene--people');
-  const persons = $$('.person', pScene);
-  const pDabs = $$('.dab', pScene);
+  const persons = pScene ? $$('.person', pScene) : [];
+  const pDabs = pScene ? $$('.dab', pScene) : [];
   const who = $$('#who a');
   function setPerson(key) {
     pScene.classList.toggle('has-on', !!key);
@@ -992,13 +1004,14 @@
   /* ------------------------------------------------------ 08 fiesta, 09 news */
   (function feast() {
     const now = new Date();
+    if ($('#today')) $('#today').textContent = now.toLocaleDateString('en-PH', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    if (!$('#days')) return;
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     let f = new Date(today.getFullYear(), 0, 16);
     if (f < today) f = new Date(today.getFullYear() + 1, 0, 16);
     const days = Math.round((f - today) / 864e5);
     $('#days').textContent = days === 0 ? 'Today' : String(days);
     $('#feast-date').textContent = '16 January ' + f.getFullYear();
-    $('#today').textContent = now.toLocaleDateString('en-PH', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   })();
 
   const filters = $$('.filters button');
@@ -1008,6 +1021,8 @@
     filters.forEach(x => x.setAttribute('aria-pressed', String(x === b)));
     stories.forEach(s => { s.hidden = cat !== 'all' && s.dataset.cat !== cat; s.classList.add('is-in'); });
   }));
+  /* the news page's pictograms pick a filter */
+  $$('[data-jump-filter]').forEach(a => a.addEventListener('click', () => { const b = filters.find(x => x.dataset.filter === a.dataset.jumpFilter); if (b) b.click(); }));
 
   /* ------------------------------------------------------- ambient motion */
   /* every chapter is live from the start (the client's call); the movers are
@@ -1026,7 +1041,7 @@
   let past = false;
   let goingUp = false;
   const showTop = () => totop.classList.toggle('is-on', past && (innerWidth > 1100 || goingUp));
-  new IntersectionObserver(es => { past = !es[0].isIntersecting; showTop(); }, { rootMargin: '0px 0px -75% 0px' }).observe($('.hero'));
+  new IntersectionObserver(es => { past = !es[0].isIntersecting; showTop(); }, { rootMargin: '0px 0px -75% 0px' }).observe(hero || $('.page__head') || $('main'));
   totop.addEventListener('click', e => {
     e.preventDefault();   // no #top in the address: a reload should still play the intro
     scrollTo({ top: 0, behavior: motion ? 'smooth' : 'auto' });
@@ -1046,15 +1061,18 @@
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  const links = $$('.nav__links a');
-  const spy = new IntersectionObserver(es => es.forEach(e => {
-    if (!e.isIntersecting) return;
-    links.forEach(a => {
-      if (a.getAttribute('href') === '#' + e.target.id) a.setAttribute('aria-current', 'true');
-      else a.removeAttribute('aria-current');
-    });
-  }), { rootMargin: '-45% 0px -50% 0px' });
-  $$('main > section[id], footer').forEach(s => spy.observe(s));
+  /* the section spy is the homepage's; an inner page marks its own link when it is built */
+  if (hero) {
+    const links = $$('.nav__links a');
+    const spy = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      links.forEach(a => {
+        if (a.getAttribute('href') === '#' + e.target.id) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+    }), { rootMargin: '-45% 0px -50% 0px' });
+    $$('main > section[id], footer').forEach(s => spy.observe(s));
+  }
 
   let layer = null;
   let lastFocus = null;
@@ -1107,8 +1125,10 @@
     index.push({ label: name, kind: 'Service', href: '#services', svc: li.dataset.svc, words: KEYS[li.dataset.svc] });
     $$('.svc-item__body li a', li).forEach(a => index.push({ label: a.textContent, kind: name, href: '#services', svc: li.dataset.svc, words: '' }));
   });
+  /* an inner page sends the homepage's chapters back to the homepage */
+  const home = hero ? '' : 'index.html';
   /* "isla verde" is never shown: it is what residents type for Verde Island */
-  Object.keys(ZONE).forEach(k => index.push({ label: ZONE[k][1], kind: 'City map', href: '#map', zone: k, words: ZONE[k][2] + (k === 'verde' ? ' isla verde' : '') }));
+  Object.keys(ZONE).forEach(k => index.push({ label: ZONE[k][1], kind: 'City map', href: home + '#map', zone: k, words: ZONE[k][2] + (k === 'verde' ? ' isla verde' : '') }));
   [['Explore Batangas', 'Discover', '#discover', 'tourism food culture festival subli barako bulalo montemaria plaza mabini basilica visit'],
     ['Built on heritage', 'The city', '#heritage', 'history basilica heritage 1581 founding church'],
     ['Business and investment', 'Business', '#business', 'invest port logistics bids procurement ferry tollway'],
@@ -1118,15 +1138,18 @@
     ['News, advisories and notices', 'News', '#news', 'news advisory advisories notice events announcement'],
     ['Contact City Hall', 'Contact', '#contact', 'contact address phone hotline office city hall'],
     ['City Government', 'Government', '#government', 'mayor council sanggunian departments barangay transparency']
-  ].forEach(r => index.push({ label: r[0], kind: r[1], href: r[2], words: r[3] }));
+  ].forEach(r => index.push({ label: r[0], kind: r[1], href: home + r[2], words: r[3] }));
+  /* the ten pages and their sections, written by the build into assets/data/pages.js */
+  (window.__pages || []).forEach(p => index.push(p));
 
   const results = $('#q-results');
   function renderResults(q) {
     q = q.trim().toLowerCase();
-    const hits = (q ? index.filter(i => (i.label + ' ' + i.words).toLowerCase().includes(q)) : index.filter(i => i.kind === 'Service')).slice(0, 8);
+    const first = index.some(i => i.kind === 'Service') ? index.filter(i => i.kind === 'Service') : index.filter(i => i.kind === 'Page');
+    const hits = (q ? index.filter(i => (i.label + ' ' + i.words).toLowerCase().includes(q)) : first).slice(0, 8);
     results.innerHTML = hits.length
       ? hits.map((h, i) => `<li><a href="${h.href}" data-i="${index.indexOf(h)}">${h.label}<span>${h.kind}</span></a></li>`).join('')
-      : `<li class="none">Nothing on this page matches “${q.replace(/[<>&]/g, '')}”.</li>`;
+      : `<li class="none">Nothing here matches “${q.replace(/[<>&]/g, '')}”.</li>`;
   }
   $('#q').addEventListener('input', e => renderResults(e.target.value));
   $('#q').addEventListener('keydown', e => { if (e.key === 'Enter') { const a = $('a', results); if (a) a.click(); } });
@@ -1141,6 +1164,26 @@
     }
     if (hit.zone) setZone(hit.zone);
   });
+
+  /* inner pages: a link to something inside a fold opens the fold first */
+  function openFold(id, smooth) {
+    const t = id && d.getElementById(id);
+    const det = t && (t.tagName === 'DETAILS' ? t : t.closest('details'));
+    if (!det) return false;
+    det.open = true;
+    requestAnimationFrame(() => t.scrollIntoView({ block: 'start', behavior: smooth && motion ? 'smooth' : 'auto' }));
+    return true;
+  }
+  if ($('details.fold')) {
+    openFold(decodeURIComponent(location.hash.slice(1)), false);
+    d.addEventListener('click', e => {
+      const a = e.target.closest('a[href^="#"]');
+      if (a && a.getAttribute('href').length > 1 && openFold(decodeURIComponent(a.getAttribute('href').slice(1)), true)) {
+        e.preventDefault();
+        history.replaceState(null, '', a.getAttribute('href'));
+      }
+    });
+  }
 
   /* pages outside the prototype: say so instead of jumping back to the top */
   const note = $('#note');
@@ -1238,10 +1281,12 @@
   /* ------------------------------------------------------------------ go */
   if (motion) {
     const go = () => { if (!root.classList.contains('is-intro')) return; runIntro(); };
-    if (globe) Promise.race([globe.loaded, new Promise(r => setTimeout(r, 1800))]).then(go, go);
-    else go();
+    if (hero) {
+      if (globe) Promise.race([globe.loaded, new Promise(r => setTimeout(r, 1800))]).then(go, go);
+      else go();
+    }
     chapters();
-    ST.create({ trigger: '.street', start: 'top bottom', end: 'bottom top', scrub: 0.6, onUpdate(s) { panBase = s.progress; applyPan(); } });
+    if ($('.street')) ST.create({ trigger: '.street', start: 'top bottom', end: 'bottom top', scrub: 0.6, onUpdate(s) { panBase = s.progress; applyPan(); } });
     setupExplore();
     /* on a phone the browser bar hiding and showing is a resize too: only a
        change of width (a turn of the phone) is worth rebuilding for */
