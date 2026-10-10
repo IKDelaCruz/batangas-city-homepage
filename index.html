@@ -11,6 +11,7 @@
 <script>
   /* Motion is opt-in: without this class every drawing is simply there. */
   (function (r) {
+    r.classList.add('js');   /* scripts run: the bar takes its paper once the page scrolls (without them it always has it) */
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) r.classList.add('motion', 'is-intro');
     setTimeout(function () { if (!window.__drawn) r.classList.remove('motion', 'is-intro'); }, 5000);
   })(document.documentElement);
@@ -43,12 +44,12 @@
     <a href="#news">News</a>
   </nav>
   <div class="nav__tools">
-    <button class="nav__btn" type="button" data-open="search" aria-haspopup="dialog" aria-controls="search">
+    <a class="nav__btn" href="#services" data-open="search">
       <svg class="ico" viewBox="0 0 28 28"><use href="#i-search"/></svg><span>Search</span>
-    </button>
-    <button class="nav__btn" type="button" data-open="menu" aria-haspopup="dialog" aria-controls="menu">
+    </a>
+    <a class="nav__btn" href="#sitemap" data-open="menu">
       <svg class="ico" viewBox="0 0 30 24"><use href="#i-menu"/></svg><span>Menu</span>
-    </button>
+    </a>
   </div>
   <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 5 150 6Q200 7 250 6Q300 5 350 6Q400 6 450 6Q500 5 550 5Q600 4 650 5Q700 6 750 5Q800 4 850 5Q900 6 950 5Q1000 4 1050 4Q1100 5 1200 6"/></svg>
 </header>
@@ -72,6 +73,7 @@
     <div class="menu__side">
       <p class="aside menu__hand">most people come for</p>
       <ul>
+        <li><a href="services.html#mac">EBD and the Mayor's Action Center</a></li>
         <li><a href="#services" data-svc-link="certificates">Birth, marriage and death certificates</a></li>
         <li><a href="#services" data-svc-link="permits">Business permit, new or renewal</a></li>
         <li><a href="#services" data-svc-link="taxes">Real property tax</a></li>
@@ -90,7 +92,8 @@
     <label class="aside" for="q">what are you looking for?</label>
     <input id="q" type="search" autocomplete="off" placeholder="permit, taxes, ferry, hotline…" aria-controls="q-results">
     <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 7 150 7Q200 7 250 7Q300 8 350 6Q400 5 450 5Q500 5 550 6Q600 7 650 7Q700 7 750 6Q800 6 850 6Q900 7 950 6Q1000 6 1050 6Q1100 7 1200 4"/></svg>
-    <ul class="search__results" id="q-results" aria-live="polite"></ul>
+    <ul class="search__results" id="q-results"></ul>
+    <p class="sr" id="q-count" role="status"></p>
     <p class="search__hint">This prototype searches the homepage and its ten pages.</p>
   </div>
 </div>
@@ -115,7 +118,7 @@
         <p class="hero__tagline hero__refrain" lang="fil"><span>Paganda ng paganda!</span><span>Pasaya ng pasaya!</span><span>Paunlad ng paunlad!</span></p>
         <p class="hero__lede">The official website of the City Government of Batangas. Services, advisories and the story of a port city on a wide bay.</p>
         <div class="hero__find">
-          <form class="find" id="find-hero" role="search" aria-label="Find a city service">
+          <form class="find" id="find-hero" role="search" aria-label="What do you need today?">
             <label class="sr" for="find-hero-q">What do you need today?</label>
             <input id="find-hero-q" type="search" autocomplete="off" placeholder="What do you need today?">
             <button type="submit" aria-label="Find"><svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></button>
@@ -124,6 +127,7 @@
           <p class="find__msg" id="find-hero-msg" aria-live="polite"></p>
         </div>
         <ul class="hero__quick" aria-label="Popular services">
+          <li><a class="lk" href="services.html#mac">EBD and the MAC</a></li>
           <li><a class="lk" href="#services" data-svc-link="certificates">Get a certificate</a></li>
           <li><a class="lk" href="#services" data-svc-link="taxes">Pay taxes</a></li>
           <li><a class="lk" href="#services" data-svc-link="permits">Apply for a permit</a></li>
@@ -184,6 +188,15 @@
   </div>
 
   <div class="wrap help__body">
+    <div class="flagship" id="flagship" data-reveal>
+      <span class="pic pic--g"><svg class="icon" aria-hidden="true"><use href="#i-g-heart"/></svg></span>
+      <div class="flagship__text">
+        <p><span class="tag tag--flag">The Mayor's flagship</span></p>
+        <h3><a class="lk" href="services.html#mac">EBD and the Mayor's Action Center</a></h3>
+        <p>Free hospitalisation with the EBD Health Card, the EBD Scholarship, and medical, burial and legal help, at one desk in City Hall.</p>
+      </div>
+      <a class="call" href="tel:+639992226626"><span>24-hour health hotline</span><b>0999-222-6626</b></a>
+    </div>
     <ul class="svc-list" id="svc-list">
       <li class="svc-item" data-svc="certificates">
         <button type="button" aria-expanded="true" aria-controls="svc-certificates"><i>01</i><b>Certificates</b><span>Civil registry, tax certificate, records</span></button>
@@ -400,7 +413,7 @@
           <p class="spread__no">p. 01 <span>Heritage</span></p>
           <h3>A plaza, a basilica, four centuries.</h3>
           <p>Plaza Mabini sits at the heart of the Poblacion, a short walk from the Basilica of the Immaculate Conception. The church you see today was finished in 1857.</p>
-          <a class="cta" href="#heritage" data-cursor="View">Walk the old town <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a>
+          <a class="cta" href="heritage.html#houses" data-cursor="View">Walk the old town <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a>
         </div>
       </article>
       <article class="spread spread--r" data-draw data-io>
@@ -436,7 +449,7 @@
           <p class="spread__no">p. 05 <span>Festivals</span></p>
           <h3>The river carries the feast.</h3>
           <p>Each January the image of the Sto. Niño travels the Calumpang by boat, and the city lines the banks and the bridge to meet it.</p>
-          <a class="cta" href="#fiesta" data-cursor="View">The fiesta this year <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a>
+          <a class="cta" href="visit.html#fiesta" data-cursor="View">The fiesta this year <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a>
         </div>
       </article>
       <article class="spread spread--r" data-draw data-io>
@@ -543,7 +556,7 @@
         <p class="aside" id="zone-hand">the old town</p>
         <h3 id="zone-title">Poblacion</h3>
         <p id="zone-text">City Hall, the Basilica and Plaza Mabini stand within a few blocks of each other, a short way up the Calumpang from the bay.</p>
-        <a class="cta" id="zone-link" href="#heritage">Walk the old town <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a>
+        <a class="cta" id="zone-link" href="heritage.html#houses">Walk the old town <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a>
       </div>
     </div>
   </div>
@@ -565,14 +578,14 @@
   </div>
   <div class="wrap">
     <ul class="who" id="who">
-      <li><a href="#services" data-person="students" data-svc-link="education">Students<span>Scholarships and schools</span></a></li>
-      <li><a href="#services" data-person="workers" data-svc-link="jobs">Workers<span>Vacancies and job fairs</span></a></li>
-      <li><a href="#business" data-person="entrepreneurs">Entrepreneurs<span>Permits and support</span></a></li>
-      <li><a href="#services" data-person="families" data-svc-link="social">Families<span>Health and welfare</span></a></li>
-      <li><a href="#services" data-person="seniors" data-svc-link="social">Seniors<span>IDs and benefits</span></a></li>
-      <li><a href="#discover" data-person="artists">Artists<span>Culture and festivals</span></a></li>
+      <li><a href="services.html#education" data-person="students">Students<span>Scholarships and schools</span></a></li>
+      <li><a href="services.html#jobs" data-person="workers">Workers<span>Vacancies and job fairs</span></a></li>
+      <li><a href="business.html#start" data-person="entrepreneurs">Entrepreneurs<span>Permits and support</span></a></li>
+      <li><a href="services.html#social" data-person="families">Families<span>Health and welfare</span></a></li>
+      <li><a href="services.html#senior-citizen-id" data-person="seniors">Seniors<span>IDs and benefits</span></a></li>
+      <li><a href="visit.html#culture" data-person="artists">Artists<span>Culture and festivals</span></a></li>
       <li><a href="#map" data-person="fisherfolk" data-zone-link="verde">Fisherfolk<span>The bay and the passage</span></a></li>
-      <li><a href="#services" data-person="employees" data-svc-link="jobs">City employees<span>Careers at City Hall</span></a></li>
+      <li><a href="services.html#work-for-the-city" data-person="employees">City employees<span>Careers at City Hall</span></a></li>
     </ul>
   </div>
 </section>
@@ -713,21 +726,25 @@
         <nav aria-label="Government links">
           <h2>Government links</h2>
           <ul>
-            <li><a href="https://www.gov.ph" target="_blank" rel="noopener">GOV.PH</a></li>
-            <li><a href="https://www.foi.gov.ph" target="_blank" rel="noopener">Freedom of Information</a></li>
-            <li><a href="https://www.officialgazette.gov.ph" target="_blank" rel="noopener">Official Gazette</a></li>
-            <li><a href="https://data.gov.ph" target="_blank" rel="noopener">Open Data Philippines</a></li>
+            <li><a href="https://www.gov.ph" target="_blank" rel="noopener">GOV.PH<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://www.foi.gov.ph" target="_blank" rel="noopener">Freedom of Information<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://www.officialgazette.gov.ph" target="_blank" rel="noopener">Official Gazette<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://data.gov.ph" target="_blank" rel="noopener">Open Data Philippines<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
           </ul>
         </nav>
-        <nav aria-label="Site map">
+        <nav aria-label="Site map" id="sitemap">
           <h2>Site map</h2>
           <ul>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#discover">Discover</a></li>
-            <li><a href="#heritage">Heritage</a></li>
-            <li><a href="#business">Business</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="emergency.html">Emergency</a></li>
+            <li><a href="mayor.html">The Mayor</a></li>
+            <li><a href="congresswoman.html">The Congresswoman</a></li>
+            <li><a href="government.html">City Government</a></li>
+            <li><a href="business.html">Business</a></li>
+            <li><a href="visit.html">Discover</a></li>
+            <li><a href="heritage.html">Heritage</a></li>
             <li><a href="#map">City map</a></li>
-            <li><a href="#news">News</a></li>
+            <li><a href="news.html">News</a></li>
           </ul>
         </nav>
       </div>
@@ -751,9 +768,9 @@
 <!-- phones: the four things people come for, within reach of a thumb -->
 <nav class="dock" id="dock" aria-label="Quick access">
   <a href="#services"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><path d="M4 24h20M6 24V11.500l8-6.500 8 6.500V24M11.500 24v-7h5v7"/></svg><span>Services</span></a>
-  <button type="button" data-open="search" aria-haspopup="dialog" aria-controls="search"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><use href="#i-search"/></svg><span>Search</span></button>
+  <a href="#services" data-open="search"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><use href="#i-search"/></svg><span>Search</span></a>
   <a href="#services" data-svc-link="emergency"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><path d="M14 4v20M4 14h20M7.500 7.500l13 13M20.500 7.500l-13 13"/></svg><span>Emergency</span></a>
-  <button type="button" data-open="menu" aria-haspopup="dialog" aria-controls="menu"><svg class="ico" viewBox="0 0 30 24" aria-hidden="true"><use href="#i-menu"/></svg><span>Menu</span></button>
+  <a href="#sitemap" data-open="menu"><svg class="ico" viewBox="0 0 30 24" aria-hidden="true"><use href="#i-menu"/></svg><span>Menu</span></a>
 </nav>
 
 <p class="note" id="note" role="status"></p>

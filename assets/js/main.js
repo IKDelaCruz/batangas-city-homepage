@@ -637,7 +637,8 @@
     if (scrollY > 8 || location.hash.length > 1) done();
     $('#skip-intro').addEventListener('click', done);
     if (coarse) d.addEventListener('pointerdown', done, { once: true });   // on touch, a tap anywhere skips
-    d.addEventListener('keydown', e => { if (e.key === 'Escape' && !finished) done(); });
+    /* any key ends it (Tab, Enter, a scroll key…), not only Esc: a keyboard is never held; a lone modifier does not count */
+    d.addEventListener('keydown', e => { if (!finished && !['Shift', 'Control', 'Alt', 'Meta', 'CapsLock'].includes(e.key)) done(); });
     /* if the tab is asleep and no frames arrive, do not hold the page hostage */
     const guard = setTimeout(done, 32000);
     window.__intro = { tl, pro, globe, hold: () => clearTimeout(guard) };
@@ -812,6 +813,8 @@
 
   /* English and Tagalog, the words people actually type */
   const KEYS = {
+    /* the Mayor's flagship first, so it wins a tie (it has no building on the street) */
+    mac: 'ebd mac flagship action center centre healthcard card hospitalization hospitalisation bill bills guarantee medical assistance burial funeral legal lawyer caravan tulong ayuda abuloy libing pagpapaospital',
     certificates: 'certificate certificates birth marriage death cedula civil registry registrar licence license record records certified copy community tax psa sedula sertipiko katibayan kapanganakan kasal kamatayan rehistro',
     permits: 'permit permits business building occupancy zoning locational clearance renewal bplo construction construct renovate negosyo permiso lisensya gusali pagtatayo tindahan',
     taxes: 'tax taxes property amilyar payment pay treasurer transfer receipt rpt assessment buwis bayad bayaran lupa resibo',
@@ -842,7 +845,25 @@
       const q = input.value.trim();
       if (!q) { msg.textContent = 'Type what you need, for example “taxes”, “permit” or “birth certificate”.'; return; }
       const k = matchSvc(q);
-      if (!k) { msg.textContent = `Nothing on this street matches “${q}”. Try another word, or open the menu.`; return; }
+      if (!k) {   /* not one of the doors on the street: ask the site's search instead */
+        const best = searchFor(q)[0];
+        const safe = q.replace(/[<>&"]/g, '');
+        msg.innerHTML = best
+          ? `Not one of the doors on this street, but the City has this: <a class="lk" href="${best.href}">${best.label}</a>.`
+          : `Nothing matches “${safe}”. Try another word, or open the menu.`;
+        return;
+      }
+      if (k === 'mac') {   /* no building for it: its card on the homepage, its section on Services, or that page */
+        const to = $('#flagship') || $('#mac');
+        const answer = "That would be EBD and the Mayor's Action Center.";
+        msg.textContent = answer;
+        if (inHero) { $('#find-q').value = q; $('#find-msg').textContent = answer; }
+        if (!to) { location.href = 'services.html#mac'; return; }
+        to.scrollIntoView({ block: 'start', behavior: motion ? 'smooth' : 'auto' });
+        const link = $('h3 a', to);
+        if (link) link.focus({ preventScroll: true });
+        return;
+      }
       selectSvc(k, { focus: true });
       const answer = `That would be ${$('b', svcItems.find(li => li.dataset.svc === k)).textContent}.`;
       msg.textContent = answer;
@@ -886,6 +907,8 @@
     spreads.forEach((s, i) => { if (Math.abs(spreadX(i) - x) < Math.abs(spreadX(best) - x)) best = i; });
     if (best !== exIndex || !exNow.textContent) { exIndex = best; exNow.textContent = String(best + 1).padStart(2, '0'); }
     exDots.forEach((b, i) => { if (i === best) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); });
+    /* the pages either side show their drawing only: their words, cut by the window's edge, read as broken */
+    spreads.forEach((sp, i) => sp.classList.toggle('is-away', i !== best));
   }
   function goSpread(i, instant) {
     i = clamp(i, 0, spreads.length - 1);
@@ -929,12 +952,12 @@
 
   /* -------------------------------------------------------------- 06 map */
   const ZONE = {
-    poblacion: ['the old town', 'Poblacion', 'City Hall, the Basilica and Plaza Mabini stand within a few blocks of each other, a short way up the Calumpang from the bay.', 'Walk the old town', '#heritage'],
-    port: ['ferries and cranes', 'The port', 'Batangas International Port, at Sta. Clara. Passenger ferries leave for Mindoro and the islands beyond, and container ships load beside them.', 'Port and logistics', '#business'],
+    poblacion: ['the old town', 'Poblacion', 'City Hall, the Basilica and Plaza Mabini stand within a few blocks of each other, a short way up the Calumpang from the bay.', 'Walk the old town', 'heritage.html#houses'],
+    port: ['ferries and cranes', 'The port', 'Batangas International Port, at Sta. Clara. Passenger ferries leave for Mindoro and the islands beyond, and container ships load beside them.', 'Port and logistics', 'business.html#port'],
     north: ['where the tollway ends', 'Alangilan & Balagtas', 'STAR Tollway arrives here from Manila, beside the bus terminal and the university campuses.', 'Getting to the city', 'visit.html#plan'],
-    coast: ['the working shore', 'The industrial coast', 'From Tabangao to Ilijan the coast holds fuel import terminals, a petrochemical complex and gas-fired power plants.', 'Doing business', '#business'],
-    uplands: ['the high ground', 'Mt. Banoy uplands', 'The city climbs from the bay to Mt. Banoy, its highest point at about 968 m, on the eastern edge in Talumpok Silangan.', 'Destinations', '#discover'],
-    verde: ['across the water', 'Verde Island', 'Island barangays in the middle of the Verde Island Passage, reached by boat from the city.', 'The bay and the passage', '#discover']
+    coast: ['the working shore', 'The industrial coast', 'From Tabangao to Ilijan the coast holds fuel import terminals, a petrochemical complex and gas-fired power plants.', 'Doing business', 'business.html#invest'],
+    uplands: ['the high ground', 'Mt. Banoy uplands', 'The city climbs from the bay to Mt. Banoy, its highest point at about 968 m, on the eastern edge in Talumpok Silangan.', 'Destinations', 'visit.html#plan'],
+    verde: ['across the water', 'Verde Island', 'Island barangays in the middle of the Verde Island Passage, reached by boat from the city.', 'The bay and the passage', 'visit.html#plan']
   };
   const zoneGroups = $$('.scene--map .zone');
   const zoneWashes = $$('.scene--map .zone-wash');
@@ -1003,10 +1026,12 @@
 
   /* ------------------------------------------------------ 08 fiesta, 09 news */
   (function feast() {
+    /* the date in the Philippines, whatever the visitor's own clock says (a resident abroad, a laptop set to another zone) */
     const now = new Date();
-    if ($('#today')) $('#today').textContent = now.toLocaleDateString('en-PH', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    const ph = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Manila' }));
+    if ($('#today')) $('#today').textContent = now.toLocaleDateString('en-PH', { timeZone: 'Asia/Manila', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
     if (!$('#days')) return;
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const today = new Date(ph.getFullYear(), ph.getMonth(), ph.getDate());
     let f = new Date(today.getFullYear(), 0, 16);
     if (f < today) f = new Date(today.getFullYear() + 1, 0, 16);
     const days = Math.round((f - today) / 864e5);
@@ -1103,7 +1128,16 @@
     behind.forEach(n => { n.inert = false; });
     if (!silent && lastFocus) lastFocus.focus({ preventScroll: true });
   }
-  $$('[data-open]').forEach(b => b.addEventListener('click', () => openLayer(b.dataset.open)));
+  /* the openers are links (to the site map, to the services) so they still go somewhere without scripts; here they become buttons */
+  $$('[data-open]').forEach(b => {
+    if (b.tagName === 'A') {
+      b.setAttribute('role', 'button');
+      b.setAttribute('aria-haspopup', 'dialog');
+      b.setAttribute('aria-controls', b.dataset.open);
+      b.addEventListener('keydown', e => { if (e.key === ' ') { e.preventDefault(); openLayer(b.dataset.open); } });
+    }
+    b.addEventListener('click', e => { e.preventDefault(); openLayer(b.dataset.open); });
+  });
   $$('[data-close]').forEach(b => b.addEventListener('click', () => closeLayer()));
   d.addEventListener('keydown', e => {
     if (!layer) return;
@@ -1120,15 +1154,17 @@
 
   /* the search index is whatever is on the page */
   const index = [];
+  index.push({ label: "EBD and the Mayor's Action Center", kind: 'Service', href: 'services.html#mac', words: KEYS.mac });
   svcItems.forEach(li => {
     const name = $('b', li).textContent;
     index.push({ label: name, kind: 'Service', href: '#services', svc: li.dataset.svc, words: KEYS[li.dataset.svc] });
-    $$('.svc-item__body li a', li).forEach(a => index.push({ label: a.textContent, kind: name, href: '#services', svc: li.dataset.svc, words: '' }));
+    /* each service's own sheet (on Services: its anchor there), with what to bring */
+    $$('.svc-item__body li a', li).forEach(a => index.push({ label: a.textContent, kind: name, href: a.getAttribute('href'), words: '' }));
   });
   /* an inner page sends the homepage's chapters back to the homepage */
   const home = hero ? '' : 'index.html';
   /* "isla verde" is never shown: it is what residents type for Verde Island */
-  Object.keys(ZONE).forEach(k => index.push({ label: ZONE[k][1], kind: 'City map', href: home + '#map', zone: k, words: ZONE[k][2] + (k === 'verde' ? ' isla verde' : '') }));
+  Object.keys(ZONE).forEach(k => index.push({ label: ZONE[k][1], kind: 'City map', href: home + '#map', zone: k, home: 1, words: ZONE[k][2] + (k === 'verde' ? ' isla verde' : '') }));
   [['Explore Batangas', 'Discover', '#discover', 'tourism food culture festival subli barako bulalo montemaria plaza mabini basilica visit'],
     ['Built on heritage', 'The city', '#heritage', 'history basilica heritage 1581 founding church'],
     ['Business and investment', 'Business', '#business', 'invest port logistics bids procurement ferry tollway'],
@@ -1138,26 +1174,122 @@
     ['News, advisories and notices', 'News', '#news', 'news advisory advisories notice events announcement'],
     ['Contact City Hall', 'Contact', '#contact', 'contact address phone hotline office city hall'],
     ['City Government', 'Government', '#government', 'mayor council sanggunian departments barangay transparency']
-  ].forEach(r => index.push({ label: r[0], kind: r[1], href: home + r[2], words: r[3] }));
+  ].forEach(r => index.push({ label: r[0], kind: r[1], href: home + r[2], home: 1, words: r[3] }));
   /* the ten pages and their sections, written by the build into assets/data/pages.js */
   (window.__pages || []).forEach(p => index.push(p));
 
-  const results = $('#q-results');
-  function renderResults(q) {
-    q = q.trim().toLowerCase();
-    const first = index.some(i => i.kind === 'Service') ? index.filter(i => i.kind === 'Service') : index.filter(i => i.kind === 'Page');
-    const hits = (q ? index.filter(i => (i.label + ' ' + i.words).toLowerCase().includes(q)) : first).slice(0, 8);
-    results.innerHTML = hits.length
-      ? hits.map((h, i) => `<li><a href="${h.href}" data-i="${index.indexOf(h)}">${h.label}<span>${h.kind}</span></a></li>`).join('')
-      : `<li class="none">Nothing here matches “${q.replace(/[<>&]/g, '')}”.</li>`;
+  /* Every word typed must be found, in the title, the keywords or the words of
+     the section, allowing for the other language, a plural or one slip of the
+     finger. Titles weigh double; services come first, then pages, then sections. */
+  const plain = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  const toks = s => plain(s).split(/[^a-z0-9]+/).filter(Boolean);
+  const STOPQ = new Set('a an and the of for to in on at by is are be do does i im my me we our you your how what where when who can get need want find please po ba ng sa na ang mga ko ako paano saan'.split(' '));
+  const SAME = ['birth kapanganakan ipinanganak psa nso', 'death kamatayan namatay', 'marriage kasal wedding married', 'certificate certificates sertipiko katibayan',
+    'cedula sedula ctc community', 'barangay brgy baranggay', 'clearance clearances', 'garbage basura waste trash rubbish environment cenro',
+    'tax taxes buwis', 'property amilyar rpt lupa', 'permit permits permiso license licence lisensya', 'business negosyo tindahan store',
+    'building gusali construction renovate', 'job jobs trabaho work employment hanapbuhay vacancy vacancies hiring peso',
+    'scholarship scholarships scholar iskolar tuition matrikula', 'school schools paaralan eskwela eskuwela', 'senior seniors lolo lola elderly osca',
+    'pwd disability disabled kapansanan', 'health kalusugan clinic doctor doktor', 'hospital hospitals ospital hospitalisation hospitalization',
+    'vaccine vaccines bakuna immunisation immunization vaccination', 'medical medicine medicines gamot', 'assistance tulong ayuda help aid',
+    'burial funeral libing abuloy', 'fire fires sunog bumbero bfp', 'police pulis pnp crime blotter', 'flood floods baha',
+    'typhoon bagyo storm weather signal pagasa', 'suspension suspensions', 'earthquake lindol', 'evacuation evacuate likas',
+    'emergency sakuna rescue hotline hotlines', 'mayor alkalde meyor', 'council sanggunian councilor konsehal', 'ordinance ordinances resolution resolutions',
+    'congresswoman congressman representative kongresista', 'bids bid procurement philgeps tender award awards', 'budget disclosure transparency fdp',
+    'ferry ferries pantalan port boat', 'fiesta feast pista', 'nino santo', 'food eat kain restaurant restaurants', 'coffee kape barako',
+    'tourism tourist visit pasyalan', 'water tubig primewater', 'electricity kuryente meralco power brownout', 'library aklatan',
+    'news balita advisory advisories announcement abiso anunsyo'].map(g => g.split(' '));
+  const alts = t => SAME.find(g => g.includes(t)) || [t];
+  /* one slip of the finger: a letter missing, added or changed, or two swapped */
+  const near = (a, b) => {
+    if (Math.abs(a.length - b.length) > 1) return false;
+    let i = 0;
+    while (i < a.length && a[i] === b[i]) i++;
+    if (i === a.length && i === b.length) return true;
+    return a.slice(i + 1) === b.slice(i + 1) || a.slice(i + 1) === b.slice(i) || a.slice(i) === b.slice(i + 1)
+      || (a[i] === b[i + 1] && a[i + 1] === b[i] && a.slice(i + 2) === b.slice(i + 2));
+  };
+  const hitIn = (words, a) => {
+    let best = 0;
+    for (const w of words) {
+      if (w === a) return 3;
+      if (a.length >= 3 && w.startsWith(a)) best = 2;
+      else if (!best && a.length >= 5 && near(w, a)) best = 1;
+    }
+    return best;
+  };
+  const docs = index.map(e => ({ e, title: toks(e.label), all: toks([e.label, e.words, e.text, e.kind].join(' ')) }));
+  const RANK = { Service: 4, Page: 3 };
+  function searchFor(q) {
+    const qt = toks(q).filter(t => !STOPQ.has(t));
+    if (!qt.length) return [];
+    const rate = (doc, spare) => {
+      let score = 0, inTitle = 0, missed = 0;
+      for (const t of qt) {
+        let s = 0;
+        for (const a of alts(t)) {   /* the word itself counts a little more than its synonyms */
+          const ti = hitIn(doc.title, a);
+          s = Math.max(s, (ti ? ti * 2 + 1 : hitIn(doc.all, a)) - (a === t ? 0 : 1));
+        }
+        if (!s && ++missed > spare) return null;   // every word must be found somewhere (or all but `spare`)
+        if (s > 3) inTitle++;
+        score += s;
+      }
+      /* a title the query says in full ("mayor" for The Mayor) beats one that only contains it */
+      const rest = doc.title.filter(w => !STOPQ.has(w));
+      if (rest.length && rest.every(w => qt.some(t => alts(t).some(a => w === a || (a.length >= 3 && w.startsWith(a)))))) score += 2;
+      /* a page wins on its title; found only in its keywords, its sections come first */
+      const rank = doc.e.kind === 'Page' ? (inTitle ? 3 : 1) : RANK[doc.e.kind] || (doc.e.home ? 1 : 2);
+      return score * 10 + rank;
+    };
+    let out = [];
+    docs.forEach(doc => { const s = rate(doc, 0); if (s !== null) out.push({ e: doc.e, score: s }); });
+    /* nothing has every word ("garbage collection"): the places that have all but one */
+    if (!out.length && qt.length > 1) docs.forEach(doc => { const s = rate(doc, 1); if (s !== null) out.push({ e: doc.e, score: s }); });
+    /* one line per place: the same sheet can be in the index twice (from this page's list and from the pages) */
+    const here = location.pathname.split('/').pop() || 'index.html';
+    const seen = new Set();
+    return out.sort((a, b) => b.score - a.score).map(x => x.e).filter(e => {
+      const k = e.svc ? 'svc:' + e.svc : (e.href.startsWith('#') ? here + e.href : e.href);
+      if (seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    });
   }
-  $('#q').addEventListener('input', e => renderResults(e.target.value));
-  $('#q').addEventListener('keydown', e => { if (e.key === 'Enter') { const a = $('a', results); if (a) a.click(); } });
+  const TOP = [["EBD and the Mayor's Action Center", 'services.html#mac'], ['Birth, marriage and death certificates', 'services.html#birth-marriage-death-certificates'],
+    ['Business permit', 'services.html#business-permit'], ['Real property tax', 'services.html#real-property-tax'], ["The City's hotlines", 'emergency.html#hotlines']];
+  const results = $('#q-results');
+  let showAll = false;
+  function renderResults(q) {
+    q = q.trim();
+    const first = svcItems.length ? index.filter(i => i.kind === 'Service') : index.filter(i => i.kind === 'Service' || i.kind === 'Page');
+    const all = q ? searchFor(q) : first;
+    const hits = showAll ? all : all.slice(0, 8);
+    const safe = q.replace(/[<>&"]/g, '');
+    results.innerHTML = hits.length
+      ? hits.map(h => `<li><a href="${h.href}" data-i="${index.indexOf(h)}">${h.label}<span>${h.kind}</span></a></li>`).join('')
+        + (all.length > hits.length ? `<li class="more"><button type="button" class="cta" data-all>Show all ${all.length} results</button></li>` : '')
+      : `<li class="none">Nothing here matches “${safe}”. Most people come for:</li>`
+        + TOP.map(t => `<li><a href="${t[1]}">${t[0]}<span>Service</span></a></li>`).join('')
+        + '<li class="none">In an emergency call <a class="lk" href="tel:911">911</a>, or <a class="lk" href="#contact">contact City Hall</a>.</li>';
+    /* a screen reader hears how many, not the whole list again on every key */
+    $('#q-count').textContent = !q ? '' : all.length ? `${all.length} result${all.length > 1 ? 's' : ''}` : 'No results';
+  }
+  results.addEventListener('click', e => {
+    if (!e.target.closest('[data-all]')) return;
+    showAll = true;
+    renderResults($('#q').value);
+    const a = $$('a', results)[8];
+    if (a) a.focus();
+  });
+  $('#q').addEventListener('input', e => { showAll = false; renderResults(e.target.value); });
+  /* Enter takes the first result, never one of the suggestions shown when nothing matched */
+  $('#q').addEventListener('keydown', e => { if (e.key === 'Enter') { const a = $('a[data-i]', results); if (a) a.click(); } });
   results.addEventListener('click', e => {
     const a = e.target.closest('a');
     if (!a) return;
     const hit = index[+a.dataset.i];
     closeLayer(true);
+    if (!hit) return;
     if (hit.svc) {
       selectSvc(hit.svc);
       if (fold.matches) { e.preventDefault(); goSvc(hit.svc); }

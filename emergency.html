@@ -11,6 +11,7 @@
 <script>
   /* Motion is opt-in: without this class every drawing is simply there. Inner pages have no opening. */
   (function (r) {
+    r.classList.add('js');   /* scripts run: the bar takes its paper once the page scrolls (without them it always has it) */
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) r.classList.add('motion');
     setTimeout(function () { if (!window.__drawn) r.classList.remove('motion'); }, 5000);
   })(document.documentElement);
@@ -36,12 +37,12 @@
     <a href="news.html" data-nav="news">News</a>
   </nav>
   <div class="nav__tools">
-    <button class="nav__btn" type="button" data-open="search" aria-haspopup="dialog" aria-controls="search">
+    <a class="nav__btn" href="services.html" data-open="search">
       <svg class="ico" viewBox="0 0 28 28"><use href="#i-search"/></svg><span>Search</span>
-    </button>
-    <button class="nav__btn" type="button" data-open="menu" aria-haspopup="dialog" aria-controls="menu">
+    </a>
+    <a class="nav__btn" href="#sitemap" data-open="menu">
       <svg class="ico" viewBox="0 0 30 24"><use href="#i-menu"/></svg><span>Menu</span>
-    </button>
+    </a>
   </div>
   <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 5 150 6Q200 7 250 6Q300 5 350 6Q400 6 450 6Q500 5 550 5Q600 4 650 5Q700 6 750 5Q800 4 850 5Q900 6 950 5Q1000 4 1050 4Q1100 5 1200 6"/></svg>
 </header>
@@ -65,6 +66,7 @@
     <div class="menu__side">
       <p class="aside menu__hand">most people come for</p>
       <ul>
+        <li><a href="services.html#mac">EBD and the Mayor's Action Center</a></li>
         <li><a href="services.html#birth-marriage-death-certificates">Birth, marriage and death certificates</a></li>
         <li><a href="services.html#business-permit">Business permit, new or renewal</a></li>
         <li><a href="services.html#real-property-tax">Real property tax</a></li>
@@ -83,7 +85,8 @@
     <label class="aside" for="q">what are you looking for?</label>
     <input id="q" type="search" autocomplete="off" placeholder="permit, taxes, ferry, hotline…" aria-controls="q-results">
     <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 7 150 7Q200 7 250 7Q300 8 350 6Q400 5 450 5Q500 5 550 6Q600 7 650 7Q700 7 750 6Q800 6 850 6Q900 7 950 6Q1000 6 1050 6Q1100 7 1200 4"/></svg>
-    <ul class="search__results" id="q-results" aria-live="polite"></ul>
+    <ul class="search__results" id="q-results"></ul>
+    <p class="sr" id="q-count" role="status"></p>
     <p class="search__hint">This prototype searches the homepage and its ten pages.</p>
   </div>
 </div>
@@ -92,13 +95,13 @@
 
 <header class="phero wrap">
   <div>
-    <p class="ch__no page__crumb" data-reveal><span><a href="index.html">Batangas City</a> · <a href="services.html">Services</a> · Emergency</span><i class="aside">any hour</i></p>
+    <nav class="ch__no page__crumb" aria-label="Breadcrumb" data-reveal><span><a href="index.html">Batangas City</a> · <a href="services.html">Services</a> · <b aria-current="page">Emergency</b></span><i class="aside">any hour</i></nav>
     <h1 class="display display--s" data-reveal>In an <em>emergency</em></h1>
     <p class="phero__lede" data-reveal>Someone in danger? Call now. It is free from any phone.</p>
   </div>
   <div data-reveal>
     <a class="call call--big" href="tel:911"><span class="pic pic--r"><svg class="icon"><use href="#i-g-siren"/></svg></span><span>Police, fire, ambulance</span><b>911</b></a>
-    <a class="call" href="tel:09992226626" style="margin-top:1rem"><span class="pic pic--sm"><svg class="icon"><use href="#i-g-phone"/></svg></span><span>24-hour EBD health emergency hotline</span><b>0999-222-6626</b></a>
+    <a class="call" href="tel:+639992226626" style="margin-top:1rem"><span class="pic pic--sm"><svg class="icon"><use href="#i-g-phone"/></svg></span><span>24-hour EBD health emergency hotline</span><b>0999-222-6626</b></a>
   </div>
 </header>
 
@@ -119,20 +122,20 @@
     <p class="sec__lede" data-reveal>Tap a number to call. Say where you are first, then what happened.</p>
   </header>
   <div class="calls">
-    <a class="call" href="tel:7023902" data-reveal><span class="pic pic--t pic--sm"><svg class="icon"><use href="#i-g-storm"/></svg></span><span>Disaster office, CDRRMO</span><b>702-3902</b></a>
-    <a class="call" href="tel:0434257163" data-reveal><span class="pic pic--s pic--sm"><svg class="icon"><use href="#i-g-fire"/></svg></span><span>Fire, BFP</span><b>(043) 425-7163</b></a>
-    <a class="call" href="tel:7021974" data-reveal><span class="pic pic--sm"><svg class="icon"><use href="#i-g-shield"/></svg></span><span>Police, PNP</span><b>702-1974</b></a>
-    <a class="call" href="tel:7238890" data-reveal><span class="pic pic--r pic--sm"><svg class="icon"><use href="#i-g-health"/></svg></span><span>City Health Office</span><b>723-8890</b></a>
-    <a class="call" href="tel:7230911" data-reveal><span class="pic pic--r pic--sm"><svg class="icon"><use href="#i-g-hospital"/></svg></span><span>Batangas Medical Center</span><b>723-0911</b></a>
-    <a class="call" href="tel:7234144" data-reveal><span class="pic pic--r pic--sm"><svg class="icon"><use href="#i-g-hospital"/></svg></span><span>Nazareth Hospital</span><b>723-4144</b></a>
-    <a class="call" href="tel:09512820000" data-reveal><span class="pic pic--r pic--sm"><svg class="icon"><use href="#i-g-heart"/></svg></span><span>Philippine Red Cross</span><b>0951-282-0000</b></a>
-    <a class="call" href="tel:7232357" data-reveal><span class="pic pic--t pic--sm"><svg class="icon"><use href="#i-g-people"/></svg></span><span>Social welfare, CSWD</span><b>723-2357</b></a>
-    <a class="call" href="tel:09568267017" data-reveal><span class="pic pic--g pic--sm"><svg class="icon"><use href="#i-g-handshake"/></svg></span><span>Women and children, VAWC</span><b>0956-826-7017</b></a>
-    <a class="call" href="tel:7861920" data-reveal><span class="pic pic--sm"><svg class="icon"><use href="#i-g-cityhall"/></svg></span><span>Mayor's Action Center, office</span><b>786-1920</b></a>
+    <a class="call" href="tel:+63437023902" data-reveal><span class="pic pic--t pic--sm"><svg class="icon"><use href="#i-g-storm"/></svg></span><span>Disaster office, CDRRMO</span><b>(043) 702-3902</b></a>
+    <a class="call" href="tel:+63434257163" data-reveal><span class="pic pic--s pic--sm"><svg class="icon"><use href="#i-g-fire"/></svg></span><span>Fire, BFP</span><b>(043) 425-7163</b></a>
+    <a class="call" href="tel:+63437021974" data-reveal><span class="pic pic--sm"><svg class="icon"><use href="#i-g-shield"/></svg></span><span>Police, PNP</span><b>(043) 702-1974</b></a>
+    <a class="call" href="tel:+63437238890" data-reveal><span class="pic pic--r pic--sm"><svg class="icon"><use href="#i-g-health"/></svg></span><span>City Health Office</span><b>(043) 723-8890</b></a>
+    <a class="call" href="tel:+63437230911" data-reveal><span class="pic pic--r pic--sm"><svg class="icon"><use href="#i-g-hospital"/></svg></span><span>Batangas Medical Center</span><b>(043) 723-0911</b></a>
+    <a class="call" href="tel:+63437234144" data-reveal><span class="pic pic--r pic--sm"><svg class="icon"><use href="#i-g-hospital"/></svg></span><span>Nazareth Hospital</span><b>(043) 723-4144</b></a>
+    <a class="call" href="tel:+639512820000" data-reveal><span class="pic pic--r pic--sm"><svg class="icon"><use href="#i-g-heart"/></svg></span><span>Philippine Red Cross</span><b>0951-282-0000</b></a>
+    <a class="call" href="tel:+63437232357" data-reveal><span class="pic pic--t pic--sm"><svg class="icon"><use href="#i-g-people"/></svg></span><span>Social welfare, CSWD</span><b>(043) 723-2357</b></a>
+    <a class="call" href="tel:+639568267017" data-reveal><span class="pic pic--g pic--sm"><svg class="icon"><use href="#i-g-handshake"/></svg></span><span>Women and children, VAWC</span><b>0956-826-7017</b></a>
+    <a class="call" href="tel:+63437861920" data-reveal><span class="pic pic--sm"><svg class="icon"><use href="#i-g-cityhall"/></svg></span><span>Mayor's Action Center, office</span><b>(043) 786-1920</b></a>
   </div>
   <details class="fold" style="margin-top:1rem">
     <summary><span class="pic pic--sm"><svg class="icon"><use href="#i-g-phone"/></svg></span><b>More lines</b><span>Water, power, police and fire alternates, LTO</span><i></i></summary>
-    <div class="fold__body"><div class="calls"><a class="call" href="tel:09494142633"><span class="pic pic--t pic--sm"><svg class="icon"><use href="#i-g-wave"/></svg></span><span>Water, PrimeWater Batangas City</span><b>0949-414-2633</b></a><a class="call" href="tel:16211"><span class="pic pic--sm"><svg class="icon"><use href="#i-g-factory"/></svg></span><span>Electricity, Meralco</span><b>16211</b></a><a class="call" href="tel:7232030"><span class="pic pic--sm"><svg class="icon"><use href="#i-g-shield"/></svg></span><span>Batangas City Police Station</span><b>723-2030</b></a><a class="call" href="tel:09156021984"><span class="pic pic--s pic--sm"><svg class="icon"><use href="#i-g-fire"/></svg></span><span>BFP, mobile</span><b>0915-602-1984</b></a><a class="call" href="tel:7409738"><span class="pic pic--sm"><svg class="icon"><use href="#i-g-van"/></svg></span><span>LTO Batangas City</span><b>740-9738</b></a></div><p>Meralco serves 99 of the 105 barangays; parts of San Jose Sico, Talumpok Silangan and Talahib Pandayan are served by BATELEC II. The Coast Guard station <span class="tag">To be supplied</span></p></div>
+    <div class="fold__body"><div class="calls"><a class="call" href="tel:+639494142633"><span class="pic pic--t pic--sm"><svg class="icon"><use href="#i-g-wave"/></svg></span><span>Water, PrimeWater Batangas City</span><b>0949-414-2633</b></a><a class="call" href="tel:16211"><span class="pic pic--sm"><svg class="icon"><use href="#i-g-factory"/></svg></span><span>Electricity, Meralco</span><b>16211</b></a><a class="call" href="tel:+63437232030"><span class="pic pic--sm"><svg class="icon"><use href="#i-g-shield"/></svg></span><span>Batangas City Police Station</span><b>(043) 723-2030</b></a><a class="call" href="tel:+639156021984"><span class="pic pic--s pic--sm"><svg class="icon"><use href="#i-g-fire"/></svg></span><span>BFP, mobile</span><b>0915-602-1984</b></a><a class="call" href="tel:+63437409738"><span class="pic pic--sm"><svg class="icon"><use href="#i-g-van"/></svg></span><span>LTO Batangas City</span><b>(043) 740-9738</b></a></div><p>Meralco serves 99 of the 105 barangays; parts of San Jose Sico, Talumpok Silangan and Talahib Pandayan are served by BATELEC II. The Coast Guard station <span class="tag">To be supplied</span></p></div>
   </details>
 </section>
 
@@ -158,15 +161,15 @@
   <div class="folds folds--2">
     <div>
       <details class="fold" id="rescue"><summary><span class="pic pic--t pic--sm"><svg class="icon"><use href="#i-g-storm"/></svg></span><b>Disaster risk reduction and rescue</b><span>Warnings, rescue, evacuation</span><i></i></summary>
-        <div class="fold__body"><ol class="track"><li><b>Warn</b><span>through the barangays</span></li><li><b>Rescue</b><span>on land and on the bay</span></li><li><b>Shelter</b><span>evacuation centres</span></li><li><b>Return</b><span>relief and home</span></li></ol><a class="call" href="tel:7023902"><span class="pic pic--t pic--sm"><svg class="icon"><use href="#i-g-phone"/></svg></span><span>CDRRMO</span><b>702-3902</b></a></div></details>
+        <div class="fold__body"><ol class="track"><li><b>Warn</b><span>through the barangays</span></li><li><b>Rescue</b><span>on land and on the bay</span></li><li><b>Shelter</b><span>evacuation centres</span></li><li><b>Return</b><span>relief and home</span></li></ol><a class="call" href="tel:+63437023902"><span class="pic pic--t pic--sm"><svg class="icon"><use href="#i-g-phone"/></svg></span><span>CDRRMO</span><b>(043) 702-3902</b></a></div></details>
       <details class="fold" id="fire"><summary><span class="pic pic--s pic--sm"><svg class="icon"><use href="#i-g-fire"/></svg></span><b>Bureau of Fire Protection</b><span>Fires, rescues and fire safety</span><i></i></summary>
-        <div class="fold__body"><p>Fire safety certificates for a <a class="lk" href="services.html#business-permit">business permit</a> or a <a class="lk" href="services.html#building-permit">building</a>.</p><a class="call" href="tel:0434257163"><span class="pic pic--s pic--sm"><svg class="icon"><use href="#i-g-phone"/></svg></span><span>BFP Batangas City</span><b>(043) 425-7163</b></a></div></details>
+        <div class="fold__body"><p>Fire safety certificates for a <a class="lk" href="services.html#business-permit">business permit</a> or a <a class="lk" href="services.html#building-permit">building</a>.</p><a class="call" href="tel:+63434257163"><span class="pic pic--s pic--sm"><svg class="icon"><use href="#i-g-phone"/></svg></span><span>BFP Batangas City</span><b>(043) 425-7163</b></a></div></details>
     </div>
     <div>
       <details class="fold" id="police"><summary><span class="pic pic--sm"><svg class="icon"><use href="#i-g-shield"/></svg></span><b>City Police</b><span>Report a crime, get a clearance</span><i></i></summary>
-        <div class="fold__body"><div><h4>To report afterwards</h4><ul class="bring"><li>Go to the station or a sub-station</li><li>Bring a valid ID</li><li>Ask for the blotter entry</li></ul></div><a class="call" href="tel:7021974"><span class="pic pic--sm"><svg class="icon"><use href="#i-g-phone"/></svg></span><span>PNP Batangas City</span><b>702-1974</b></a></div></details>
+        <div class="fold__body"><div><h3>To report afterwards</h3><ul class="bring"><li>Go to the station or a sub-station</li><li>Bring a valid ID</li><li>Ask for the blotter entry</li></ul></div><a class="call" href="tel:+63437021974"><span class="pic pic--sm"><svg class="icon"><use href="#i-g-phone"/></svg></span><span>PNP Batangas City</span><b>(043) 702-1974</b></a></div></details>
       <details class="fold" id="weather"><summary><span class="pic pic--t pic--sm"><svg class="icon"><use href="#i-g-wave"/></svg></span><b>Evacuation centres and weather</b><span>Where to go, and where to look</span><i></i></summary>
-        <div class="fold__body"><div><h4>Bring to the centre</h4><ul class="bring"><li>Papers and medicines</li><li>Water and food for a day</li><li>Clothes, a blanket, a torch</li></ul></div><p>Signals come from PAGASA; suspensions are posted under <a class="lk" href="news.html">News</a>. The centres by barangay <span class="tag">To be supplied</span></p></div></details>
+        <div class="fold__body"><div><h3>Bring to the centre</h3><ul class="bring"><li>Papers and medicines</li><li>Water and food for a day</li><li>Clothes, a blanket, a torch</li></ul></div><p>Signals come from PAGASA; suspensions are posted under <a class="lk" href="news.html">News</a>. The centres by barangay <span class="tag">To be supplied</span></p></div></details>
     </div>
   </div>
 </section>
@@ -214,19 +217,23 @@
         <nav aria-label="Government links">
           <h2>Government links</h2>
           <ul>
-            <li><a href="https://www.gov.ph" target="_blank" rel="noopener">GOV.PH</a></li>
-            <li><a href="https://www.foi.gov.ph" target="_blank" rel="noopener">Freedom of Information</a></li>
-            <li><a href="https://www.officialgazette.gov.ph" target="_blank" rel="noopener">Official Gazette</a></li>
-            <li><a href="https://data.gov.ph" target="_blank" rel="noopener">Open Data Philippines</a></li>
+            <li><a href="https://www.gov.ph" target="_blank" rel="noopener">GOV.PH<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://www.foi.gov.ph" target="_blank" rel="noopener">Freedom of Information<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://www.officialgazette.gov.ph" target="_blank" rel="noopener">Official Gazette<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://data.gov.ph" target="_blank" rel="noopener">Open Data Philippines<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
           </ul>
         </nav>
-        <nav aria-label="Site map">
+        <nav aria-label="Site map" id="sitemap">
           <h2>Site map</h2>
           <ul>
             <li><a href="services.html">Services</a></li>
+            <li><a href="emergency.html">Emergency</a></li>
+            <li><a href="mayor.html">The Mayor</a></li>
+            <li><a href="congresswoman.html">The Congresswoman</a></li>
+            <li><a href="government.html">City Government</a></li>
+            <li><a href="business.html">Business</a></li>
             <li><a href="visit.html">Discover</a></li>
             <li><a href="heritage.html">Heritage</a></li>
-            <li><a href="business.html">Business</a></li>
             <li><a href="index.html#map">City map</a></li>
             <li><a href="news.html">News</a></li>
           </ul>
@@ -252,9 +259,9 @@
 <!-- phones: the four things people come for, within reach of a thumb -->
 <nav class="dock" id="dock" aria-label="Quick access">
   <a href="services.html"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><path d="M4 24h20M6 24V11.500l8-6.500 8 6.500V24M11.500 24v-7h5v7"/></svg><span>Services</span></a>
-  <button type="button" data-open="search" aria-haspopup="dialog" aria-controls="search"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><use href="#i-search"/></svg><span>Search</span></button>
+  <a href="services.html" data-open="search"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><use href="#i-search"/></svg><span>Search</span></a>
   <a href="emergency.html"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><path d="M14 4v20M4 14h20M7.500 7.500l13 13M20.500 7.500l-13 13"/></svg><span>Emergency</span></a>
-  <button type="button" data-open="menu" aria-haspopup="dialog" aria-controls="menu"><svg class="ico" viewBox="0 0 30 24" aria-hidden="true"><use href="#i-menu"/></svg><span>Menu</span></button>
+  <a href="#sitemap" data-open="menu"><svg class="ico" viewBox="0 0 30 24" aria-hidden="true"><use href="#i-menu"/></svg><span>Menu</span></a>
 </nav>
 
 <p class="note" id="note" role="status"></p>

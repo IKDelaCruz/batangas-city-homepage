@@ -11,6 +11,7 @@
 <script>
   /* Motion is opt-in: without this class every drawing is simply there. Inner pages have no opening. */
   (function (r) {
+    r.classList.add('js');   /* scripts run: the bar takes its paper once the page scrolls (without them it always has it) */
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) r.classList.add('motion');
     setTimeout(function () { if (!window.__drawn) r.classList.remove('motion'); }, 5000);
   })(document.documentElement);
@@ -36,12 +37,12 @@
     <a href="news.html" data-nav="news">News</a>
   </nav>
   <div class="nav__tools">
-    <button class="nav__btn" type="button" data-open="search" aria-haspopup="dialog" aria-controls="search">
+    <a class="nav__btn" href="services.html" data-open="search">
       <svg class="ico" viewBox="0 0 28 28"><use href="#i-search"/></svg><span>Search</span>
-    </button>
-    <button class="nav__btn" type="button" data-open="menu" aria-haspopup="dialog" aria-controls="menu">
+    </a>
+    <a class="nav__btn" href="#sitemap" data-open="menu">
       <svg class="ico" viewBox="0 0 30 24"><use href="#i-menu"/></svg><span>Menu</span>
-    </button>
+    </a>
   </div>
   <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 5 150 6Q200 7 250 6Q300 5 350 6Q400 6 450 6Q500 5 550 5Q600 4 650 5Q700 6 750 5Q800 4 850 5Q900 6 950 5Q1000 4 1050 4Q1100 5 1200 6"/></svg>
 </header>
@@ -65,6 +66,7 @@
     <div class="menu__side">
       <p class="aside menu__hand">most people come for</p>
       <ul>
+        <li><a href="services.html#mac">EBD and the Mayor's Action Center</a></li>
         <li><a href="services.html#birth-marriage-death-certificates">Birth, marriage and death certificates</a></li>
         <li><a href="services.html#business-permit">Business permit, new or renewal</a></li>
         <li><a href="services.html#real-property-tax">Real property tax</a></li>
@@ -83,7 +85,8 @@
     <label class="aside" for="q">what are you looking for?</label>
     <input id="q" type="search" autocomplete="off" placeholder="permit, taxes, ferry, hotline…" aria-controls="q-results">
     <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 7 150 7Q200 7 250 7Q300 8 350 6Q400 5 450 5Q500 5 550 6Q600 7 650 7Q700 7 750 6Q800 6 850 6Q900 7 950 6Q1000 6 1050 6Q1100 7 1200 4"/></svg>
-    <ul class="search__results" id="q-results" aria-live="polite"></ul>
+    <ul class="search__results" id="q-results"></ul>
+    <p class="sr" id="q-count" role="status"></p>
     <p class="search__hint">This prototype searches the homepage and its ten pages.</p>
   </div>
 </div>
@@ -92,7 +95,7 @@
 
 <div class="wrap mayor__grid">
   <div class="mayor__text">
-    <p class="ch__no page__crumb" data-reveal><span><a href="index.html">Batangas City</a> · The Congresswoman</span><i class="aside">from the House</i></p>
+    <nav class="ch__no page__crumb" aria-label="Breadcrumb" data-reveal><span><a href="index.html">Batangas City</a> · <b aria-current="page">The Congresswoman</b></span><i class="aside">from the House</i></nav>
     <h1 class="display display--s" data-reveal>The Congresswoman's <em>corner</em></h1>
     <p class="mayor__name" data-reveal>Hon. Beverley Rose A. Dimacuha-Mariño<span>Representative, 5th District of Batangas (Batangas City)</span></p>
     <div class="mayor__msg" id="message" data-reveal>
@@ -252,19 +255,23 @@
         <nav aria-label="Government links">
           <h2>Government links</h2>
           <ul>
-            <li><a href="https://www.gov.ph" target="_blank" rel="noopener">GOV.PH</a></li>
-            <li><a href="https://www.foi.gov.ph" target="_blank" rel="noopener">Freedom of Information</a></li>
-            <li><a href="https://www.officialgazette.gov.ph" target="_blank" rel="noopener">Official Gazette</a></li>
-            <li><a href="https://data.gov.ph" target="_blank" rel="noopener">Open Data Philippines</a></li>
+            <li><a href="https://www.gov.ph" target="_blank" rel="noopener">GOV.PH<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://www.foi.gov.ph" target="_blank" rel="noopener">Freedom of Information<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://www.officialgazette.gov.ph" target="_blank" rel="noopener">Official Gazette<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://data.gov.ph" target="_blank" rel="noopener">Open Data Philippines<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
           </ul>
         </nav>
-        <nav aria-label="Site map">
+        <nav aria-label="Site map" id="sitemap">
           <h2>Site map</h2>
           <ul>
             <li><a href="services.html">Services</a></li>
+            <li><a href="emergency.html">Emergency</a></li>
+            <li><a href="mayor.html">The Mayor</a></li>
+            <li><a href="congresswoman.html">The Congresswoman</a></li>
+            <li><a href="government.html">City Government</a></li>
+            <li><a href="business.html">Business</a></li>
             <li><a href="visit.html">Discover</a></li>
             <li><a href="heritage.html">Heritage</a></li>
-            <li><a href="business.html">Business</a></li>
             <li><a href="index.html#map">City map</a></li>
             <li><a href="news.html">News</a></li>
           </ul>
@@ -290,9 +297,9 @@
 <!-- phones: the four things people come for, within reach of a thumb -->
 <nav class="dock" id="dock" aria-label="Quick access">
   <a href="services.html"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><path d="M4 24h20M6 24V11.500l8-6.500 8 6.500V24M11.500 24v-7h5v7"/></svg><span>Services</span></a>
-  <button type="button" data-open="search" aria-haspopup="dialog" aria-controls="search"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><use href="#i-search"/></svg><span>Search</span></button>
+  <a href="services.html" data-open="search"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><use href="#i-search"/></svg><span>Search</span></a>
   <a href="emergency.html"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><path d="M14 4v20M4 14h20M7.500 7.500l13 13M20.500 7.500l-13 13"/></svg><span>Emergency</span></a>
-  <button type="button" data-open="menu" aria-haspopup="dialog" aria-controls="menu"><svg class="ico" viewBox="0 0 30 24" aria-hidden="true"><use href="#i-menu"/></svg><span>Menu</span></button>
+  <a href="#sitemap" data-open="menu"><svg class="ico" viewBox="0 0 30 24" aria-hidden="true"><use href="#i-menu"/></svg><span>Menu</span></a>
 </nav>
 
 <p class="note" id="note" role="status"></p>

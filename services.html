@@ -11,6 +11,7 @@
 <script>
   /* Motion is opt-in: without this class every drawing is simply there. Inner pages have no opening. */
   (function (r) {
+    r.classList.add('js');   /* scripts run: the bar takes its paper once the page scrolls (without them it always has it) */
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) r.classList.add('motion');
     setTimeout(function () { if (!window.__drawn) r.classList.remove('motion'); }, 5000);
   })(document.documentElement);
@@ -36,12 +37,12 @@
     <a href="news.html" data-nav="news">News</a>
   </nav>
   <div class="nav__tools">
-    <button class="nav__btn" type="button" data-open="search" aria-haspopup="dialog" aria-controls="search">
+    <a class="nav__btn" href="services.html" data-open="search">
       <svg class="ico" viewBox="0 0 28 28"><use href="#i-search"/></svg><span>Search</span>
-    </button>
-    <button class="nav__btn" type="button" data-open="menu" aria-haspopup="dialog" aria-controls="menu">
+    </a>
+    <a class="nav__btn" href="#sitemap" data-open="menu">
       <svg class="ico" viewBox="0 0 30 24"><use href="#i-menu"/></svg><span>Menu</span>
-    </button>
+    </a>
   </div>
   <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 5 150 6Q200 7 250 6Q300 5 350 6Q400 6 450 6Q500 5 550 5Q600 4 650 5Q700 6 750 5Q800 4 850 5Q900 6 950 5Q1000 4 1050 4Q1100 5 1200 6"/></svg>
 </header>
@@ -65,6 +66,7 @@
     <div class="menu__side">
       <p class="aside menu__hand">most people come for</p>
       <ul>
+        <li><a href="services.html#mac">EBD and the Mayor's Action Center</a></li>
         <li><a href="services.html#birth-marriage-death-certificates">Birth, marriage and death certificates</a></li>
         <li><a href="services.html#business-permit">Business permit, new or renewal</a></li>
         <li><a href="services.html#real-property-tax">Real property tax</a></li>
@@ -83,7 +85,8 @@
     <label class="aside" for="q">what are you looking for?</label>
     <input id="q" type="search" autocomplete="off" placeholder="permit, taxes, ferry, hotline…" aria-controls="q-results">
     <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 7 150 7Q200 7 250 7Q300 8 350 6Q400 5 450 5Q500 5 550 6Q600 7 650 7Q700 7 750 6Q800 6 850 6Q900 7 950 6Q1000 6 1050 6Q1100 7 1200 4"/></svg>
-    <ul class="search__results" id="q-results" aria-live="polite"></ul>
+    <ul class="search__results" id="q-results"></ul>
+    <p class="sr" id="q-count" role="status"></p>
     <p class="search__hint">This prototype searches the homepage and its ten pages.</p>
   </div>
 </div>
@@ -92,7 +95,7 @@
 
 <header class="phero wrap">
   <div>
-    <p class="ch__no page__crumb" data-reveal><span><a href="index.html">Batangas City</a> · Services</span><i class="aside">the artist walks into town</i></p>
+    <nav class="ch__no page__crumb" aria-label="Breadcrumb" data-reveal><span><a href="index.html">Batangas City</a> · <b aria-current="page">Services</b></span><i class="aside">the artist walks into town</i></nav>
     <h1 class="display display--s" data-reveal>How can<br>we <em>help?</em></h1>
     <p class="phero__lede" data-reveal>Eight doors on one street, and the Mayor's own door first.</p>
     <div data-reveal>
@@ -130,9 +133,9 @@
   </header>
 
   <div class="mac__calls" data-reveal>
-    <a class="call call--big" href="tel:09992226626"><span class="pic"><svg class="icon"><use href="#i-g-phone"/></svg></span><span>24-hour EBD health emergency hotline</span><b>0999-222-6626</b></a>
-    <a class="call" href="tel:7861920"><span class="pic pic--g pic--sm"><svg class="icon"><use href="#i-g-cityhall"/></svg></span><span>Office, City Hall</span><b>786-1920</b></a>
-    <a class="cta" href="https://socialservices.itdcsystems.com/" target="_blank" rel="noopener" data-cursor="Apply">Apply online <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a>
+    <a class="call call--big" href="tel:+639992226626"><span class="pic"><svg class="icon"><use href="#i-g-phone"/></svg></span><span>24-hour EBD health emergency hotline</span><b>0999-222-6626</b></a>
+    <a class="call" href="tel:+63437861920"><span class="pic pic--g pic--sm"><svg class="icon"><use href="#i-g-cityhall"/></svg></span><span>Office, City Hall</span><b>(043) 786-1920</b></a>
+    <a class="cta" href="https://socialservices.itdcsystems.com/" target="_blank" rel="noopener" data-cursor="Apply">Apply online<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg> <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a>
   </div>
 
   <ul class="figs" data-reveal>
@@ -144,13 +147,13 @@
 
   <ul class="tiles tiles--3">
     <li class="tile" data-reveal><span class="pic pic--r"><svg class="icon"><use href="#i-g-hospital"/></svg></span><b>EBD Health Card</b><span>Free hospitalisation at the City's partner hospitals, since 2004.</span>
-      <p class="tile__go"><a class="cta" href="https://socialservices.itdcsystems.com/" target="_blank" rel="noopener" data-cursor="Apply">Apply <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a><a class="lk" href="#ebd-health">What to bring</a></p></li>
+      <p class="tile__go"><a class="cta" href="https://socialservices.itdcsystems.com/" target="_blank" rel="noopener" data-cursor="Apply">Apply<span class="sr"> for the EBD Health Card</span><span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg> <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a><a class="lk" href="#ebd-health">What to bring</a></p></li>
     <li class="tile" data-reveal><span class="pic pic--g"><svg class="icon"><use href="#i-g-cap"/></svg></span><b>EBD Scholarship</b><span>For the city's high school and college students.</span>
-      <p class="tile__go"><a class="cta" href="https://socialservices.itdcsystems.com/" target="_blank" rel="noopener" data-cursor="Apply">Apply <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a><a class="lk" href="#ebd-scholarship">Who qualifies</a></p></li>
+      <p class="tile__go"><a class="cta" href="https://socialservices.itdcsystems.com/" target="_blank" rel="noopener" data-cursor="Apply">Apply<span class="sr"> for the EBD Scholarship</span><span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg> <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a><a class="lk" href="#ebd-scholarship">Who qualifies</a></p></li>
     <li class="tile" data-reveal><span class="pic pic--s"><svg class="icon"><use href="#i-g-heart"/></svg></span><b>Medical and burial help</b><span>For a hospital bill, medicines or a funeral.</span>
-      <p class="tile__go"><a class="cta" href="https://socialservices.itdcsystems.com/" target="_blank" rel="noopener" data-cursor="Apply">Apply <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a><a class="lk" href="#mac-assistance">What to bring</a></p></li>
+      <p class="tile__go"><a class="cta" href="https://socialservices.itdcsystems.com/" target="_blank" rel="noopener" data-cursor="Apply">Apply<span class="sr"> for medical and burial help</span><span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg> <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a><a class="lk" href="#mac-assistance">What to bring</a></p></li>
     <li class="tile" data-reveal><span class="pic pic--t"><svg class="icon"><use href="#i-g-scales"/></svg></span><b>Legal assistance</b><span>Advice and papers for those who cannot pay a lawyer.</span>
-      <p class="tile__go"><a class="cta" href="https://socialservices.itdcsystems.com/" target="_blank" rel="noopener" data-cursor="Apply">Apply <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a><a class="lk" href="#mac-legal">How it works</a></p></li>
+      <p class="tile__go"><a class="cta" href="https://socialservices.itdcsystems.com/" target="_blank" rel="noopener" data-cursor="Apply">Apply<span class="sr"> for legal assistance</span><span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg> <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a><a class="lk" href="#mac-legal">How it works</a></p></li>
     <li class="tile" data-reveal><span class="pic"><svg class="icon"><use href="#i-g-van"/></svg></span><b>Barangay Caravan</b><span>The City's services, brought to your barangay.</span>
       <p class="tile__go"><a class="lk" href="#mac-caravan">The next caravan</a></p></li>
     <li class="tile" data-reveal><span class="pic pic--g"><svg class="icon"><use href="#i-g-calendar"/></svg></span><b>People's Day</b><span>Every Tuesday at City Hall, the Mayor receives residents.</span>
@@ -163,26 +166,26 @@
         <summary><span class="pic pic--sm"><svg class="icon"><use href="#i-g-cityhall"/></svg></span><b>About EBD and the MAC</b><span>One desk for every social programme</span><i></i></summary>
         <div class="fold__body">
           <p>A resident, a family or a barangay brings a need to one desk, and the desk finds the programme. The programmes carry the initials of former Mayor Eduardo B. Dimacuha, who began them; Mayor Marvey A. Mariño has said they will be continued and widened. <span class="tag">To be confirmed</span></p>
-          <p class="spot" id="mac-office"><svg class="icon"><use href="#i-g-pin"/></svg><b>Mayor's Action Center</b>City Hall Complex, P. Burgos Street, Barangay 17. Hotline 0999-222-6626, office 786-1920.</p>
+          <p class="spot" id="mac-office"><svg class="icon"><use href="#i-g-pin"/></svg><b>Mayor's Action Center</b>City Hall Complex, P. Burgos Street, Barangay 17. Hotline <a class="lk" href="tel:+639992226626">0999-222-6626</a>, office <a class="lk" href="tel:+63437861920">(043) 786-1920</a>.</p>
         </div>
       </details>
       <details class="fold" id="ebd-health">
         <summary><span class="pic pic--r pic--sm"><svg class="icon"><use href="#i-g-hospital"/></svg></span><b>EBD Health Card</b><span>What to bring, and help beyond the card</span><i></i></summary>
         <div class="fold__body">
-          <div><h4>What to bring</h4><ul class="bring"><li>A valid ID and proof you live in the city</li><li>A medical certificate or abstract</li><li>The hospital's statement of account</li><li>A certificate for medical assistance from your barangay</li></ul></div>
-          <div><h4>Partner hospitals, since October 2025</h4><ul class="bring"><li>Batangas Medical Center</li><li>St. Patrick's</li><li>St. Camillus de Lellis</li><li>Jesus of Nazareth</li><li>Health Care Specialist</li><li>Golden Gate</li></ul></div>
+          <div><h3>What to bring</h3><ul class="bring"><li>A valid ID and proof you live in the city</li><li>A medical certificate or abstract</li><li>The hospital's statement of account</li><li>A certificate for medical assistance from your barangay</li></ul></div>
+          <div><h3>Partner hospitals, since October 2025</h3><ul class="bring"><li>Batangas Medical Center</li><li>St. Patrick's</li><li>St. Camillus de Lellis</li><li>Jesus of Nazareth</li><li>Health Care Specialist</li><li>Golden Gate</li></ul></div>
           <p>For a bill the card does not cover, the MAC issues an EBD one-time endorsement or a DOH guarantee letter: hospital bills, laboratory fees, chemotherapy, anti-rabies vaccines. About 200 beds are kept for cardholders.</p>
-          <a class="cta" href="https://socialservices.itdcsystems.com/" target="_blank" rel="noopener">Apply for the card <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a>
+          <a class="cta" href="https://socialservices.itdcsystems.com/" target="_blank" rel="noopener">Apply for the card<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg> <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a>
         </div>
       </details>
       <details class="fold" id="ebd-scholarship">
         <summary><span class="pic pic--g pic--sm"><svg class="icon"><use href="#i-g-cap"/></svg></span><b>EBD Scholarship</b><span>Who qualifies and how to apply</span><i></i></summary>
         <div class="fold__body">
-          <div><h4>Who qualifies</h4><ul class="bring"><li>Five years a resident of Batangas City</li><li>An 85% average in high school, or a 2.5 GWA in college</li><li>Family income of ₱400,000 or less</li><li>Parents, and the applicant if 18 or over, registered voters of the city</li></ul></div>
+          <div><h3>Who qualifies</h3><ul class="bring"><li>Five years a resident of Batangas City</li><li>An 85% average in high school, or a 2.5 GWA in college</li><li>Family income of ₱400,000 or less</li><li>Parents, and the applicant if 18 or over, registered voters of the city</li></ul></div>
           <ol class="track"><li><b>Apply</b><span>to the MAC Scholarship Committee</span></li><li><b>Get listed</b><span>schedule in the advisories</span></li><li><b>Receive</b><span>on a Philippine Veterans Bank debit card</span></li></ol>
           <p>For the first semester of school year 2025–26 the City paid ₱5,000 to each of some 6,000 college scholars.</p>
           <p>Top three Grade 12 graduates: the EBD-MAM scholarship at the Colegio ng Lungsod ng Batangas, free tuition and ₱7,000 a semester.</p>
-          <a class="cta" href="https://socialservices.itdcsystems.com/" target="_blank" rel="noopener">Apply for the scholarship <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a>
+          <a class="cta" href="https://socialservices.itdcsystems.com/" target="_blank" rel="noopener">Apply for the scholarship<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg> <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a>
         </div>
       </details>
     </div>
@@ -190,16 +193,16 @@
       <details class="fold" id="mac-assistance">
         <summary><span class="pic pic--s pic--sm"><svg class="icon"><use href="#i-g-heart"/></svg></span><b>Medical and burial help</b><span>What to bring</span><i></i></summary>
         <div class="fold__body">
-          <div><h4>For medical help, two copies each</h4><ul class="bring"><li>Certification for medical assistance from your Punong Barangay</li><li>Medical certificate or abstract</li><li>Latest hospital bill, or the prescription for maintenance medicine</li><li>Government ID of the applicant or patient</li><li>Authorisation letter signed by the patient</li></ul></div>
-          <div><h4>For funeral help, two copies each</h4><ul class="bring"><li>Barangay certification for funeral assistance</li><li>Death certificate</li><li>Funeral contract</li><li>Government ID of the applicant</li></ul></div>
-          <a class="cta" href="https://socialservices.itdcsystems.com/" target="_blank" rel="noopener">Apply for assistance <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a>
+          <div><h3>For medical help, two copies each</h3><ul class="bring"><li>Certification for medical assistance from your Punong Barangay</li><li>Medical certificate or abstract</li><li>Latest hospital bill, or the prescription for maintenance medicine</li><li>Government ID of the applicant or patient</li><li>Authorisation letter signed by the patient</li></ul></div>
+          <div><h3>For funeral help, two copies each</h3><ul class="bring"><li>Barangay certification for funeral assistance</li><li>Death certificate</li><li>Funeral contract</li><li>Government ID of the applicant</li></ul></div>
+          <a class="cta" href="https://socialservices.itdcsystems.com/" target="_blank" rel="noopener">Apply for assistance<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg> <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a>
         </div>
       </details>
       <details class="fold" id="mac-legal">
         <summary><span class="pic pic--t pic--sm"><svg class="icon"><use href="#i-g-scales"/></svg></span><b>Legal assistance</b><span>At the MAC's legal desk</span><i></i></summary>
         <div class="fold__body">
           <p>Advice and help with documents for residents who cannot afford a lawyer. Days and hours <span class="tag">To be supplied</span></p>
-          <a class="cta" href="https://socialservices.itdcsystems.com/" target="_blank" rel="noopener">Ask for legal help <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a>
+          <a class="cta" href="https://socialservices.itdcsystems.com/" target="_blank" rel="noopener">Ask for legal help<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg> <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a>
         </div>
       </details>
       <details class="fold" id="mac-caravan">
@@ -439,7 +442,7 @@
           <div class="fold__body"><p>Help with hospital bills, laboratory fees and medicines runs through the Mayor's Action Center.</p><a class="cta" href="#ebd-health">EBD Health Card <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a></div></details>
       </div>
     </div>
-    <p class="spot" id="health-office"><svg class="icon"><use href="#i-g-pin"/></svg><b>City Health Office</b>Hotline 723-8890. Address and hours <span class="tag">To be supplied</span></p>
+    <p class="spot" id="health-office"><svg class="icon"><use href="#i-g-pin"/></svg><b>City Health Office</b>Hotline <a class="lk" href="tel:+63437238890">(043) 723-8890</a>. Address and hours <span class="tag">To be supplied</span></p>
   </div>
 
   <div class="grp" id="social">
@@ -455,10 +458,10 @@
         <details class="fold" id="solo-parent-id"><summary><span class="pic pic--t pic--sm"><svg class="icon"><use href="#i-g-people"/></svg></span><b>Solo parent ID</b><span>For a parent raising children alone</span><i></i></summary>
           <div class="fold__body"><div><h4>What to bring</h4><ul class="bring"><li>The children's birth certificates</li><li>Proof of being a solo parent</li><li>Barangay certificate, ID and photos</li></ul></div><p>Under the Expanded Solo Parents Welfare Act, RA 11861; valid one year, renewed at the City Social Welfare office.</p></div></details>
         <details class="fold" id="assistance"><summary><span class="pic pic--t pic--sm"><svg class="icon"><use href="#i-g-handshake"/></svg></span><b>Assistance in crisis</b><span>Medical, burial, transport, food</span><i></i></summary>
-          <div class="fold__body"><div><h4>What to bring</h4><ul class="bring"><li>Valid ID and proof of residence</li><li>Certificate of indigency</li><li>The bill, death certificate or referral</li></ul></div><a class="cta" href="https://socialservices.itdcsystems.com/" target="_blank" rel="noopener">Apply <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a></div></details>
+          <div class="fold__body"><div><h4>What to bring</h4><ul class="bring"><li>Valid ID and proof of residence</li><li>Certificate of indigency</li><li>The bill, death certificate or referral</li></ul></div><a class="cta" href="https://socialservices.itdcsystems.com/" target="_blank" rel="noopener">Apply<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg> <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a></div></details>
       </div>
     </div>
-    <p class="spot" id="social-office"><svg class="icon"><use href="#i-g-pin"/></svg><b>City Social Welfare and Development</b>Hotline 723-2357. Address and hours <span class="tag">To be supplied</span></p>
+    <p class="spot" id="social-office"><svg class="icon"><use href="#i-g-pin"/></svg><b>City Social Welfare and Development</b>Hotline <a class="lk" href="tel:+63437232357">(043) 723-2357</a>. Address and hours <span class="tag">To be supplied</span></p>
   </div>
 
   <div class="grp" id="education">
@@ -552,19 +555,23 @@
         <nav aria-label="Government links">
           <h2>Government links</h2>
           <ul>
-            <li><a href="https://www.gov.ph" target="_blank" rel="noopener">GOV.PH</a></li>
-            <li><a href="https://www.foi.gov.ph" target="_blank" rel="noopener">Freedom of Information</a></li>
-            <li><a href="https://www.officialgazette.gov.ph" target="_blank" rel="noopener">Official Gazette</a></li>
-            <li><a href="https://data.gov.ph" target="_blank" rel="noopener">Open Data Philippines</a></li>
+            <li><a href="https://www.gov.ph" target="_blank" rel="noopener">GOV.PH<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://www.foi.gov.ph" target="_blank" rel="noopener">Freedom of Information<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://www.officialgazette.gov.ph" target="_blank" rel="noopener">Official Gazette<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://data.gov.ph" target="_blank" rel="noopener">Open Data Philippines<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
           </ul>
         </nav>
-        <nav aria-label="Site map">
+        <nav aria-label="Site map" id="sitemap">
           <h2>Site map</h2>
           <ul>
             <li><a href="services.html">Services</a></li>
+            <li><a href="emergency.html">Emergency</a></li>
+            <li><a href="mayor.html">The Mayor</a></li>
+            <li><a href="congresswoman.html">The Congresswoman</a></li>
+            <li><a href="government.html">City Government</a></li>
+            <li><a href="business.html">Business</a></li>
             <li><a href="visit.html">Discover</a></li>
             <li><a href="heritage.html">Heritage</a></li>
-            <li><a href="business.html">Business</a></li>
             <li><a href="index.html#map">City map</a></li>
             <li><a href="news.html">News</a></li>
           </ul>
@@ -590,9 +597,9 @@
 <!-- phones: the four things people come for, within reach of a thumb -->
 <nav class="dock" id="dock" aria-label="Quick access">
   <a href="services.html"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><path d="M4 24h20M6 24V11.500l8-6.500 8 6.500V24M11.500 24v-7h5v7"/></svg><span>Services</span></a>
-  <button type="button" data-open="search" aria-haspopup="dialog" aria-controls="search"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><use href="#i-search"/></svg><span>Search</span></button>
+  <a href="services.html" data-open="search"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><use href="#i-search"/></svg><span>Search</span></a>
   <a href="emergency.html"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><path d="M14 4v20M4 14h20M7.500 7.500l13 13M20.500 7.500l-13 13"/></svg><span>Emergency</span></a>
-  <button type="button" data-open="menu" aria-haspopup="dialog" aria-controls="menu"><svg class="ico" viewBox="0 0 30 24" aria-hidden="true"><use href="#i-menu"/></svg><span>Menu</span></button>
+  <a href="#sitemap" data-open="menu"><svg class="ico" viewBox="0 0 30 24" aria-hidden="true"><use href="#i-menu"/></svg><span>Menu</span></a>
 </nav>
 
 <p class="note" id="note" role="status"></p>

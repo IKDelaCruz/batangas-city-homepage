@@ -11,6 +11,7 @@
 <script>
   /* Motion is opt-in: without this class every drawing is simply there. Inner pages have no opening. */
   (function (r) {
+    r.classList.add('js');   /* scripts run: the bar takes its paper once the page scrolls (without them it always has it) */
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) r.classList.add('motion');
     setTimeout(function () { if (!window.__drawn) r.classList.remove('motion'); }, 5000);
   })(document.documentElement);
@@ -36,12 +37,12 @@
     <a href="news.html" data-nav="news">News</a>
   </nav>
   <div class="nav__tools">
-    <button class="nav__btn" type="button" data-open="search" aria-haspopup="dialog" aria-controls="search">
+    <a class="nav__btn" href="services.html" data-open="search">
       <svg class="ico" viewBox="0 0 28 28"><use href="#i-search"/></svg><span>Search</span>
-    </button>
-    <button class="nav__btn" type="button" data-open="menu" aria-haspopup="dialog" aria-controls="menu">
+    </a>
+    <a class="nav__btn" href="#sitemap" data-open="menu">
       <svg class="ico" viewBox="0 0 30 24"><use href="#i-menu"/></svg><span>Menu</span>
-    </button>
+    </a>
   </div>
   <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 5 150 6Q200 7 250 6Q300 5 350 6Q400 6 450 6Q500 5 550 5Q600 4 650 5Q700 6 750 5Q800 4 850 5Q900 6 950 5Q1000 4 1050 4Q1100 5 1200 6"/></svg>
 </header>
@@ -65,6 +66,7 @@
     <div class="menu__side">
       <p class="aside menu__hand">most people come for</p>
       <ul>
+        <li><a href="services.html#mac">EBD and the Mayor's Action Center</a></li>
         <li><a href="services.html#birth-marriage-death-certificates">Birth, marriage and death certificates</a></li>
         <li><a href="services.html#business-permit">Business permit, new or renewal</a></li>
         <li><a href="services.html#real-property-tax">Real property tax</a></li>
@@ -83,7 +85,8 @@
     <label class="aside" for="q">what are you looking for?</label>
     <input id="q" type="search" autocomplete="off" placeholder="permit, taxes, ferry, hotline…" aria-controls="q-results">
     <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 7 150 7Q200 7 250 7Q300 8 350 6Q400 5 450 5Q500 5 550 6Q600 7 650 7Q700 7 750 6Q800 6 850 6Q900 7 950 6Q1000 6 1050 6Q1100 7 1200 4"/></svg>
-    <ul class="search__results" id="q-results" aria-live="polite"></ul>
+    <ul class="search__results" id="q-results"></ul>
+    <p class="sr" id="q-count" role="status"></p>
     <p class="search__hint">This prototype searches the homepage and its ten pages.</p>
   </div>
 </div>
@@ -92,7 +95,7 @@
 
 <header class="phero wrap">
   <div>
-    <p class="ch__no page__crumb" data-reveal><span><a href="index.html">Batangas City</a> · Government</span><i class="aside">how the city is run</i></p>
+    <nav class="ch__no page__crumb" aria-label="Breadcrumb" data-reveal><span><a href="index.html">Batangas City</a> · <b aria-current="page">Government</b></span><i class="aside">how the city is run</i></nav>
     <h1 class="display display--s" data-reveal>The City <em>Government</em></h1>
     <p class="phero__lede" data-reveal>A mayor, a council, the offices of City Hall, and 105 barangays.</p>
   </div>
@@ -114,7 +117,7 @@
     </div>
     <div class="duo__text" data-reveal>
       <p class="aside">the Sangguniang Panlungsod</p>
-      <h3 id="t-council">The City <em>Council</em></h3>
+      <h2 id="t-council">The City <em>Council</em></h2>
       <p>It makes the ordinances, passes the budget and keeps watch on the offices. Vice Mayor Alyssa Cruz presides, elected in May 2025.</p>
       <ul class="tiles" style="margin-top:1rem">
         <li class="tile"><span class="pic pic--sm"><svg class="icon"><use href="#i-g-people"/></svg></span><b>Members</b><span>and committees <span class="tag">To be supplied</span></span></li>
@@ -147,7 +150,7 @@
   </ul>
   <details class="fold" style="margin-top:.6rem">
     <summary><span class="pic pic--sm"><svg class="icon"><use href="#i-g-document"/></svg></span><b>Every other office</b><span>The full list of departments and the Mayor's divisions</span><i></i></summary>
-    <div class="fold__body" style="grid-template-columns:1fr"><div><h4>Departments, each an Office of the</h4><ul class="cols"><li>City Accountant</li><li>City Administrator</li><li>City Assessor</li><li>City Budget Officer</li><li>City Civil Registrar</li><li>City Disaster Risk Reduction and Management Officer</li><li>City Engineer</li><li>City Environment and Natural Resources Officer</li><li>City General Services Officer</li><li>City Health Officer</li><li>City Legal Officer</li><li>City Market Administrator</li><li>City Mayor</li><li>City Planning and Development Coordinator</li><li>City Prosecutor</li><li>City Social Welfare and Development Officer</li><li>City Treasurer</li><li>City Veterinarian</li><li>City Human Resource Management Officer</li><li>City Internal Audit Service</li><li>City Agriculturist</li><li>Sangguniang Panlungsod</li><li>Colegio ng Lungsod ng Batangas</li></ul></div><div><h4>Divisions of the Office of the City Mayor</h4><ul class="cols"><li>Mayor's Action Center</li><li>Business Permits and Licensing Office</li><li>Discipline, Safety and Security</li><li>City Tourism Office</li><li>Information and Technology</li><li>Local Economic Development and Investment Promotions</li><li>Senior Citizens Affairs (OSCA)</li><li>Public Affairs and Assistance (PAAD)</li><li>Public Library and Information Center</li><li>Public Employment Service (PESO)</li><li>Information Division (PIO)</li><li>Transport Development and Regulation</li></ul></div><p>Heads of office and direct lines are in the City's government directory. <span class="tag">To be supplied</span></p></div>
+    <div class="fold__body" style="grid-template-columns:1fr"><div><h3>Departments, each an Office of the</h3><ul class="cols"><li>City Accountant</li><li>City Administrator</li><li>City Assessor</li><li>City Budget Officer</li><li>City Civil Registrar</li><li>City Disaster Risk Reduction and Management Officer</li><li>City Engineer</li><li>City Environment and Natural Resources Officer</li><li>City General Services Officer</li><li>City Health Officer</li><li>City Legal Officer</li><li>City Market Administrator</li><li>City Mayor</li><li>City Planning and Development Coordinator</li><li>City Prosecutor</li><li>City Social Welfare and Development Officer</li><li>City Treasurer</li><li>City Veterinarian</li><li>City Human Resource Management Officer</li><li>City Internal Audit Service</li><li>City Agriculturist</li><li>Sangguniang Panlungsod</li><li>Colegio ng Lungsod ng Batangas</li></ul></div><div><h3>Divisions of the Office of the City Mayor</h3><ul class="cols"><li>Mayor's Action Center</li><li>Business Permits and Licensing Office</li><li>Discipline, Safety and Security</li><li>City Tourism Office</li><li>Information and Technology</li><li>Local Economic Development and Investment Promotions</li><li>Senior Citizens Affairs (OSCA)</li><li>Public Affairs and Assistance (PAAD)</li><li>Public Library and Information Center</li><li>Public Employment Service (PESO)</li><li>Information Division (PIO)</li><li>Transport Development and Regulation</li></ul></div><p>Heads of office and direct lines are in the City's government directory. <span class="tag">To be supplied</span></p></div>
   </details>
 </section>
 
@@ -176,7 +179,7 @@
   <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 4 150 5Q200 6 250 5Q300 5 350 5Q400 5 450 5Q500 6 550 6Q600 5 650 5Q700 5 750 5Q800 5 850 7Q900 8 950 6Q1000 4 1050 4Q1100 4 1200 4"/></svg>
   <header class="sec__head">
     <div data-reveal><p class="aside">the books, open</p><h2 id="t-transparency">Full <em>disclosure</em></h2></div>
-    <p class="sec__lede" data-reveal>The documents every city posts, and how to ask for the rest at <a class="lk" href="https://www.foi.gov.ph" target="_blank" rel="noopener">foi.gov.ph</a>.</p>
+    <p class="sec__lede" data-reveal>The documents every city posts, and how to ask for the rest at <a class="lk" href="https://www.foi.gov.ph" target="_blank" rel="noopener">foi.gov.ph<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a>.</p>
   </header>
   <ul class="docs">
     <li data-reveal><svg class="icon"><use href="#i-g-download"/></svg><b>Annual budget<small>current year</small></b><span class="tag">To be supplied</span></li>
@@ -192,7 +195,7 @@
   <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 7 150 7Q200 7 250 7Q300 6 350 5Q400 4 450 6Q500 7 550 7Q600 8 650 7Q700 6 750 6Q800 6 850 5Q900 5 950 4Q1000 4 1050 5Q1100 5 1200 7"/></svg>
   <header class="sec__head">
     <div data-reveal><p class="aside">the Bids and Awards Committee</p><h2 id="t-bids">Bids and <em>awards</em></h2></div>
-    <p class="sec__lede" data-reveal>Also posted on <a class="lk" href="https://www.philgeps.gov.ph" target="_blank" rel="noopener">PhilGEPS</a>.</p>
+    <p class="sec__lede" data-reveal>Also posted on <a class="lk" href="https://www.philgeps.gov.ph" target="_blank" rel="noopener">PhilGEPS<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a>.</p>
   </header>
   <ul class="ledger">
     <li data-reveal><i>ITB</i><h3><a href="#bids">Sample invitation to bid</a></h3><p>Deadline: placeholder date</p></li>
@@ -245,19 +248,23 @@
         <nav aria-label="Government links">
           <h2>Government links</h2>
           <ul>
-            <li><a href="https://www.gov.ph" target="_blank" rel="noopener">GOV.PH</a></li>
-            <li><a href="https://www.foi.gov.ph" target="_blank" rel="noopener">Freedom of Information</a></li>
-            <li><a href="https://www.officialgazette.gov.ph" target="_blank" rel="noopener">Official Gazette</a></li>
-            <li><a href="https://data.gov.ph" target="_blank" rel="noopener">Open Data Philippines</a></li>
+            <li><a href="https://www.gov.ph" target="_blank" rel="noopener">GOV.PH<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://www.foi.gov.ph" target="_blank" rel="noopener">Freedom of Information<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://www.officialgazette.gov.ph" target="_blank" rel="noopener">Official Gazette<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://data.gov.ph" target="_blank" rel="noopener">Open Data Philippines<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
           </ul>
         </nav>
-        <nav aria-label="Site map">
+        <nav aria-label="Site map" id="sitemap">
           <h2>Site map</h2>
           <ul>
             <li><a href="services.html">Services</a></li>
+            <li><a href="emergency.html">Emergency</a></li>
+            <li><a href="mayor.html">The Mayor</a></li>
+            <li><a href="congresswoman.html">The Congresswoman</a></li>
+            <li><a href="government.html">City Government</a></li>
+            <li><a href="business.html">Business</a></li>
             <li><a href="visit.html">Discover</a></li>
             <li><a href="heritage.html">Heritage</a></li>
-            <li><a href="business.html">Business</a></li>
             <li><a href="index.html#map">City map</a></li>
             <li><a href="news.html">News</a></li>
           </ul>
@@ -283,9 +290,9 @@
 <!-- phones: the four things people come for, within reach of a thumb -->
 <nav class="dock" id="dock" aria-label="Quick access">
   <a href="services.html"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><path d="M4 24h20M6 24V11.500l8-6.500 8 6.500V24M11.500 24v-7h5v7"/></svg><span>Services</span></a>
-  <button type="button" data-open="search" aria-haspopup="dialog" aria-controls="search"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><use href="#i-search"/></svg><span>Search</span></button>
+  <a href="services.html" data-open="search"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><use href="#i-search"/></svg><span>Search</span></a>
   <a href="emergency.html"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><path d="M14 4v20M4 14h20M7.500 7.500l13 13M20.500 7.500l-13 13"/></svg><span>Emergency</span></a>
-  <button type="button" data-open="menu" aria-haspopup="dialog" aria-controls="menu"><svg class="ico" viewBox="0 0 30 24" aria-hidden="true"><use href="#i-menu"/></svg><span>Menu</span></button>
+  <a href="#sitemap" data-open="menu"><svg class="ico" viewBox="0 0 30 24" aria-hidden="true"><use href="#i-menu"/></svg><span>Menu</span></a>
 </nav>
 
 <p class="note" id="note" role="status"></p>
