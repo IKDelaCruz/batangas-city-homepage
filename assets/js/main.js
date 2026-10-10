@@ -13,7 +13,10 @@
   const ST = window.ScrollTrigger;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const coarse = matchMedia('(hover: none), (pointer: coarse)').matches;
-  const motion = !reduce && !!gsap && !!ST;
+  /* Pause motion, chosen on an earlier page: this one starts calm */
+  let stored = false;
+  try { stored = localStorage.getItem('bc8-still') === '1'; } catch (e) {}
+  const motion = !reduce && !stored && !!gsap && !!ST;
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
   /* Phones get plain fades instead of spreading masks. */
   const lite = () => coarse || innerWidth < 900;
@@ -23,6 +26,8 @@
   const DRAW = 'path:not([data-nodraw] *):not(.route)';
 
   window.__drawn = true;
+  /* the footer's dusk drawing travels in assets/data/shell.js, kept by the browser after the first page */
+  if (window.__shell) $$('[data-shell]').forEach(el => { if (!el.firstElementChild) el.innerHTML = window.__shell[el.dataset.shell] || ''; });
   if (motion) { gsap.registerPlugin(ST); ST.config({ ignoreMobileResize: true }); }
   else root.classList.remove('motion', 'is-intro');
 
@@ -634,9 +639,12 @@
       .add(done, t0 + 6.5);
 
     /* arriving at a section (a link to #services, say) is no moment for an intro */
-    if (scrollY > 8 || location.hash.length > 1) done();
+    if (scrollY > 8 || location.hash.length > 1 || window.__inside) done();
     $('#skip-intro').addEventListener('click', done);
     if (coarse) d.addEventListener('pointerdown', done, { once: true });   // on touch, a tap anywhere skips
+    /* a scroll or a swipe ends it too: nobody is held (decision D1) */
+    addEventListener('wheel', () => { if (!finished) done(); }, { passive: true });
+    addEventListener('touchmove', () => { if (!finished) done(); }, { passive: true });
     /* any key ends it (Tab, Enter, a scroll key…), not only Esc: a keyboard is never held; a lone modifier does not count */
     d.addEventListener('keydown', e => { if (!finished && !['Shift', 'Control', 'Alt', 'Meta', 'CapsLock'].includes(e.key)) done(); });
     /* if the tab is asleep and no frames arrive, do not hold the page hostage */
@@ -799,7 +807,15 @@
     const hit = $('.hit', g);
     hit.addEventListener('pointerenter', () => { hovered = g.dataset.svc; paintStreet(); });
     hit.addEventListener('pointerleave', () => { hovered = null; paintStreet(); });
-    hit.addEventListener('click', () => { selectSvc(g.dataset.svc, { reveal: innerWidth < 900 }); if (fold.matches) goSvc(g.dataset.svc); });
+    hit.addEventListener('click', () => {
+      if (!svcItems.length) {   /* Services: a building opens onto its own sheet below */
+        const to = d.getElementById(g.dataset.svc);
+        if (to) to.scrollIntoView({ block: 'start', behavior: motion ? 'smooth' : 'auto' });
+        return;
+      }
+      selectSvc(g.dataset.svc, { reveal: innerWidth < 900 });
+      if (fold.matches) goSvc(g.dataset.svc);
+    });
   });
   if (svcItems.length) {
     selectSvc(current, { reveal: false });
@@ -864,8 +880,15 @@
         if (link) link.focus({ preventScroll: true });
         return;
       }
+      const item = svcItems.find(li => li.dataset.svc === k);
+      if (!item) {   /* Services shows no list: the service's own sheet further down */
+        const to = d.getElementById(k);
+        msg.textContent = `That would be ${to ? $('h3', to).textContent.trim() : k}.`;
+        if (to) to.scrollIntoView({ block: 'start', behavior: motion ? 'smooth' : 'auto' });
+        return;
+      }
       selectSvc(k, { focus: true });
-      const answer = `That would be ${$('b', svcItems.find(li => li.dataset.svc === k)).textContent}.`;
+      const answer = `That would be ${$('b', item).textContent}.`;
       msg.textContent = answer;
       if (inHero) { $('#find-q').value = q; $('#find-msg').textContent = answer; }
       if (fold.matches) goSvc(k);
@@ -910,11 +933,13 @@
     /* the pages either side show their drawing only: their words, cut by the window's edge, read as broken */
     spreads.forEach((sp, i) => sp.classList.toggle('is-away', i !== best));
   }
+  /* the pinned book turns faster than the page scrolls (decision D9: three screens at most), so a scroll position is the page's x times this */
+  const turn = () => (travel ? (ex.offsetHeight - innerHeight) / travel : 1);
   function goSpread(i, instant) {
     i = clamp(i, 0, spreads.length - 1);
     const x = spreadX(i);
     const behavior = motion && !instant ? 'smooth' : 'auto';
-    if (pinned) scrollTo({ top: ex.offsetTop + clamp(x, 0, travel), behavior });
+    if (pinned) scrollTo({ top: ex.offsetTop + clamp(x, 0, travel) * turn(), behavior });
     else track.scrollTo({ left: x, behavior });
   }
   function setupExplore() {
@@ -945,7 +970,7 @@
     spreads.forEach((s, i) => s.addEventListener('focusin', () => {
       if (!pinned) return;
       exPin.scrollLeft = 0;
-      if (Math.abs(spreadX(i) - (scrollY - ex.offsetTop)) > s.offsetWidth * 0.35) goSpread(i, true);
+      if (Math.abs(spreadX(i) - (scrollY - ex.offsetTop) / turn()) > s.offsetWidth * 0.35) goSpread(i, true);
     }));
     setCount(0);
   }
@@ -1075,6 +1100,7 @@
   let lastY = scrollY;
   const onScroll = () => {
     nav.classList.toggle('is-scrolled', scrollY > 40);
+    root.classList.toggle('is-scrolled', scrollY > 40);   // the line above the bar steps away
     /* on a phone the bar steps aside while reading down and returns on the way up */
     if (Math.abs(scrollY - lastY) > 6) {
       nav.classList.toggle('is-away', innerWidth <= 760 && scrollY > lastY && scrollY > 200);
@@ -1085,19 +1111,17 @@
   };
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+  /* the keyboard reaching the bar brings it back */
+  nav.addEventListener('focusin', () => nav.classList.remove('is-away'));
 
-  /* the section spy is the homepage's; an inner page marks its own link when it is built */
-  if (hero) {
-    const links = $$('.nav__links a');
-    const spy = new IntersectionObserver(es => es.forEach(e => {
-      if (!e.isIntersecting) return;
-      links.forEach(a => {
-        if (a.getAttribute('href') === '#' + e.target.id) a.setAttribute('aria-current', 'true');
-        else a.removeAttribute('aria-current');
-      });
-    }), { rootMargin: '-45% 0px -50% 0px' });
-    $$('main > section[id], footer').forEach(s => spy.observe(s));
-  }
+  /* Philippine Standard Time, as the law asks of a government website (RA 10535), to the minute */
+  const pst = $$('[data-pst]');
+  const tick = () => {
+    const now = new Date();
+    const t = now.toLocaleString('en-PH', { timeZone: 'Asia/Manila', weekday: 'short', day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' });
+    pst.forEach(e => { e.innerHTML = `<abbr title="Philippine Standard Time">PhST</abbr> ${t}`; e.setAttribute('datetime', now.toISOString()); });
+  };
+  if (pst.length) { tick(); setInterval(tick, 30000); }
 
   let layer = null;
   let lastFocus = null;
@@ -1172,9 +1196,9 @@
     ["The Mayor's corner", 'City Hall', '#mayor', 'mayor marvey mariño mariño message office executive order speech'],
     ["The Congresswoman's corner", 'Congress', '#congress', 'congresswoman congressman representative beverley dimacuha mariño house district bills'],
     ['News, advisories and notices', 'News', '#news', 'news advisory advisories notice events announcement'],
-    ['Contact City Hall', 'Contact', '#contact', 'contact address phone hotline office city hall'],
+    ['Contact City Hall', 'Contact', 'contact.html', 'contact address phone hotline office city hall'],
     ['City Government', 'Government', '#government', 'mayor council sanggunian departments barangay transparency']
-  ].forEach(r => index.push({ label: r[0], kind: r[1], href: home + r[2], home: 1, words: r[3] }));
+  ].forEach(r => index.push({ label: r[0], kind: r[1], href: (r[2][0] === '#' ? home : '') + r[2], home: 1, words: r[3] }));
   /* the ten pages and their sections, written by the build into assets/data/pages.js */
   (window.__pages || []).forEach(p => index.push(p));
 
@@ -1270,7 +1294,7 @@
         + (all.length > hits.length ? `<li class="more"><button type="button" class="cta" data-all>Show all ${all.length} results</button></li>` : '')
       : `<li class="none">Nothing here matches “${safe}”. Most people come for:</li>`
         + TOP.map(t => `<li><a href="${t[1]}">${t[0]}<span>Service</span></a></li>`).join('')
-        + '<li class="none">In an emergency call <a class="lk" href="tel:911">911</a>, or <a class="lk" href="#contact">contact City Hall</a>.</li>';
+        + '<li class="none">In an emergency call <a class="lk" href="tel:911">911</a>, or <a class="lk" href="contact.html">contact City Hall</a>.</li>';
     /* a screen reader hears how many, not the whole list again on every key */
     $('#q-count').textContent = !q ? '' : all.length ? `${all.length} result${all.length > 1 ? 's' : ''}` : 'No results';
   }
@@ -1306,6 +1330,14 @@
     requestAnimationFrame(() => t.scrollIntoView({ block: 'start', behavior: smooth && motion ? 'smooth' : 'auto' }));
     return true;
   }
+  /* an address with #section ends there, even when the layout settled after the browser's own jump
+     (on a phone the browser's jump was sometimes lost, before and after the UX review) */
+  if (!hero && location.hash.length > 1) {
+    addEventListener('load', () => setTimeout(() => {
+      const t = d.getElementById(decodeURIComponent(location.hash.slice(1)));
+      if (t && !t.closest('details:not([open])') && Math.abs(t.getBoundingClientRect().top - 84) > 48) t.scrollIntoView({ block: 'start' });
+    }, 120));
+  }
   if ($('details.fold')) {
     openFold(decodeURIComponent(location.hash.slice(1)), false);
     d.addEventListener('click', e => {
@@ -1320,15 +1352,72 @@
   /* pages outside the prototype: say so instead of jumping back to the top */
   const note = $('#note');
   let noteTimer;
+  const say = (text, ms) => {
+    note.textContent = text;
+    note.classList.add('is-on');
+    clearTimeout(noteTimer);
+    noteTimer = setTimeout(() => note.classList.remove('is-on'), ms || 2600);
+  };
   d.addEventListener('click', e => {
     const a = e.target.closest('a[href="#"]');
     if (!a) return;
     e.preventDefault();
-    note.textContent = 'This page is not part of the prototype yet.';
-    note.classList.add('is-on');
-    clearTimeout(noteTimer);
-    noteTimer = setTimeout(() => note.classList.remove('is-on'), 2600);
+    say('This page is not part of the prototype yet.');
   });
+
+  /* ------------------------------------------------ an urgent notice (D10)
+     One notice at a time, above everything. In the prototype a sample shows
+     only with ?alert; a dismissed notice stays dismissed for the visit. */
+  const alertBox = $('#alert');
+  const NOTICE = /[?&]alert\b/.test(location.search) && {
+    id: 'sample-typhoon', kind: 'Sample advisory', href: 'news.html',
+    text: 'Tropical storm signal no. 2 is up over Batangas. Classes at all levels in Batangas City are suspended today.'
+  };
+  if (alertBox && NOTICE) {
+    let gone = false;
+    try { gone = sessionStorage.getItem('bc8-alert') === NOTICE.id; } catch (e) {}
+    if (!gone) {
+      const fit = () => root.style.setProperty('--alert-h', alertBox.offsetHeight + 'px');
+      alertBox.hidden = false;
+      root.classList.add('has-alert');
+      $('#alert-more').href = NOTICE.href;
+      fit();
+      addEventListener('resize', fit);
+      /* filled once it is on screen, so a screen reader hears it */
+      requestAnimationFrame(() => { $('#alert-kind').textContent = NOTICE.kind; $('#alert-text').textContent = NOTICE.text; fit(); if (motion) ST.refresh(); });
+      $('#alert-close').addEventListener('click', () => {
+        alertBox.hidden = true;
+        root.classList.remove('has-alert');
+        root.style.removeProperty('--alert-h');
+        try { sessionStorage.setItem('bc8-alert', NOTICE.id); } catch (e) {}
+        $('.nav__brand').focus({ preventScroll: true });
+        if (motion) ST.refresh();
+      });
+    }
+  }
+
+  /* ------------------------------------------------- Pause motion (WCAG 2.2.2)
+     One switch, in the line above the bar, the menu and the footer. Paused,
+     every moving drawing stops where it is, whatever is still to be drawn
+     appears at once, and the choice is kept for the next page, which then
+     starts calm. Motion stays on by default (the client's look). */
+  const motionBtns = $$('[data-motion]');
+  const pressed = on => motionBtns.forEach(b => b.setAttribute('aria-pressed', String(on)));
+  function setStill(on) {
+    root.classList.toggle('is-still', on);
+    pressed(on);
+    try { if (on) localStorage.setItem('bc8-still', '1'); else localStorage.removeItem('bc8-still'); } catch (e) {}
+    if (!motion) return;
+    gsap.globalTimeline.timeScale(on ? 60 : 1);   // a drawing that starts while paused is there at once
+    if (on) gsap.globalTimeline.getChildren(false, true, true).forEach(t => { if (!t.scrollTrigger && t.progress() < 1) t.progress(1); });
+  }
+  pressed(reduce || stored);
+  motionBtns.forEach(b => b.addEventListener('click', () => {
+    if (reduce) { say('Your device asks for reduced motion, so nothing here moves.', 4000); return; }
+    const on = b.getAttribute('aria-pressed') !== 'true';
+    setStill(on);
+    say(on ? 'Motion paused, here and on the next pages.' : motion ? 'Motion back on.' : 'Motion comes back on the next page you open.', 3200);
+  }));
 
   /* ------------------------------------------------------------- footer */
   /* On a phone the four lists of links fold under their headings (the first
@@ -1414,7 +1503,7 @@
   if (motion) {
     const go = () => { if (!root.classList.contains('is-intro')) return; runIntro(); };
     if (hero) {
-      if (globe) Promise.race([globe.loaded, new Promise(r => setTimeout(r, 1800))]).then(go, go);
+      if (globe && !window.__inside) Promise.race([globe.loaded, new Promise(r => setTimeout(r, 1800))]).then(go, go);
       else go();
     }
     chapters();

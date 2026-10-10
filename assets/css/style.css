@@ -42,7 +42,9 @@ html{scrollbar-gutter:stable;-webkit-text-size-adjust:100%;overflow-x:clip}
 /* on a projector or a wide monitor the type grows with the screen */
 @media (min-width:1600px){html{font-size:clamp(16px,.9vw,19px)}}
 .motion{scroll-behavior:smooth}
-[id]{scroll-margin-top:84px}
+/* whatever is scrolled to, by a link or by the keyboard's focus, stays clear of the bar (WCAG 2.4.11) */
+html{scroll-padding-top:84px}
+html:not(.js){scroll-padding-top:calc(100px + var(--util-h))}
 input[type=search]{-webkit-appearance:none;appearance:none}
 input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none;display:none}
 html.is-intro{overflow:hidden}
@@ -105,7 +107,7 @@ em{font-style:italic}
 }
 
 /* ------------------------------------------------------------ type bits */
-.ch{position:relative;padding:clamp(5rem,11vw,10rem) 0}
+.ch{position:relative;padding:clamp(4rem,8vw,7.5rem) 0}
 .ch__no{display:flex;align-items:baseline;gap:1.1rem;font:600 .875rem/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
 .ch__no span{padding-bottom:.5rem;background:var(--wob) no-repeat left bottom/100% 6px;white-space:nowrap}
 .ch__no i{font-size:1.4rem;letter-spacing:0;text-transform:none;color:var(--ink)}
@@ -136,11 +138,44 @@ h3{font-family:var(--serif);font-weight:600;letter-spacing:-.01em}
 .rnd:hover{background:#e2ad2b55;transform:rotate(-4deg)}
 .rnd .ico{width:1.9rem;height:.85rem}
 
+/* --------------------------------------------------------- urgent notice */
+/* One notice at a time, above everything, the opening included (decision D10).
+   Ivory on a deep red: 8.9:1. The bars below it move down by its height. */
+.alert{position:fixed;inset:0 0 auto;z-index:75;display:flex;align-items:center;gap:1rem;padding:.55rem var(--gut);background:#6e2214;color:var(--ivory);font:600 1rem/1.4 var(--sans)}
+.alert[hidden]{display:none}
+.alert__in{flex:1;min-width:0}
+.alert .tag{color:var(--ivory);margin-right:.4rem}
+.alert .lk{color:var(--ivory);background-image:var(--wob-l);white-space:nowrap}
+.alert__close{flex:none;display:grid;place-items:center;width:44px;height:44px;color:var(--ivory)}
+.alert__close .ico{width:1.1rem;height:1.1rem}
+.alert :focus-visible{outline-color:var(--ivory)}
+.has-alert .util{top:var(--alert-h)}
+.has-alert .nav,.has-alert .nav.is-scrolled{top:calc(var(--alert-h) + var(--util-h))}
+html.has-alert.is-scrolled .nav{top:var(--alert-h)}
+html.has-alert{scroll-padding-top:calc(84px + var(--alert-h))}
+.has-alert .intro__skip{top:calc(var(--alert-h) + 16px)}
+
+/* ---------------------------------------------------------- utility line */
+/* above the bar: the official site, Philippine Standard Time (RA 10535), 911,
+   accessibility and the motion switch. It steps away once the page scrolls,
+   and on phones its contents live in the menu. */
+:root{--util-h:38px}
+.util{position:fixed;inset:0 0 auto;z-index:61;height:var(--util-h);display:flex;align-items:center;justify-content:space-between;gap:2rem;padding:0 var(--gut);font:600 .875rem/1 var(--sans);letter-spacing:.02em;color:var(--ink-2);background:var(--paper) url(../art/paper-texture.webp);border-bottom:1px solid var(--line);transition:transform .3s var(--ease),opacity .8s}
+.util p{display:flex;align-items:center;gap:1.5rem;white-space:nowrap}
+.util a,.util button{color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.25em;padding:.55rem 0}
+.util__time{font-variant-numeric:tabular-nums}
+.util__time abbr{text-decoration:none}
+html.is-scrolled .util{transform:translateY(-100%)}
+.motion.is-intro .util{opacity:0;visibility:hidden}
+@media (max-width:1240px){.util__gov{display:none}.util{justify-content:flex-end}}
+@media (max-width:760px){:root{--util-h:0px}.util{display:none}}
+[data-motion][aria-pressed="true"]{font-style:italic}
+
 /* ------------------------------------------------------------------ nav */
-.nav{position:fixed;inset:0 0 auto;z-index:60;display:flex;align-items:center;gap:2rem;height:82px;padding:0 var(--gut);transition:height .3s var(--ease),background-color .3s,opacity .8s}
+.nav{position:fixed;inset:0 0 auto;top:var(--util-h);z-index:60;display:flex;align-items:center;gap:2rem;height:82px;padding:0 var(--gut);transition:height .3s var(--ease),top .3s var(--ease),background-color .3s,opacity .8s}
 .hero__lede,.hero__find,.hero__quick{transition:opacity .8s}
 .nav .rule{position:absolute;left:0;bottom:-5px;opacity:0;transition:opacity .3s}
-.nav.is-scrolled{height:64px;background:var(--paper) url(../art/paper-texture.webp)}
+.nav.is-scrolled{top:0;height:64px;background:var(--paper) url(../art/paper-texture.webp)}
 /* without scripts nothing marks the bar as scrolled, so it keeps its paper and its rule throughout */
 html:not(.js) .nav{background:var(--paper) url(../art/paper-texture.webp)}
 html:not(.js) .nav .rule{opacity:1}
@@ -173,9 +208,14 @@ html:not(.js) .nav .rule{opacity:1}
 .menu :focus-visible{outline-color:var(--ivory)}
 .menu__in{position:relative;z-index:2;min-height:100%;display:grid;grid-template-columns:1.3fr 1fr;gap:6vw;align-items:center;padding:96px var(--gut) 50px}
 .menu__main{display:grid;gap:.1rem}
-.menu__main a{position:relative;display:flex;align-items:baseline;gap:1.4rem;font:500 clamp(2.2rem,5.2vw,4.4rem)/1 var(--serif);letter-spacing:-.015em;text-decoration:none;padding:.18em 0;background:var(--wob-l) no-repeat left 96%/0 7px;transition:background-size .45s var(--ease),transform .45s var(--ease)}
+.menu__main a{position:relative;display:flex;align-items:baseline;gap:1.4rem;font:500 clamp(2.1rem,4.4vw,3.8rem)/1 var(--serif);letter-spacing:-.015em;text-decoration:none;padding:.18em 0;background:var(--wob-l) no-repeat left 96%/0 7px;transition:background-size .45s var(--ease),transform .45s var(--ease)}
 .menu__main a i{font:600 .875rem/1 var(--sans);letter-spacing:.1em;font-style:normal;width:1.9rem;flex:none}
 .menu__main a:hover,.menu__main a:focus-visible{background-size:100% 7px;font-style:italic;transform:translateX(.6rem)}
+.menu__main .menu__sub{display:flex;flex-wrap:wrap;gap:0 1.5rem;margin:.1rem 0 .8rem}
+.menu__main .menu__sub a{display:inline-block;font:600 1rem/1.3 var(--sans);letter-spacing:.02em;padding:.55rem 0;background:var(--wob-l) no-repeat left bottom/100% 3px;transform:none;animation:none}
+.menu__main .menu__sub a:hover,.menu__main .menu__sub a:focus-visible{font-style:normal;transform:none;background-size:100% 3px;text-decoration:underline;text-underline-offset:.35em}
+.menu__util{margin-top:1.4rem;display:flex;flex-wrap:wrap;align-items:center;gap:.2rem 1.5rem;font:600 1rem/1.3 var(--sans)}
+.menu__util a,.menu__util button{color:var(--ivory);text-decoration:underline;text-underline-offset:.25em;padding:.55rem 0}
 .menu__hand{font-size:1.5rem;margin-bottom:1.1rem;color:var(--yellow)}
 .menu__side li{border-top:1px solid rgba(241,232,210,.22)}
 .menu__side li a{display:block;padding:.85rem 0;text-decoration:none;font-size:1.0625rem}
@@ -227,8 +267,8 @@ html:not(.js) .nav .rule{opacity:1}
 /* The drawing is as wide as it takes to cover the window, but never so wide
    that the title is cropped at the sides (113.6vw) or pushed up under the
    navigation: the last term keeps "Welcome to" 96px from the top. */
-.hero{position:relative;--sw:min(max(100vw,177.78svh),205svh,113.6vw,calc((100svh - 96px)*2.2297));--focus:.5}
-.motion .hero{height:300svh}
+.hero{position:relative;--sw:min(max(100vw,177.78svh),205svh,113.6vw,calc((100svh - 96px - var(--util-h) - var(--alert-h,0px))*2.2297));--focus:.5}
+.motion .hero{height:200svh}
 .hero__stage{position:relative;height:100svh;min-height:600px;overflow:hidden}
 .motion .hero__stage{position:sticky;top:0}
 .hero__scene{position:absolute;bottom:0;left:calc(50% - var(--focus)*var(--sw));width:var(--sw);container-type:inline-size;transform-origin:calc(var(--focus)*100%) 66%;will-change:transform}
@@ -246,6 +286,7 @@ html:not(.js) .nav .rule{opacity:1}
 .hero__lede{margin-top:.9rem;font-size:1.0625rem;line-height:1.5;color:var(--ink-2);max-width:34ch}
 /* the Mayor's refrain: three beats, each on its own line; the English under them */
 .hero__refrain span{display:block}
+.hero__kicker{display:none}
 .hero__find{margin-top:.6rem}
 .hero__find .find{margin-top:0;max-width:none}
 .hero__find .find input{font-size:1.45rem;padding:.55rem 0}
@@ -370,7 +411,8 @@ html:not(.js) .nav .rule{opacity:1}
 .spread__text p:not(.spread__no){color:var(--ink-2);max-width:34ch;margin-bottom:1rem}
 .thread{position:absolute;left:0;bottom:.6rem;width:100%;height:30px;z-index:-1;opacity:.45}
 .thread path{stroke-width:.9}
-.can-pin .explore{height:calc(100svh + var(--travel,300vw))}
+/* the six pages turn in under three screens of scroll (decision D9) */
+.can-pin .explore{height:calc(100svh + min(var(--travel,300vw) * .4, 200svh))}
 .can-pin .explore__pin{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;padding:6.2rem 0 0}
 .can-pin .explore__track{flex:1;overflow:visible;width:max-content;align-items:center;padding-top:0;padding-bottom:2.2rem;will-change:transform}
 .can-pin .spread{width:min(80vw,calc((100svh - 15.5rem)*2.45),1240px)}
@@ -533,6 +575,7 @@ html:not(.js) .nav .rule{opacity:1}
 .foot__art::after{content:"";position:absolute;left:0;right:0;bottom:0;height:22%;background:linear-gradient(transparent,var(--dusk))}
 .foot__in{background:var(--dusk) url(../art/paper-texture.webp);background-blend-mode:multiply;padding:clamp(1.5rem,3vw,2.5rem) 0 2.2rem}
 .foot :focus-visible{outline-color:var(--ivory)}
+.foot__base button{display:inline-block;padding:.3rem 0;color:inherit;text-decoration:underline;text-underline-offset:.3em}
 .foot__sign{font-size:clamp(1.6rem,2.4vw,2.1rem);color:var(--yellow);margin-bottom:1rem}
 .foot__refrain{font:600 clamp(1.25rem,1.7vw,1.5rem)/1.35 var(--serif);color:var(--ivory);max-width:64ch;margin-bottom:clamp(2rem,4vw,3.5rem)}
 .foot__refrain span{display:block;margin-top:.2rem}
@@ -613,6 +656,8 @@ html:not(.js) .nav .rule{opacity:1}
 .motion .is-live .portrait__sheet .wash[data-w="gold"]{animation:mv-drift 22s ease-in-out infinite alternate-reverse}
 .motion .is-live.news .rule{animation:mv-pulse 5s ease-in-out infinite alternate}
 .is-asleep .mv,.is-asleep .mv>g,.is-asleep .wash,.is-asleep .dab,.is-asleep .rule{animation-play-state:paused!important}
+/* Pause motion: every moving drawing stops where it is */
+.is-still .mv,.is-still .mv>g,.is-still .wash,.is-still .dab,.is-still .rule,.is-still .ink .route,.is-still .hero__scroll .ico,.is-still .people__scroll .scene{animation-play-state:paused!important}
 @keyframes frieze{to{transform:translateX(calc(100vw - 100%))}}
 @keyframes mv-drift{to{transform:translateX(24px)}}
 @keyframes mv-glide{to{transform:translate(42px,-10px)}}
@@ -680,8 +725,8 @@ html:not(.js) .nav .rule{opacity:1}
 .cursor.is-light i{background:var(--ivory)}
 .cursor.is-light svg{stroke:var(--ivory)}
 .cursor.is-light b{color:var(--ivory)}
-.has-cursor,.has-cursor a,.has-cursor button,.has-cursor .hit{cursor:none}
-.has-cursor input{cursor:text}
+/* the system pointer stays (decision D3): someone who enlarged or recoloured it keeps it; the ring and its word follow it */
+.has-cursor .cursor i{display:none}
 
 /* ------------------------------------------------------------ responsive */
 /* ----------------------------------------------------------- inner pages */
@@ -689,7 +734,8 @@ html:not(.js) .nav .rule{opacity:1}
    opens with its drawing and a row of pictograms; every section leads with a
    drawing, pictograms, big figures or a drawn track; requirements, addresses
    and the small print fold away until someone asks for them. */
-.page{padding-top:clamp(6.5rem,10vw,8.5rem)}
+/* below the bar, the line above it and any notice above that */
+.page{padding-top:calc(clamp(6.5rem,10vw,8.5rem) + var(--util-h) + var(--alert-h,0px))}
 symbol[id^="i-g-"] .a{stroke-width:1.3}
 symbol[id^="i-g-"] .dot{fill:currentColor;stroke:none}
 .icon{width:3rem;height:3rem;flex:none;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
@@ -770,7 +816,7 @@ a.tile:hover b,a.tile:focus-visible b{font-style:italic}
 
 /* the small print folds away: pictogram, name, one line, a drawn plus */
 .folds--2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 4vw;align-items:start}
-.fold{background:var(--wob) no-repeat left bottom/100% 4px;scroll-margin-top:6rem}
+.fold{background:var(--wob) no-repeat left bottom/100% 4px;scroll-margin-top:.75rem}
 .fold>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;gap:.15rem 1rem;align-items:center;padding:.95rem 0 1rem}
 .fold>summary::-webkit-details-marker{display:none}
 .fold>summary .pic{grid-row:1/span 2;grid-column:1}
@@ -849,7 +895,7 @@ a.call:hover>b,a.call:focus-visible>b{font-style:italic}
 .cols b{font-weight:600;color:var(--ink)}
 
 /* a group of services: its pictogram, its name, its office */
-.grp{padding-top:clamp(2rem,4.5vw,3.4rem);scroll-margin-top:5rem}
+.grp{padding-top:clamp(2rem,4.5vw,3.4rem)}
 .grp__head{display:flex;align-items:center;flex-wrap:wrap;gap:.6rem 1.1rem;padding-bottom:.4rem}
 .grp__head h3{font:500 clamp(1.9rem,3vw,2.7rem)/1 var(--serif);letter-spacing:-.012em}
 .grp__head .aside{font-size:1.3rem;color:var(--ink-2)}
@@ -975,8 +1021,9 @@ a.call:hover>b,a.call:focus-visible>b{font-style:italic}
 @media (max-aspect-ratio:1/1),(max-width:1100px){
   .hero{--sw:max(100vw,min(150vw,150svh));--focus:.56}
   .motion .hero{height:auto}
-  .hero__stage,.motion .hero__stage{position:relative;height:auto;min-height:0;display:flex;flex-direction:column;padding-top:96px}
+  .hero__stage,.motion .hero__stage{position:relative;height:auto;min-height:0;display:flex;flex-direction:column;padding-top:calc(96px + var(--util-h) + var(--alert-h,0px))}
   .hero__panel{position:relative;order:1;left:auto;bottom:auto;width:auto;max-width:36rem;margin:0 var(--gut)}
+  .hero__kicker{display:block;font:600 .875rem/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.9rem}
   .hero__scene{position:relative;order:2;bottom:auto;flex:none;margin-top:.5rem;will-change:auto}
   .hero__end,.motion .hero__stage .hero__end{position:relative;order:3;left:auto;right:auto;top:auto;bottom:auto;width:auto;max-width:46rem;margin:0;padding:2.2rem var(--gut) 0;opacity:1;visibility:visible}
   .hero__panel::before,.motion .hero__stage .hero__end::before{display:none}
@@ -1025,7 +1072,7 @@ a.call:hover>b,a.call:focus-visible>b{font-style:italic}
   .totop{bottom:calc(62px + env(safe-area-inset-bottom,0px) + .8rem)}
   /* the top bar keeps the seal and the name; search and menu live in the dock */
   .nav__tools{display:none}
-  .nav{transition:transform .3s var(--ease),height .3s var(--ease),background-color .3s,opacity .8s}
+  .nav{transition:transform .3s var(--ease),height .3s var(--ease),top .3s var(--ease),background-color .3s,opacity .8s}
   .nav.is-away{transform:translateY(-100%)}
 
   /* less air between chapters */
@@ -1045,7 +1092,6 @@ a.call:hover>b,a.call:focus-visible>b{font-style:italic}
   .help__body{order:2;margin-top:.4rem}
   .street{order:3;margin-top:1.6rem}
   .street__hint{justify-content:flex-start;margin-top:.5rem}
-  .svc-item{scroll-margin-top:5rem}
 
   /* 03, 04 the officials: the portrait beside the name, then the rest */
   .mayor__grid,.mayor--rep .mayor__grid{grid-template-columns:42% 1fr;grid-auto-flow:row dense;gap:.9rem 1rem;align-items:end}
@@ -1096,7 +1142,7 @@ a.call:hover>b,a.call:focus-visible>b{font-style:italic}
 }
 /* fingers need more than a line of text (last, so it outranks the rules above) */
 @media (pointer:coarse){
-  .lk{display:inline-block;padding-top:.5em;padding-bottom:.55em}
+  .lk{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;padding-top:0;padding-bottom:0}
   .hero__quick .lk{padding-top:.8em;padding-bottom:.85em}
   .nav__brand{min-height:44px}
   .nav__btn{min-width:44px;min-height:44px;justify-content:center}
@@ -1106,7 +1152,14 @@ a.call:hover>b,a.call:focus-visible>b{font-style:italic}
   .cta,.tile__go .lk{min-height:44px}
   .tile__go .lk,.spot a.lk{display:inline-flex;align-items:center;padding-top:0;padding-bottom:0}
   .spot a.lk{min-height:44px}
+  .util a,.util button,.menu__util a,.menu__util button,.foot__base button,.foot__ph a{display:inline-flex;align-items:center;min-height:44px;padding-top:0;padding-bottom:0}
 }
+/* a tablet in the hand: the line above the bar is tall enough for a finger (phones have none) */
+@media (pointer:coarse) and (min-width:761px){:root{--util-h:48px}}
+/* phones: the homepage's News shows the four latest; the archive, with its filters, is one tap away (decision D9) */
+/* phones: what the keyboard's focus scrolls to stays clear of the bottom bar too */
+@media (max-width:760px){html{scroll-padding-bottom:calc(76px + env(safe-area-inset-bottom))}}
+@media (max-width:760px){.news .filters{display:none}.news__grid .news__col:last-child{display:none}.heritage__aside{display:none}}
 /* when motion is off the frieze cannot drift, so it scrolls */
 @media (max-width:900px) and (prefers-reduced-motion:reduce){
   .people__scroll{overflow-x:auto}

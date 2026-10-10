@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Privacy notice · Batangas City</title>
+<meta name="description" content="How the Batangas City website treats your information under the Data Privacy Act of 2012: what it collects, the search and forms, your rights, and the City's Data Protection Officer.">
+<meta name="theme-color" content="#f7f2e7">
+<link rel="icon" href="assets/images/icons/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="assets/images/icons/icon-192.png">
+<link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Batangas City">
+<meta property="og:locale" content="en_PH">
+<meta property="og:title" content="Privacy notice · Batangas City">
+<meta property="og:description" content="How the Batangas City website treats your information under the Data Privacy Act of 2012: what it collects, the search and forms, your rights, and the City&#x27;s Data Protection Officer.">
+<meta property="og:url" content="https://ikdelacruz.github.io/batangas-city-homepage/privacy.html">
+<meta property="og:image" content="https://ikdelacruz.github.io/batangas-city-homepage/assets/images/share/privacy.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="An ink and wash drawing of Batangas City">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Privacy notice · Batangas City">
+<meta name="twitter:description" content="How the Batangas City website treats your information under the Data Privacy Act of 2012: what it collects, the search and forms, your rights, and the City&#x27;s Data Protection Officer.">
+<meta name="twitter:image" content="https://ikdelacruz.github.io/batangas-city-homepage/assets/images/share/privacy.jpg">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>
+  /* Motion is opt-in: without this class every drawing is simply there. Inner pages have no opening. */
+  (function (r) {
+    r.classList.add('js');   /* scripts run: the bar takes its paper once the page scrolls (without them it always has it) */
+    var still = false;   /* Pause motion, kept from an earlier page */
+    try { still = localStorage.getItem('bc8-still') === '1'; } catch (e) {}
+    if (still) r.classList.add('is-still');
+    else if (!matchMedia('(prefers-reduced-motion: reduce)').matches) r.classList.add('motion');
+    setTimeout(function () { if (!window.__drawn) r.classList.remove('motion'); }, 5000);
+  })(document.documentElement);
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<script src="assets/data/shell.js"></script>
+
+<!-- ======================================================= navigation -->
+<!-- an urgent notice from the City (a typhoon, a class suspension): one at a time, above everything -->
+<div class="alert" id="alert" hidden>
+  <p class="alert__in" role="status"><span class="tag" id="alert-kind"></span> <span id="alert-text"></span> <a class="lk" id="alert-more" href="news.html">Details</a></p>
+  <button type="button" class="alert__close" id="alert-close" aria-label="Dismiss this notice"><svg class="ico" viewBox="0 0 26 26" aria-hidden="true"><use href="#i-close"/></svg></button>
+</div>
+
+<!-- the line above the bar: the official site, the time, the way to 911, accessibility, motion -->
+<aside class="util" id="util" aria-label="Site information">
+  <p class="util__gov">The official website of the City Government of Batangas</p>
+  <p class="util__tools"><time class="util__time" data-pst>Philippine Standard Time</time><a href="tel:911">Call 911</a><a href="accessibility.html">Accessibility</a><button type="button" data-motion aria-pressed="false">Pause motion</button></p>
+</aside>
+
+<header class="nav is-page" id="nav">
+  <a class="nav__brand" href="index.html" aria-label="Batangas City, home">
+    <img src="assets/images/seal-92.webp" width="46" height="46" alt="">
+    <span class="nav__name">Batangas City<small>Republic of the Philippines</small></span>
+  </a>
+  <nav class="nav__links" aria-label="Primary">
+    <a href="services.html" data-nav="services">Services</a>
+    <a href="emergency.html" data-nav="emergency">Emergency</a>
+    <a href="government.html" data-nav="government">Government</a>
+    <a href="business.html" data-nav="business">Business</a>
+    <a href="visit.html" data-nav="discover">Discover</a>
+    <a href="news.html" data-nav="news">News</a>
+    <a href="contact.html" data-nav="contact">Contact</a>
+  </nav>
+  <div class="nav__tools">
+    <a class="nav__btn" href="services.html" data-open="search">
+      <svg class="ico" viewBox="0 0 28 28"><use href="#i-search"/></svg><span>Search</span>
+    </a>
+    <a class="nav__btn" href="#sitemap" data-open="menu">
+      <svg class="ico" viewBox="0 0 30 24"><use href="#i-menu"/></svg><span>Menu</span>
+    </a>
+  </div>
+  <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 5 150 6Q200 7 250 6Q300 5 350 6Q400 6 450 6Q500 5 550 5Q600 4 650 5Q700 6 750 5Q800 4 850 5Q900 6 950 5Q1000 4 1050 4Q1100 5 1200 6"/></svg>
+</header>
+
+<!-- ============================================================= menu -->
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Site menu" hidden>
+  <div class="menu__wash" aria-hidden="true"><img class="wash" data-w="blot" src="assets/art/wash/menu-blot.webp" alt="" width="678" height="561" loading="lazy" decoding="async" style="left:3.71%;top:0.00%;width:96.86%;height:100.18%"><img class="wash" data-w="gold" src="assets/art/wash/menu-gold.webp" alt="" width="197" height="205" loading="lazy" decoding="async" style="left:67.57%;top:1.96%;width:28.14%;height:36.61%"></div>
+  <button class="menu__close" type="button" data-close>Close <svg class="ico" viewBox="0 0 26 26"><use href="#i-close"/></svg></button>
+  <div class="menu__in">
+    <nav class="menu__main" aria-label="Sections">
+      <a href="services.html">Services</a>
+      <a href="emergency.html">Emergency</a>
+      <a href="government.html">Government</a>
+      <p class="menu__sub"><a href="mayor.html">The Mayor</a><a href="congresswoman.html">The Congresswoman</a><a href="government.html#council">City Council</a><a href="government.html#departments">Offices</a><a href="government.html#barangays">Barangays</a><a href="transparency.html">Transparency</a></p>
+      <a href="business.html">Business</a>
+      <a href="visit.html">Discover</a>
+      <p class="menu__sub"><a href="visit.html#plan">Plan a visit</a><a href="heritage.html">Heritage</a><a href="visit.html#eat">Where to eat</a><a href="visit.html#fiesta">The fiesta</a><a href="index.html#map">City map</a></p>
+      <a href="news.html">News</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="menu__side">
+      <p class="aside menu__hand">most people come for</p>
+      <ul>
+        <li><a href="services.html#mac">EBD and the Mayor's Action Center</a></li>
+        <li><a href="services.html#birth-marriage-death-certificates">Birth, marriage and death certificates</a></li>
+        <li><a href="services.html#business-permit">Business permit, new or renewal</a></li>
+        <li><a href="services.html#real-property-tax">Real property tax</a></li>
+        <li><a href="services.html#job-vacancies">Job vacancies</a></li>
+        <li><a href="news.html">Advisories and notices</a></li>
+      </ul>
+      <p class="menu__call">In an emergency call <a href="tel:911">911</a></p>
+      <p class="menu__util"><time class="util__time" data-pst>Philippine Standard Time</time><a href="accessibility.html">Accessibility</a><button type="button" data-motion aria-pressed="false">Pause motion</button></p>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================== search -->
+<div class="search" id="search" role="dialog" aria-modal="true" aria-label="Search the site" hidden>
+  <button class="menu__close" type="button" data-close>Close <svg class="ico" viewBox="0 0 26 26"><use href="#i-close"/></svg></button>
+  <div class="search__in">
+    <label class="aside" for="q">what are you looking for?</label>
+    <input id="q" type="search" autocomplete="off" placeholder="permit, taxes, ferry, hotline…" aria-controls="q-results">
+    <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 7 150 7Q200 7 250 7Q300 8 350 6Q400 5 450 5Q500 5 550 6Q600 7 650 7Q700 7 750 6Q800 6 850 6Q900 7 950 6Q1000 6 1050 6Q1100 7 1200 4"/></svg>
+    <ul class="search__results" id="q-results"></ul>
+    <p class="sr" id="q-count" role="status"></p>
+    <p class="search__hint">This prototype searches the homepage and its ten pages.</p>
+  </div>
+</div>
+
+<main id="main" class="page">
+
+<header class="phero wrap">
+  <div>
+    <nav class="ch__no page__crumb" aria-label="Breadcrumb" data-reveal><span><a href="index.html">Batangas City</a> · <b aria-current="page">Privacy notice</b></span><i class="aside">the Data Privacy Act of 2012</i></nav>
+    <h1 class="display display--s" data-reveal>Your information, <em>kept</em></h1>
+    <p class="phero__lede" data-reveal>How this website treats what you tell it, under the Data Privacy Act of 2012 (Republic Act 10173).</p>
+  </div>
+  <nav class="jump" aria-label="On this page" data-reveal>
+    <a href="#collects"><span class="pic"><svg class="icon"><use href="#i-g-shield"/></svg></span>What it keeps</a>
+    <a href="#forms"><span class="pic pic--g"><svg class="icon"><use href="#i-g-document"/></svg></span>Search and forms</a>
+    <a href="#rights"><span class="pic pic--s"><svg class="icon"><use href="#i-g-handshake"/></svg></span>Your rights</a>
+    <a href="#dpo"><span class="pic pic--t"><svg class="icon"><use href="#i-g-people"/></svg></span>Who to ask</a>
+  </nav>
+</header>
+
+<section class="sec wrap" id="collects" aria-labelledby="t-collects">
+  <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 7 150 7Q200 7 250 7Q300 6 350 5Q400 4 450 6Q500 7 550 7Q600 8 650 7Q700 6 750 6Q800 6 850 5Q900 5 950 4Q1000 4 1050 5Q1100 5 1200 7"/></svg>
+  <div class="duo">
+    <div class="duo__art" data-draw>
+      <div class="scene" style="--ar:470/340"><img class="wash" data-w="roof" src="assets/art/wash/bahay-roof.webp" alt="" width="318" height="118" loading="lazy" decoding="async" style="left:10.17%;top:8.50%;width:75.18%;height:38.56%"><img class="wash" data-w="wood" src="assets/art/wash/bahay-wood.webp" alt="" width="392" height="162" loading="lazy" decoding="async" style="left:6.15%;top:25.16%;width:92.67%;height:52.94%"><svg class="ink" viewBox="0 0 470 340" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><g data-l="draw"><path class="b" pathLength="100" d="M38.6 309.8Q62.3 311.1 74.1 311Q85.9 310.9 97.8 311.1Q109.6 311.3 121.4 311.3Q133.3 311.2 145.1 310.9Q157 310.5 168.8 310.5Q180.6 310.5 192.5 310.7Q204.3 310.9 216.1 311Q228 311.2 239.8 311.4Q251.7 311.7 263.5 311.7Q275.3 311.7 287.2 311.9Q299 312.1 310.8 311.9Q322.7 311.7 334.5 311.6Q346.4 311.5 358.2 311.2Q370 310.9 381.9 310.7Q393.7 310.6 417.4 310.1"/><path class="b" pathLength="100" d="M376.1 211.7Q376.4 231.5 376.1 241.4Q375.8 251.3 376.2 261.2Q376.5 271.1 376.4 281Q376.2 290.9 376 310.8M76.2 311.4Q76.2 292 75.8 282.2Q75.5 272.5 75.4 262.7Q75.3 253 75.7 243.2Q76 233.5 75.9 214"/><path class="b" pathLength="100" d="M62.2 119.5Q85.5 119.7 97.2 119.6Q108.9 119.6 120.5 119.3Q132.2 118.9 143.9 119.2Q155.5 119.5 167.2 119.6Q178.9 119.7 190.5 120.1Q202.2 120.4 213.9 120.5Q225.5 120.6 237.2 120.6Q248.9 120.6 260.5 120.1Q272.2 119.7 283.9 119.5Q295.5 119.3 307.2 119.3Q318.9 119.3 330.5 119.3Q342.2 119.3 353.9 119.8Q365.5 120.3 388.9 120.5M387.8 117.7Q387.6 137.4 387.7 147.3Q387.7 157.1 387.9 167Q388.1 176.9 388.2 186.7Q388.3 196.6 388.2 216.4M390 214.5Q366.7 214.5 355.1 214.5Q343.4 214.6 331.8 214.3Q320.1 214 308.5 213.8Q296.9 213.5 285.2 213.6Q273.6 213.7 261.9 213.9Q250.3 214 238.6 214Q227 213.9 215.3 214.1Q203.7 214.4 192 214.6Q180.4 214.8 168.7 215Q157.1 215.3 145.4 215.1Q133.8 214.9 122.1 214.5Q110.5 214.2 98.8 214.1Q87.2 214 63.9 213.5M64 214.9Q64 195.6 63.7 186Q63.5 176.4 63.4 166.8Q63.2 157.2 63.5 147.5Q63.8 137.9 64.1 118.7"/><path class="b" pathLength="100" d="M46.1 120.3Q61.7 107.7 69.5 101.4Q77.3 95.1 85.2 88.9Q93.1 82.7 101 76.5Q108.9 70.4 124.6 57.8M120.6 58.2Q144 58.1 155.7 58.3Q167.4 58.5 179.2 58.6Q190.9 58.7 202.6 58.6Q214.3 58.5 226.1 58.2Q237.8 57.9 249.5 57.9Q261.2 57.9 272.9 58.2Q284.7 58.6 296.4 58.6Q308.1 58.6 331.6 57.9M325.1 55.7Q341.5 68.8 349.4 75.6Q357.4 82.4 365.5 89Q373.6 95.6 382.1 101.7Q390.5 107.9 407 120.8"/><path class="b" pathLength="100" d="M43.5 119.5Q66.3 119.8 77.7 119.7Q89.1 119.5 100.5 120Q111.9 120.4 123.3 120.5Q134.7 120.6 146.1 120.9Q157.5 121.3 168.9 121.4Q180.3 121.6 191.7 121.2Q203.1 120.9 214.5 120.7Q225.9 120.4 237.3 120.2Q248.7 119.9 260.1 119.8Q271.4 119.8 282.8 120Q294.2 120.2 305.6 120.5Q317 120.7 328.4 121Q339.8 121.4 351.2 121.1Q362.6 120.9 374 120.6Q385.4 120.3 408.2 119.4"/><path class="a" pathLength="100" d="M121.1 65Q144.5 65.5 156.3 65.5Q168 65.5 179.7 65.4Q191.4 65.4 203.1 65.2Q214.8 65.1 226.5 65.1Q238.3 65 250 65Q261.7 65.1 273.4 65.1Q285.1 65.1 296.8 65.2Q308.6 65.2 332 65.4M108.8 74.5Q131.5 74.4 142.8 74.4Q154.1 74.4 165.5 74.6Q176.8 74.7 188.1 74.8Q199.4 74.9 210.8 75Q222.1 75 233.4 74.8Q244.8 74.6 256.1 74.6Q267.4 74.5 278.7 74.5Q290.1 74.4 301.4 74.5Q312.7 74.6 335.4 74.5M95.5 86.3Q117.6 86.1 128.6 86.1Q139.6 86.2 150.6 86.4Q161.7 86.6 172.7 86.5Q183.7 86.4 194.7 86.2Q205.7 86 216.8 85.9Q227.8 85.9 238.8 85.9Q249.8 85.9 260.9 85.9Q271.9 85.9 282.9 86.1Q293.9 86.3 304.9 86.4Q316 86.4 327 86.5Q338 86.6 360 86.4M82.3 94.8Q106 95.2 117.8 95.1Q129.6 95 141.5 94.8Q153.3 94.6 165.2 94.4Q177 94.3 188.8 94.4Q200.7 94.5 212.5 94.6Q224.3 94.6 236.2 94.7Q248 94.8 259.9 94.9Q271.7 95.1 283.5 95.1Q295.4 95.1 307.2 94.9Q319 94.8 330.9 94.7Q342.7 94.6 366.4 94.6M77.9 105.7Q100.9 105.5 112.4 105.4Q123.9 105.4 135.4 105.5Q146.9 105.6 158.4 105.6Q169.9 105.6 181.4 105.7Q192.9 105.7 204.4 105.7Q215.9 105.8 227.4 105.8Q238.9 105.8 250.4 105.6Q261.9 105.4 273.4 105.4Q284.9 105.4 296.4 105.4Q307.9 105.3 319.4 105.3Q330.9 105.3 342.4 105.3Q353.9 105.2 376.9 105.9M69.3 113.2Q91.6 113.5 102.8 113.3Q113.9 113.2 125.1 113.2Q136.2 113.1 147.4 113Q158.5 113 169.7 113Q180.8 113 192 113Q203.1 113.1 214.3 113.3Q225.4 113.5 236.6 113.6Q247.7 113.7 258.9 113.6Q270 113.5 281.2 113.5Q292.3 113.5 303.5 113.5Q314.6 113.5 325.7 113.3Q336.9 113.1 348 113Q359.2 112.9 381.5 113.7"/><path class="b" pathLength="100" d="M200 310Q200 264 201.3 258.4Q202.6 252.7 206.2 248.2Q209.8 243.7 215 241.2Q220.2 238.7 226 238.7Q231.8 238.7 237 241.2Q242.2 243.7 245.8 248.2Q249.4 252.7 250.7 258.4Q252 264 252 310"/><path class="a" pathLength="100" d="M238.2 247.2Q243.2 257.2 248.6 266.9M228.9 242.9Q239.6 262.6 249.9 282.5M225 244.8Q233 259.4 237 266.8Q241 274.1 248.5 289M220.3 245Q229.9 263.2 234.7 272.3Q239.5 281.4 249.2 299.6M212.3 246.5Q220.9 262.6 225.2 270.6Q229.5 278.6 233.9 286.6Q238.2 294.6 246.4 310.9M208.6 249.7Q219.5 270.2 225 280.5Q230.6 290.7 241.5 311.2M204.7 258.2Q214.3 275.9 219.1 284.8Q223.9 293.6 233.1 311.5M203.4 267.2Q210.7 281.5 214.5 288.6Q218.3 295.7 226 309.9M203.8 279.1Q211.7 293.7 219.4 308.4M203.6 287.8Q209.1 298.6 215 309.2M203.3 302.6Q205.1 306.3 207.1 309.9"/><path class="a" pathLength="100" d="M107.6 240.1Q131.3 239.9 154.9 240.1M153.8 239Q153.4 260.9 154.1 282.8M156.5 282.1Q132.5 281.4 108.5 282.1M110.1 283.8Q110.2 261.6 110 239.4"/><path class="a" pathLength="100" d="M118 242Q117.8 261 118 280M127.5 242Q127.6 261 127.6 280M137 242Q136.9 261 137 280M146.6 242Q146.3 261 146.5 280"/><path class="a" pathLength="100" d="M296.7 240Q320.5 239.5 344.4 240.1M342 238.9Q341.8 261.7 342.1 284.4M342.7 281.9Q319.6 282.3 296.5 281.9M297.9 283.9Q298.3 261 298.1 238.1"/><path class="a" pathLength="100" d="M306 242Q306.1 261 306.1 280M315.5 242Q315.3 261 315.5 280M325 242Q325.1 261 325.1 280M334.4 242Q334.7 261 334.5 280"/><path class="a" pathLength="100" d="M65.8 181.9Q88.7 182.1 100.1 182.2Q111.6 182.4 123 182.6Q134.5 182.9 145.9 183Q157.4 183 168.8 183.3Q180.2 183.6 191.7 183.9Q203.1 184.2 214.6 184.1Q226 184.1 237.4 184Q248.9 184 260.3 183.7Q271.8 183.3 283.2 183.3Q294.6 183.3 306.1 182.9Q317.5 182.6 329 182.2Q340.4 181.9 351.9 181.7Q363.3 181.6 386.2 182.1M65.7 134.5Q88.6 134.1 100.1 133.9Q111.6 133.8 123.1 133.5Q134.5 133.2 146 132.8Q157.5 132.5 169 132.4Q180.4 132.4 191.9 132.4Q203.4 132.4 214.9 132.5Q226.3 132.6 237.8 132.9Q249.3 133.1 260.8 133.2Q272.2 133.4 283.7 133.6Q295.2 133.8 306.7 133.9Q318.1 133.9 329.6 134.1Q341.1 134.3 352.6 134.5Q364 134.7 387 133.7M65.8 204.5Q88.8 204.8 100.3 205Q111.8 205.2 123.2 205Q134.7 204.9 146.2 204.8Q157.7 204.7 169.2 204.5Q180.7 204.3 192.2 204.3Q203.7 204.3 215.1 204Q226.6 203.7 238.1 203.6Q249.6 203.6 261.1 203.6Q272.6 203.6 284.1 203.9Q295.6 204.2 307 204.2Q318.5 204.2 330 204.3Q341.5 204.5 353 204.6Q364.5 204.7 387.5 203.7"/><path class="a" pathLength="100" d="M72.1 135Q72.3 158 71.9 181M93 135Q92.9 158 93 181M114 135Q114 158 113.9 181M135 135Q135.2 158 135.1 181M156 135Q155.7 158 156 181M177 135Q176.9 158 177.1 181M198 135Q198 158 198 181M219.1 135Q218.8 158 218.9 181M240 135Q239.9 158 239.9 181M261 135Q260.8 158 261 181M281.9 135Q282 158 281.9 181M303 135Q303 158 303 181M324 135Q324.2 158 324.1 181M345 135Q345.2 158 345 181M365.9 135Q366.2 158 365.9 181M387.1 135Q386.9 158 387 181"/><path class="a" pathLength="100" d="M64.9 157.8Q87.9 157.6 99.4 158Q110.9 158.3 122.4 158.2Q133.9 158.2 145.4 157.8Q156.9 157.5 168.4 157.3Q179.9 157.1 191.4 156.7Q202.9 156.3 214.4 156.1Q225.9 156 237.4 156Q248.9 156.1 260.4 156.3Q271.8 156.6 283.3 157.2Q294.8 157.8 306.3 157.9Q317.8 158.1 329.3 157.9Q340.8 157.8 352.3 157.9Q363.8 157.9 386.8 158.2"/><path class="a" pathLength="100" d="M70 184Q70.1 193 70 202M77 184Q77 193 77 202M84 184Q84.2 193 84 202M91 184Q91.2 193 91 202M98 184Q97.9 193 98.1 202M105 184Q105.1 193 105 202M112 184Q111.9 193 112 202M119.1 184Q119.1 193 119.1 202M126 184Q125.8 193 125.9 202M132.9 184Q132.9 193 133.1 202M140 184Q140.1 193 139.9 202M147 184Q147 193 147 202M154 184Q154.2 193 154 202M161.1 184Q160.8 193 161 202M168 184Q168.1 193 168.1 202M175.1 184Q175.2 193 175 202M182 184Q181.8 193 181.9 202M189 184Q189 193 189 202M196 184Q196.2 193 196 202M203 184Q203 193 202.9 202M210 184Q210.2 193 210 202M217 184Q217.2 193 217 202M224 184Q223.8 193 224 202M230.9 184Q230.8 193 231 202M238 184Q237.9 193 238 202M245 184Q245 193 245 202M252 184Q252 193 252 202M259 184Q259 193 259 202M266 184Q265.8 193 266 202M273.1 184Q272.9 193 273.1 202M280 184Q280.2 193 280 202M287 184Q287 193 287 202M293.9 184Q294 193 294 202M301 184Q300.8 193 301 202M308 184Q308 193 308 202M315 184Q315 193 314.9 202M322 184Q321.9 193 322 202M329 184Q328.9 193 329 202M336 184Q336.2 193 336 202M343 184Q342.9 193 342.9 202M350 184Q350 193 350 202M357 184Q356.9 193 357 202M364 184Q364.1 193 364 202M370.9 184Q371.1 193 371 202M377.9 184Q378 193 378 202"/><path class="a" pathLength="100" d="M83.9 218Q80.9 224 78 230M142 218Q139.2 224.1 136.1 230M200.1 218Q196.8 223.9 194 230M258 218Q255.1 224.1 252 230M316.1 218Q313.1 224 310.1 230M374 218Q371.2 224.1 368 230"/><path class="g" pathLength="100" d="M87.7 249.1Q97.8 252.6 107.9 256.4M87.1 255.6Q96.3 258.8 105.3 262.3M90.2 264Q97.4 266.6 104.6 269.3M87.1 273.3Q97.8 277.1 108.5 281.2M87.4 280.4Q97.9 284.1 108.4 287.9"/><path class="g" pathLength="100" d="M253.1 250.4Q259.5 252.7 265.9 255M252.6 260.9Q260.6 263.8 268.6 266.8M250.6 269.7Q259.6 272.9 268.5 276.2M251 281.7Q259.8 284.9 268.6 288.1"/></g></svg><svg class="ink mv mv--sway" viewBox="0 0 470 340" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><g data-l="tree"><path class="a" pathLength="100" d="M417 310Q417.4 291.8 417.3 282.7Q417.3 273.6 417.9 255.4M424.1 310Q424 292.7 423.9 284Q423.9 275.3 423.1 258"/><path class="a" pathLength="100" d="M418 258L408 234.6M423 258L433.2 232"/><path class="a" pathLength="100" d="M417.3 184.2Q420.6 178.9 422.9 176.1Q425.1 173.2 427.1 174.8Q429 176.3 430.5 178.6Q432 180.9 432.9 184Q433.7 187.1 435.6 187.6Q437.5 188.1 440.7 187.3Q444 186.6 446.3 187.9Q448.5 189.2 449.4 192Q450.2 194.9 449.6 198.3Q448.9 201.8 447.7 204.9Q446.4 208 447.3 210.2Q448.1 212.4 449.5 214.8Q450.9 217.3 452.2 220.2Q453.5 223.1 452 225.5Q450.4 227.9 448.4 229.7Q446.4 231.5 443.9 232.4Q441.4 233.3 440.3 234.9Q439.3 236.5 439.9 240.3Q440.4 244.2 439.5 246.8Q438.6 249.4 436.8 250.6Q434.9 251.7 432.7 251.5Q430.4 251.2 428.2 249.9Q426 248.5 424.5 249.8Q422.9 251.1 421.1 253.7Q419.3 256.4 417.1 258.4Q414.8 260.4 412.5 260.2Q410.2 259.9 408.9 256.5Q407.6 253 406.5 250.3Q405.5 247.5 403.9 246.3Q402.3 245.1 399.6 245.2Q396.8 245.2 394.4 244.1Q392 243.1 391.1 240.4Q390.1 237.7 391.4 234Q392.6 230.2 393.4 227.4Q394.2 224.6 394.3 222.3Q394.3 220.1 392.3 217.8Q390.2 215.6 389.4 212.8Q388.7 210.1 389.8 207.7Q390.9 205.4 392.7 203.6Q394.5 201.8 396.4 200.5Q398.3 199.3 400.7 196.3M413.9 217.7Q420.4 222.8 423.2 220.7Q426 218.6 432.5 222.4M403.8 229.7Q408.3 233.2 410.2 231.8Q412.1 230.3 416.5 232.9"/><path class="a" pathLength="100" d="M448.4 214.6Q447.2 220.5 447.3 222.6Q447.4 224.7 448.8 226.7Q450.3 228.6 451.1 231.1Q451.9 233.6 451.1 235.9Q450.4 238.2 448.8 239.9Q447.3 241.6 445.1 242.1Q442.9 242.7 441.8 244Q440.7 245.3 440.2 247.7Q439.7 250.2 438.7 252.9Q437.8 255.5 436 256.7Q434.2 257.8 432.2 257.3Q430.2 256.7 428.5 255.2Q426.8 253.7 425.2 253.2Q423.6 252.6 421.6 252.9Q419.6 253.1 417.2 253.1Q414.9 253.1 413.3 251.5Q411.6 249.8 411.3 247Q410.9 244.1 411.9 241Q412.8 237.9 412.6 235.9Q412.3 234 411.4 232Q410.4 230.1 409.7 227.9Q409 225.6 409.1 223.2Q409.1 220.8 411 219.3Q412.8 217.9 414.5 216.9Q416.2 215.9 417 214.2Q417.8 212.5 418.5 210.2Q419.2 207.9 420.3 205.4Q421.4 203 423 201.2Q424.7 199.3 426.8 200.1Q428.9 200.8 432.4 204.6M427 229.2Q429.7 231.3 430.8 230.5Q431.9 229.6 434.6 231.1"/></g></svg></div>
+      <p class="cap">A Spanish-era stone house: stone below, timber and capiz windows above.</p>
+    </div>
+    <div class="duo__text" data-reveal>
+      <p class="aside">today, nothing about you</p>
+      <h2 id="t-collects">What this site <em>keeps</em></h2>
+      <ul class="tiles" style="margin-top:1rem">
+        <li class="tile"><span class="pic pic--sm"><svg class="icon"><use href="#i-g-shield"/></svg></span><b>No cookies, no trackers</b><span>No page loads anything from another website.</span></li>
+        <li class="tile"><span class="pic pic--g pic--sm"><svg class="icon"><use href="#i-g-house"/></svg></span><b>Your settings stay with you</b><span>Pause motion and a dismissed notice are kept in your own browser, never sent.</span></li>
+        <li class="tile"><span class="pic pic--t pic--sm"><svg class="icon"><use href="#i-g-document"/></svg></span><b>The server's logs</b><span>the usual record of pages served <span class="tag">To be confirmed</span></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec wrap" id="forms" aria-labelledby="t-forms">
+  <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 4 150 5Q200 6 250 5Q300 5 350 5Q400 5 450 5Q500 6 550 6Q600 5 650 5Q700 5 750 5Q800 5 850 7Q900 8 950 6Q1000 4 1050 4Q1100 4 1200 4"/></svg>
+  <header class="sec__head">
+    <div data-reveal><p class="aside">what you type</p><h2 id="t-forms">Search <em>and forms</em></h2></div>
+    <p class="sec__lede" data-reveal>The search runs in your browser: what you type is not sent anywhere.</p>
+  </header>
+  <ul class="tiles tiles--3">
+    <li class="tile" data-reveal><span class="pic"><svg class="icon"><use href="#i-g-map"/></svg></span><b>The search</b><span>matched on your own device, never stored</span></li>
+    <li class="tile" data-reveal><span class="pic pic--g"><svg class="icon"><use href="#i-g-heart"/></svg></span><b>Online applications</b><span>EBD and the Mayor's Action Center take applications on the City's application site, with its own notice <span class="tag">To be supplied</span></span></li>
+    <li class="tile" data-reveal><span class="pic pic--s"><svg class="icon"><use href="#i-g-document"/></svg></span><b>Before any form</b><span>a short notice of what is asked, why, who sees it and how long it is kept</span></li>
+  </ul>
+</section>
+
+<section class="sec wrap" id="rights" aria-labelledby="t-rights">
+  <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 7 150 7Q200 7 250 7Q300 6 350 5Q400 4 450 6Q500 7 550 7Q600 8 650 7Q700 6 750 6Q800 6 850 5Q900 5 950 4Q1000 4 1050 5Q1100 5 1200 7"/></svg>
+  <header class="sec__head">
+    <div data-reveal><p class="aside">under the Data Privacy Act</p><h2 id="t-rights">Your <em>rights</em></h2></div>
+    <p class="sec__lede" data-reveal>About any personal data the City holds on you, you may:</p>
+  </header>
+  <ol class="track" data-reveal>
+    <li><b>Be told</b><span>what is collected, why, and for how long</span></li>
+    <li><b>See it</b><span>and ask for a copy</span></li>
+    <li><b>Correct it</b><span>when it is wrong</span></li>
+    <li><b>Object, or have it removed</b><span>when it is no longer needed or was taken unlawfully</span></li>
+    <li><b>Complain</b><span>to the <a class="lk" href="https://privacy.gov.ph" target="_blank" rel="noopener">National Privacy Commission<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></span></li>
+  </ol>
+</section>
+
+<section class="sec wrap" id="dpo" aria-labelledby="t-dpo">
+  <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 4 150 5Q200 6 250 5Q300 5 350 5Q400 5 450 5Q500 6 550 6Q600 5 650 5Q700 5 750 5Q800 5 850 7Q900 8 950 6Q1000 4 1050 4Q1100 4 1200 4"/></svg>
+  <header class="sec__head">
+    <div data-reveal><p class="aside">who to ask</p><h2 id="t-dpo">The Data Protection <em>Officer</em></h2></div>
+    <p class="sec__lede" data-reveal>The City's Data Protection Officer answers every question about personal data.</p>
+  </header>
+  <p class="spot" data-reveal><svg class="icon"><use href="#i-g-pin"/></svg><b>Data Protection Officer, City Government of Batangas</b>City Hall Complex, P. Burgos Street, Batangas City 4200. Name, telephone and e-mail <span class="tag">To be supplied</span></p>
+</section>
+
+<p class="page__note wrap"><span class="tag">Sample content</span> To be reviewed and completed by the City's Data Protection Officer and legal office before launch.</p>
+
+</main>
+
+<!-- ============================================================ footer -->
+<footer class="foot" id="contact">
+  <div class="foot__art" data-draw data-total="2.6">
+    <div class="scene scene--dusk" style="--ar:2000/430" data-shell="dusk"></div>
+  </div>
+  <div class="foot__in">
+    <div class="wrap">
+      <p class="foot__sign aside">and the light goes, and the sketchbook closes.</p>
+      <p class="foot__refrain" lang="fil">Paganda ng paganda! Pasaya ng pasaya! Paunlad ng paunlad! <span>Mabuhay ang Lungsod ng Batangas!</span></p>
+      <div class="foot__grid">
+        <div class="foot__brand">
+          <img src="assets/images/seal-144.webp" width="72" height="72" alt="Official seal of Batangas City" loading="lazy">
+          <p><strong>City Government of Batangas</strong><br>City Hall, P. Burgos Street<br>Batangas City 4200, Philippines</p>
+          <p class="foot__ph"><a href="contact.html">Contact City Hall</a> · trunkline <span class="tag tag--dark">To be supplied</span></p>
+        </div>
+        <nav aria-label="Emergency">
+          <h2>Emergency</h2>
+          <ul>
+            <li><a href="tel:911">Call 911</a></li>
+            <li><a href="emergency.html">Rescue, fire and police</a></li>
+            <li><a href="emergency.html#weather">Weather and advisories</a></li>
+          </ul>
+          <p class="foot__ph">City hotlines <span class="tag tag--dark">To be supplied</span></p>
+        </nav>
+        <nav aria-label="City Government" id="government">
+          <h2>City Government</h2>
+          <ul>
+            <li><a href="mayor.html#office">Office of the City Mayor</a></li>
+            <li><a href="congresswoman.html#office">Office of the Representative</a></li>
+            <li><a href="government.html#council">City Council</a></li>
+            <li><a href="government.html#departments">Departments and offices</a></li>
+            <li><a href="government.html#barangays">The 105 barangays</a></li>
+            <li><a href="transparency.html">Transparency and full disclosure</a></li>
+            <li><a href="transparency.html#procurement">Bids and awards</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Government links">
+          <h2>Government links</h2>
+          <ul>
+            <li><a href="https://www.gov.ph" target="_blank" rel="noopener">GOV.PH<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://www.foi.gov.ph" target="_blank" rel="noopener">Freedom of Information<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://www.officialgazette.gov.ph" target="_blank" rel="noopener">Official Gazette<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://data.gov.ph" target="_blank" rel="noopener">Open Data Philippines<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Site map" id="sitemap">
+          <h2>Site map</h2>
+          <ul>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="emergency.html">Emergency</a></li>
+            <li><a href="mayor.html">The Mayor</a></li>
+            <li><a href="congresswoman.html">The Congresswoman</a></li>
+            <li><a href="government.html">City Government</a></li>
+            <li><a href="business.html">Business</a></li>
+            <li><a href="visit.html">Discover</a></li>
+            <li><a href="heritage.html">Heritage</a></li>
+            <li><a href="index.html#map">City map</a></li>
+            <li><a href="news.html">News</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="foot__base">
+        <p>© City Government of Batangas. The illustrations are an artist's interpretation of the city, drawn, not photographed.</p>
+        <ul>
+          <li><a href="accessibility.html">Accessibility</a></li>
+          <li><a href="privacy.html">Privacy notice</a></li>
+          <li><button type="button" data-motion aria-pressed="false">Pause motion</button></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#top">Back to top</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- the way back up: in the right-hand gutter on a desktop, with the upward scroll on a phone -->
+<a class="totop rnd" id="totop" href="#top" aria-label="Back to top" data-cursor="Top"><svg class="ico" viewBox="0 0 56 24" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+
+<!-- phones: the four things people come for, within reach of a thumb -->
+<nav class="dock" id="dock" aria-label="Quick access">
+  <a href="services.html"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><path d="M4 24h20M6 24V11.500l8-6.500 8 6.500V24M11.500 24v-7h5v7"/></svg><span>Services</span></a>
+  <a href="services.html" data-open="search"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><use href="#i-search"/></svg><span>Search</span></a>
+  <a href="emergency.html"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><path d="M14 4v20M4 14h20M7.500 7.500l13 13M20.500 7.500l-13 13"/></svg><span>Emergency</span></a>
+  <a href="#sitemap" data-open="menu"><svg class="ico" viewBox="0 0 30 24" aria-hidden="true"><use href="#i-menu"/></svg><span>Menu</span></a>
+</nav>
+
+<p class="note" id="note" role="status"></p>
+<div class="cursor" id="cursor" aria-hidden="true"><i></i><svg viewBox="0 0 64 64"><use href="#i-ring"/></svg><b></b></div>
+
+<script src="assets/js/vendor/gsap.min.js"></script>
+<script src="assets/js/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/data/pages.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
