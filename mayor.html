@@ -33,7 +33,11 @@
     try { still = localStorage.getItem('bc8-still') === '1'; } catch (e) {}
     if (still) r.classList.add('is-still');
     else if (!matchMedia('(prefers-reduced-motion: reduce)').matches) r.classList.add('motion');
-    setTimeout(function () { if (!window.__drawn) r.classList.remove('motion'); }, 5000);
+    /* if the scripts never ran (blocked, or failed to load), the page shows as it is: checked once the
+       parser has run them all, however slow the connection, and after 15 s for a download that stalls */
+    var undo = function () { if (!window.__drawn) r.classList.remove('motion'); };
+    document.addEventListener('DOMContentLoaded', undo);
+    setTimeout(undo, 15000);
   })(document.documentElement);
 </script>
 </head>
@@ -138,11 +142,7 @@
     <nav class="ch__no page__crumb" aria-label="Breadcrumb" data-reveal><span><a href="index.html">Batangas City</a> · <a href="government.html">Government</a> · <b aria-current="page">The Mayor</b></span><i class="aside">from City Hall</i></nav>
     <h1 class="display display--s" data-reveal>The Mayor's <em>corner</em></h1>
     <p class="mayor__name" data-reveal>Hon. Marvey A. Mariño<span>City Mayor of Batangas since 30 June 2025</span></p>
-    <p class="aside" data-reveal style="font-size:1.35rem;margin-top:.8rem">Alagang Gabay sa Tagumpay · Magkatuwang Tayo</p>
-    <div class="mayor__msg" data-reveal>
-      <blockquote class="refrain" lang="fil"><span>Paganda ng paganda!</span><span>Pasaya ng pasaya!</span><span>Paunlad ng paunlad!</span></blockquote>
-      <p class="refrain__cite">On taking office, 30&nbsp;June&nbsp;2025 <span class="tag">To be confirmed</span></p>
-    </div>
+    <p class="aside" data-reveal style="font-size:1.35rem;margin:.8rem 0 1.6rem">Alagang Gabay sa Tagumpay · Magkatuwang Tayo</p>
     <nav class="jump" aria-label="On this page" data-reveal>
       <a href="#message"><span class="pic"><svg class="icon"><use href="#i-g-megaphone"/></svg></span>His message</a>
       <a href="#hundred-days"><span class="pic pic--g"><svg class="icon"><use href="#i-g-calendar"/></svg></span>First 100 days</a>
@@ -278,7 +278,7 @@
   <div class="foot__in">
     <div class="wrap">
       <p class="foot__sign aside">and the light goes, and the sketchbook closes.</p>
-      <p class="foot__refrain" lang="fil">Paganda ng paganda! Pasaya ng pasaya! Paunlad ng paunlad! <span>Mabuhay ang Lungsod ng Batangas!</span></p>
+      <p class="foot__refrain" lang="fil">Mabuhay ang Lungsod ng Batangas!</p>
       <div class="foot__grid">
         <div class="foot__brand">
           <img src="assets/images/seal-144.webp" width="72" height="72" alt="Official seal of Batangas City" loading="lazy">

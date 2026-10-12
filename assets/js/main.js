@@ -458,6 +458,7 @@
     $('.hero__title').setAttribute('aria-label', 'Welcome to Batangas City');
     $$('.hero__title > span').forEach(s => s.setAttribute('aria-hidden', 'true'));
     word.innerHTML = Array.from(word.textContent.trim()).map(c => `<span class="l">${c}</span>`).join('');
+    word.classList.add('is-split');   // the letters now hide themselves until they are drawn in
     if (motion) { stage.appendChild($('.hero__end')); stage.appendChild($('.hero__steps')); }
   }
 
@@ -553,6 +554,7 @@
        2026-10-08); Skip intro, Esc and a tap on a phone skip it */
     const pro = globe && globe.ready();
     if (lite()) tl.timeScale(2.4);   // a phone gets the whole intro in under ten seconds
+    root.classList.add('intro-on');   // there is an opening to skip now: Skip intro shows
     let finished = false;
     const done = () => {
       if (finished) return;
@@ -585,7 +587,6 @@
       Object.assign(cam, { lam: -62, phi: 28, logR: Math.log(R0), rot: 0, pencil: 0, reveal: 0, glow: 0, l0: 0, l1: 0, l2: 0, fade: 1, morph: 0, on: 1 });
       addEventListener('resize', globe.size);
       gsap.ticker.add(globe.render);
-      gsap.set('.intro__note', { opacity: 0 });   // the note waits for the turn
       /* blank paper, then the globe is drawn: pencil first, then ink, the Atlantic side of the world, barely turning */
       tl.to(cam, { pencil: 1, duration: 0.7, ease: 'none' }, 0.5)
         .to(cam, { reveal: 1, duration: 2.2, ease: 'none' }, 0.8)
@@ -619,24 +620,34 @@
       t0 = 16.8;
     } else {
       $('.intro__note').textContent = 'sketching Batangas City…';
-      tl.to(hl('coast'), { strokeDashoffset: 0, duration: 1.5, ease: 'power1.inOut' }, 0.7);
+      tl.to('.intro__note', { opacity: 1, duration: 0.5 }, 0.3)
+        .to(hl('coast'), { strokeDashoffset: 0, duration: 1.5, ease: 'power1.inOut' }, 0.7);
       t0 = 1.0;
     }
-    /* the city is drawn */
+    /* the city is drawn. The bay's wash is already spreading as the map's colour
+       goes and the first ink follows close behind, so the sheet is never bare
+       between the map and the drawing. */
     tl.fromTo('.ink--hero .dot', { scale: 0, opacity: 1 }, { scale: 1, duration: 0.45, ease: 'back.out(3)' }, t0 + (pro ? 0.05 : -0.7))
-      .to(hl('ridge'), { strokeDashoffset: 0, duration: 0.9, stagger: 0.07 }, t0 + 0.7)
+      .add(bloom(hw('bay'), 2.0), t0 - 0.4)
+      .to(hl('ridge'), { strokeDashoffset: 0, duration: 0.9, stagger: 0.07 }, t0 + 0.4)
       .to(hl('city-a'), { strokeDashoffset: 0, duration: 0.7, stagger: 0.03 }, t0 + 1.6)
       .add(bloom(hw('mountain'), 1.5), t0 + 2.3)
-      .add(bloom(hw('bay'), 1.6), t0 + 2.9)
-      .add(bloom(hw('sun'), 1.2), t0 + 3.6)
-      .to('.hero__word .l', { opacity: 1, y: 0, duration: 0.8, stagger: 0.055, ease: 'power3.out' }, t0 + 4.0)
-      .to('.hero__welcome', { opacity: 1, duration: 0.5 }, t0 + 4.3)
-      .to('.hero__city', { opacity: 1, duration: 0.7 }, t0 + 4.7)
-      .to('.hero__refrain span', { opacity: 1, y: 0, duration: 0.55, stagger: 0.42, ease: 'power2.out' }, t0 + 4.9)
-      .to('.intro__note', { opacity: 0, duration: 0.4 }, t0 + 5.3)
-      .to(scene, { scale: 1, y: 0, duration: 1.4, ease: 'power3.inOut' }, t0 + 5.6)
-      .to('.intro__skip', { opacity: 0, duration: 0.3 }, t0 + 5.7)
-      .add(done, t0 + 6.5);
+      .add(bloom(hw('sun'), 1.2), t0 + 3.6);
+    /* Wide: the sketch grows into place first and the title lands on it at its
+       own size, so no line of type moves once it is there. Stacked and phones:
+       the title lands on the sketch mid-sheet, which is held in view for about
+       1.5 s (whatever the speed) before it settles below the panel. */
+    const hold = small ? 1.5 * tl.timeScale() : 0;
+    const tt = small ? t0 + 4.0 : t0 + 4.5;          // the title lands
+    const ts = small ? t0 + 5.6 + hold : t0 + 3.0;   // the sketch settles
+    tl.to(scene, { scale: 1, y: 0, duration: 1.4, ease: 'power3.inOut' }, ts)
+      .to('.hero__word .l', { opacity: 1, y: 0, duration: 0.8, stagger: 0.055, ease: 'power3.out' }, tt)
+      .to('.hero__welcome', { opacity: 1, duration: 0.5 }, tt + 0.3)
+      .to('.hero__city', { opacity: 1, duration: 0.7 }, tt + 0.7)
+      .to('.hero__tagline', { opacity: 1, duration: 0.7 }, tt + 1.0)
+      .to('.intro__note', { opacity: 0, duration: 0.4 }, tt + 1.3)
+      .to('.intro__skip', { opacity: 0, duration: 0.3 }, Math.max(tt + 1.7, ts + 0.1))
+      .add(done, Math.max(tt + 2.5, ts + 0.9));
 
     /* arriving at a section (a link to #services, say) is no moment for an intro */
     if (scrollY > 8 || location.hash.length > 1 || window.__inside) done();

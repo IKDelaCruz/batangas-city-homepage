@@ -24,6 +24,15 @@
 <meta name="twitter:title" content="Batangas City">
 <meta name="twitter:description" content="The official website of the City Government of Batangas: city services, news and advisories, and the story of a port city on Batangas Bay.">
 <meta name="twitter:image" content="https://ikdelacruz.github.io/batangas-city-homepage/assets/images/share/index.jpg">
+<script>
+  /* the first screen's type, asked for before the stylesheet finds it, so the opening never shows a
+     stand-in font; only when served, since a browser refuses a font preload from a file:// folder */
+  if (location.protocol !== 'file:') ['cormorant-latin-wght-italic', 'cormorant-latin-wght-normal', 'archivo-latin-wght-normal'].forEach(function (f) {
+    var l = document.createElement('link');
+    l.rel = 'preload'; l.as = 'font'; l.type = 'font/woff2'; l.crossOrigin = ''; l.href = 'assets/fonts/' + f + '.woff2';
+    document.head.appendChild(l);
+  });
+</script>
 <link rel="stylesheet" href="assets/css/style.css">
 <script>
   /* Motion is opt-in: without this class every drawing is simply there. */
@@ -39,7 +48,11 @@
     } catch (e) {}
     if (still) r.classList.add('is-still');
     else if (!matchMedia('(prefers-reduced-motion: reduce)').matches) r.classList.add('motion', 'is-intro');
-    setTimeout(function () { if (!window.__drawn) r.classList.remove('motion', 'is-intro'); }, 5000);
+    /* if the scripts never ran (blocked, or failed to load), the page shows as it is: checked once the
+       parser has run them all, however slow the connection, and after 15 s for a download that stalls */
+    var undo = function () { if (!window.__drawn) r.classList.remove('motion', 'is-intro'); };
+    document.addEventListener('DOMContentLoaded', undo);
+    setTimeout(undo, 15000);
   })(document.documentElement);
 </script>
 </head>
@@ -155,7 +168,7 @@
     <div class="hero__panel">
       <div class="hero__copy">
         <p class="hero__kicker" aria-hidden="true">Welcome to Batangas City</p>
-        <p class="hero__tagline hero__refrain" lang="fil"><span>Paganda ng paganda!</span><span>Pasaya ng pasaya!</span><span>Paunlad ng paunlad!</span></p>
+        <p class="hero__tagline">Drawn by heritage.<br>Moving forward.</p>
         <p class="hero__lede">The official website of the City Government of Batangas. Services, advisories and the story of a port city on a wide bay.</p>
         <div class="hero__find">
           <form class="find" id="find-hero" role="search" aria-label="What do you need today?">
@@ -383,9 +396,7 @@
         <li>Married to Representative Beverley Rose A. Dimacuha-Mariño</li>
       </ul>
       <div class="mayor__msg" data-reveal>
-        <blockquote class="refrain" lang="fil"><span>Paganda ng paganda!</span><span>Pasaya ng pasaya!</span><span>Paunlad ng paunlad!</span></blockquote>
-        <p class="refrain__cite">Mayor Marvey A. Mariño, on taking office, 30&nbsp;June&nbsp;2025 <span class="tag">To be confirmed</span></p>
-        <p class="mayor__note">His message to residents and visitors follows here, in his own words, supplied and approved by the Office of the City Mayor before launch. <span class="tag">To be supplied</span></p>
+        <p>The Mayor's message to residents and visitors sits here: two or three short paragraphs in his own words, supplied and approved by the Office of the City Mayor before launch. <span class="tag">To be supplied</span></p>
       </div>
       <ul class="mayor__links" data-reveal>
         <li><a class="lk" href="mayor.html#about">About the Mayor</a></li>
@@ -735,7 +746,7 @@
   <div class="foot__in">
     <div class="wrap">
       <p class="foot__sign aside">and the light goes, and the sketchbook closes.</p>
-      <p class="foot__refrain" lang="fil">Paganda ng paganda! Pasaya ng pasaya! Paunlad ng paunlad! <span>Mabuhay ang Lungsod ng Batangas!</span></p>
+      <p class="foot__refrain" lang="fil">Mabuhay ang Lungsod ng Batangas!</p>
       <div class="foot__grid">
         <div class="foot__brand">
           <img src="assets/images/seal-144.webp" width="72" height="72" alt="Official seal of Batangas City" loading="lazy">

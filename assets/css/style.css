@@ -257,6 +257,10 @@ html:not(.js) .nav .rule{opacity:1}
 /* ---------------------------------------------------------------- intro */
 .intro{display:none}
 .motion.is-intro .intro{display:block;position:fixed;inset:0;z-index:70;pointer-events:none}
+/* until the script is ready the paper is bare: the note waits for its cue, and Skip appears
+   only once there is an opening to skip */
+.motion.is-intro .intro__note{opacity:0}
+.motion.is-intro:not(.intro-on) .intro__skip{visibility:hidden}
 .intro__globe{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:multiply}
 .intro__note{position:absolute;left:var(--gut);bottom:clamp(24px,6svh,56px);font-size:1.45rem;color:var(--ink-2)}
 .intro__skip{position:absolute;right:var(--gut);top:clamp(20px,4svh,36px);pointer-events:auto;display:flex;align-items:center;gap:.8rem;font:600 .875rem/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;padding:.95rem 1.3rem .9rem 1.4rem;border:1.4px solid var(--ink);border-radius:255px 15px 225px 15px/15px 225px 15px 255px;background:var(--paper)}
@@ -284,8 +288,6 @@ html:not(.js) .nav .rule{opacity:1}
 .hero__panel{position:absolute;z-index:6;left:var(--gut);bottom:clamp(30px,7svh,76px);width:min(27rem,calc(100% - 2*var(--gut)))}
 .hero__tagline{font:italic 500 clamp(1.7rem,2.5vw,2.3rem)/1.02 var(--serif);letter-spacing:-.01em}
 .hero__lede{margin-top:.9rem;font-size:1.0625rem;line-height:1.5;color:var(--ink-2);max-width:34ch}
-/* the Mayor's refrain: three beats, each on its own line; the English under them */
-.hero__refrain span{display:block}
 .hero__kicker{display:none}
 .hero__find{margin-top:.6rem}
 .hero__find .find{margin-top:0;max-width:none}
@@ -316,8 +318,9 @@ html:not(.js) .nav .rule{opacity:1}
 .motion .hero .ink--hero text,.motion .hero .ink--hero .dot{opacity:0}
 .motion .hero .hero__scene>.wash{opacity:0}
 .motion .hero__word .l{opacity:0;transform:translateY(.28em)}
-.motion .hero__city,.motion .hero__welcome,.motion .hero__refrain span{opacity:0}
-.motion .hero__refrain span{transform:translateY(.25em)}
+/* the word is plain text until the script splits it into letters: hidden till then, or it shows before the globe */
+.motion .hero__word:not(.is-split){visibility:hidden}
+.motion .hero__city,.motion .hero__welcome,.motion .hero__tagline{opacity:0}
 .motion.is-intro .hero__kicker,.motion.is-intro .hero__lede,.motion.is-intro .hero__find,.motion.is-intro .hero__quick{opacity:0;visibility:hidden}
 /* the hint waits until the drawing has finished by itself */
 .motion .hero__scroll{opacity:0;visibility:hidden}
@@ -515,10 +518,6 @@ html:not(.js) .nav .rule{opacity:1}
 .mayor__msg{margin:1.4rem 0 1.6rem;padding-left:1.4rem;border-left:2px solid var(--line)}
 .mayor__msg p{font:600 clamp(1.375rem,1.6vw,1.5rem)/1.4 var(--serif);color:var(--ink-2);max-width:40ch}
 .mayor__msg .tag{color:var(--sienna-d);margin-left:.4rem}
-.refrain{margin:0;font:600 clamp(1.5rem,2vw,1.9rem)/1.18 var(--serif);letter-spacing:-.01em;color:var(--ink)}
-.refrain span{display:block}
-.refrain__cite{margin-top:.8rem;font-size:1rem;line-height:1.5;color:var(--ink-2)}
-.mayor__msg .mayor__note{margin-top:1.3rem;font:500 1.125rem/1.5 var(--sans);color:var(--ink-2)}
 .mayor__facts{margin-top:1.1rem;display:grid;gap:.45rem;font-size:1.0625rem;color:var(--ink-2)}
 .mayor__facts li{padding-left:1.4rem;position:relative}
 .mayor__facts li::before{content:"";position:absolute;left:0;top:.75em;width:.8rem;height:1.5px;background:var(--ink);transform:rotate(-8deg)}
@@ -577,9 +576,7 @@ html:not(.js) .nav .rule{opacity:1}
 .foot :focus-visible{outline-color:var(--ivory)}
 .foot__base button{display:inline-block;padding:.3rem 0;color:inherit;text-decoration:underline;text-underline-offset:.3em}
 .foot__sign{font-size:clamp(1.6rem,2.4vw,2.1rem);color:var(--yellow);margin-bottom:1rem}
-.foot__refrain{font:600 clamp(1.25rem,1.7vw,1.5rem)/1.35 var(--serif);color:var(--ivory);max-width:64ch;margin-bottom:clamp(2rem,4vw,3.5rem)}
-.foot__refrain span{display:block;margin-top:.2rem}
-.foot__grid{display:grid;grid-template-columns:1.5fr repeat(4,1fr);gap:2.5rem 3vw}
+.foot__refrain{font:600 clamp(1.25rem,1.7vw,1.5rem)/1.35 var(--serif);color:var(--ivory);max-width:64ch;margin-bottom:clamp(2rem,4vw,3.5rem)}.foot__grid{display:grid;grid-template-columns:1.5fr repeat(4,1fr);gap:2.5rem 3vw}
 .foot__brand img{margin-bottom:1.1rem}
 .foot__brand p{font-size:1rem;line-height:1.55}
 .foot__brand strong{font:600 1.35rem/1.2 var(--serif);letter-spacing:.01em}
