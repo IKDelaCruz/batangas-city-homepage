@@ -67,7 +67,10 @@
     let W = 0;
     let H = 0;
     let dpr = 1;
-    ['ocean', 'land', 'gold'].forEach(n => { const im = new Image(); im.src = `assets/art/wash/globe-${n}.webp`; imgs[n] = im; });
+    /* the globe's washes are fetched only when the opening is going to play; phones take the
+       sheets at 60% (globe-*-s.webp): the globe is small there and the falls magnify them anyway */
+    ['ocean', 'land', 'gold'].forEach(n => { imgs[n] = new Image(); });
+    const textures = () => Object.keys(imgs).forEach(n => { if (!imgs[n].src) imgs[n].src = `assets/art/wash/globe-${n}${lite() ? '-s' : ''}.webp`; });
     const source = window.__coast ? Promise.resolve(window.__coast) : fetch('assets/data/coast.json').then(r => r.json());
     const loaded = source.then(d => {
       const rings = (arr, q) => arr.map(a => {
@@ -441,7 +444,7 @@
       morphSrc = resample(src, 48);
       morphDst = dst;
     }
-    return { cam, loaded, size, render, startMorph, ready: () => !!data };
+    return { cam, loaded, size, render, startMorph, textures, ready: () => !!data };
   })();
 
   /* ------------------------------------------------- hero: intro + scroll */
@@ -578,6 +581,7 @@
        bay, and the shoreline becomes the stroke. The camera never quite stops:
        every hold is a slow push, every move eases in and out over seconds. */
     let t0 = 0;
+    if (pro && !(scrollY > 8 || location.hash.length > 1 || window.__inside)) globe.textures();
     if (pro) {
       const cam = globe.cam;
       const R0 = Math.min(innerWidth, innerHeight) * 0.33;

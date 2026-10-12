@@ -107,9 +107,10 @@ em{font-style:italic}
 }
 
 /* ------------------------------------------------------------ type bits */
-.ch{position:relative;padding:clamp(4rem,8vw,7.5rem) 0}
-.ch__no{display:flex;align-items:baseline;gap:1.1rem;font:600 .875rem/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
-.ch__no span{padding-bottom:.5rem;background:var(--wob) no-repeat left bottom/100% 6px;white-space:nowrap}
+.ch{position:relative;padding:clamp(3.5rem,7vw,6.5rem) 0}
+.ch__no{display:flex;align-items:baseline;gap:1.1rem;font:600 .9375rem/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+/* the eyebrow is a label, not a link: no hand-drawn line under it (that line means "link") */
+.ch__no span{white-space:nowrap}
 .ch__no i{font-size:1.4rem;letter-spacing:0;text-transform:none;color:var(--ink)}
 .display{font:500 clamp(3.3rem,9.4vw,8.8rem)/.86 var(--serif);letter-spacing:-.022em;margin:1.4rem 0 0}
 .display--s{font-size:clamp(2.8rem,6.6vw,6rem)}
@@ -131,6 +132,9 @@ h3{font-family:var(--serif);font-weight:600;letter-spacing:-.01em}
 .cta:hover::before,.cta:focus-visible::before{opacity:.5;transform:none}
 .cta:hover,.cta:focus-visible{animation:redraw .45s var(--ease) both}
 .cta .ico{transition:transform .3s var(--ease)}
+/* the main action of a chapter (one per chapter): a drawn button, not a line */
+.cta--main{min-height:3rem;padding:.85rem 1.3rem .8rem 1.4rem;background:#fffcf5;border:1.5px solid var(--ink);border-radius:255px 15px 225px 15px/15px 225px 15px 255px}
+.cta--main::before{inset:-.1rem}
 .cta:hover .ico,.cta:focus-visible .ico{transform:translateX(5px);stroke-dasharray:100 110;animation:pen .5s var(--ease) both}
 @keyframes redraw{from{background-size:0 6px}to{background-size:100% 6px}}
 @keyframes pen{from{stroke-dashoffset:105}to{stroke-dashoffset:0}}
@@ -169,12 +173,17 @@ html.is-scrolled .util{transform:translateY(-100%)}
 .motion.is-intro .util{opacity:0;visibility:hidden}
 @media (max-width:1240px){.util__gov{display:none}.util{justify-content:flex-end}}
 @media (max-width:760px){:root{--util-h:0px}.util{display:none}}
-[data-motion][aria-pressed="true"]{font-style:italic}
+/* pressed: a filled dot before the label, which itself does not change */
+[data-motion][aria-pressed="true"]::before{content:"";display:inline-block;width:.5em;height:.5em;margin-right:.45em;border-radius:50%;background:currentColor;vertical-align:.08em}
 
 /* ------------------------------------------------------------------ nav */
 .nav{position:fixed;inset:0 0 auto;top:var(--util-h);z-index:60;display:flex;align-items:center;gap:2rem;height:82px;padding:0 var(--gut);transition:height .3s var(--ease),top .3s var(--ease),background-color .3s,opacity .8s}
 .hero__kicker,.hero__lede,.hero__find,.hero__quick{transition:opacity .8s}
 .nav .rule{position:absolute;left:0;bottom:-5px;opacity:0;transition:opacity .3s}
+/* at the top of a page the bar has no paper of its own, and the drawing beneath ran under its
+   labels (the hero's clouds read as the current page's line): a veil of paper that thins out
+   below the bar keeps the labels clear and the sky open */
+.nav:not(.is-scrolled)::before{content:"";position:absolute;inset:0 0 -30px;z-index:-1;pointer-events:none;background:var(--paper) url(../art/paper-texture.webp);-webkit-mask-image:linear-gradient(#000 calc(100% - 46px),transparent);mask-image:linear-gradient(#000 calc(100% - 46px),transparent)}
 .nav.is-scrolled{top:0;height:64px;background:var(--paper) url(../art/paper-texture.webp)}
 /* without scripts nothing marks the bar as scrolled, so it keeps its paper and its rule throughout */
 html:not(.js) .nav{background:var(--paper) url(../art/paper-texture.webp)}
@@ -210,7 +219,8 @@ html:not(.js) .nav .rule{opacity:1}
 .menu__main{display:grid;gap:.1rem}
 .menu__main a{position:relative;display:flex;align-items:baseline;gap:1.4rem;font:500 clamp(2.1rem,4.4vw,3.8rem)/1 var(--serif);letter-spacing:-.015em;text-decoration:none;padding:.18em 0;background:var(--wob-l) no-repeat left 96%/0 7px;transition:background-size .45s var(--ease),transform .45s var(--ease)}
 .menu__main a i{font:600 .875rem/1 var(--sans);letter-spacing:.1em;font-style:normal;width:1.9rem;flex:none}
-.menu__main a:hover,.menu__main a:focus-visible{background-size:100% 7px;font-style:italic;transform:translateX(.6rem)}
+.menu__main a:focus-visible{background-size:100% 7px;transform:translateX(.6rem)}
+@media (hover:hover){.menu__main a:hover{background-size:100% 7px;transform:translateX(.6rem)}}
 .menu__main .menu__sub{display:flex;flex-wrap:wrap;gap:0 1.5rem;margin:.1rem 0 .8rem}
 .menu__main .menu__sub a{display:inline-block;font:600 1rem/1.3 var(--sans);letter-spacing:.02em;padding:.55rem 0;background:var(--wob-l) no-repeat left bottom/100% 3px;transform:none;animation:none}
 .menu__main .menu__sub a:hover,.menu__main .menu__sub a:focus-visible{font-style:normal;transform:none;background-size:100% 3px;text-decoration:underline;text-underline-offset:.35em}
@@ -248,7 +258,8 @@ html:not(.js) .nav .rule{opacity:1}
 .search__results{margin-top:1.6rem}
 .search__results a{display:flex;align-items:baseline;gap:1rem;padding:.8rem 0;border-bottom:1px solid var(--line);text-decoration:none;font:500 1.5rem/1.2 var(--serif)}
 .search__results a span{font:600 .875rem/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin-left:auto}
-.search__results a:hover,.search__results a:focus-visible{font-style:italic;padding-left:.6rem}
+.search__results a:focus-visible{color:var(--green-d);padding-left:.6rem}
+@media (hover:hover){.search__results a:hover{color:var(--green-d);padding-left:.6rem}}
 .search__results li.none{padding:.8rem 0;color:var(--ink-2)}
 .search__results li.none a{display:inline;padding:0 0 .28em;border:0;font:inherit;color:var(--ink)}
 .search__results li.more{padding-top:1.2rem}
@@ -261,6 +272,14 @@ html:not(.js) .nav .rule{opacity:1}
    only once there is an opening to skip */
 .motion.is-intro .intro__note{opacity:0}
 .motion.is-intro:not(.intro-on) .intro__skip{visibility:hidden}
+/* While a slow connection is still bringing the script, the opening's first beat is already on the
+   paper: the pencil circle the globe will be inked over, drawn by CSS at the canvas's own size and
+   place (centred, 0.675 of the window's shorter side, starting upper left). It waits 1.2 s, so a fast
+   connection never sees it, and fades as the canvas takes over (.intro-on). */
+@property --pencil{syntax:"<angle>";inherits:false;initial-value:0deg}
+.intro__pencil{position:absolute;left:50%;top:50%;width:calc(min(100vw,100dvh)*.675);aspect-ratio:1;transform:translate(-50%,-50%);border:1.1px solid var(--graphite);border-radius:50%;opacity:.85;-webkit-mask:conic-gradient(from -47.5deg,#000 var(--pencil),#0000 0);mask:conic-gradient(from -47.5deg,#000 var(--pencil),#0000 0);animation:pencil 1.2s linear 1.2s forwards;transition:opacity .6s}
+@keyframes pencil{to{--pencil:360deg}}
+.intro-on .intro__pencil,.is-inside .intro__pencil{opacity:0}
 .intro__globe{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:multiply}
 .intro__note{position:absolute;left:var(--gut);bottom:clamp(24px,6svh,56px);font-size:1.45rem;color:var(--ink-2)}
 .intro__skip{position:absolute;right:var(--gut);top:clamp(20px,4svh,36px);pointer-events:auto;display:flex;align-items:center;gap:.8rem;font:600 .875rem/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;padding:.95rem 1.3rem .9rem 1.4rem;border:1.4px solid var(--ink);border-radius:255px 15px 225px 15px/15px 225px 15px 255px;background:var(--paper)}
@@ -281,17 +300,19 @@ html:not(.js) .nav .rule{opacity:1}
 .hero__scene>.wash{z-index:3}
 .hero__scene>.wash[data-w="sun"]{z-index:1}
 .hero__scene>.ink{z-index:4}
-.hero__word{position:absolute;left:7.3cqw;top:14.3cqw;font:500 14.8cqw/.8 var(--serif);letter-spacing:-.012em;text-transform:uppercase;white-space:nowrap}
+.hero__word{position:absolute;left:7.3cqw;top:14cqw;font:500 14.8cqw/.8 var(--serif);letter-spacing:-.012em;text-transform:uppercase;white-space:nowrap}
 .hero__word .l{display:inline-block}
 .hero__city{position:absolute;left:76.4cqw;top:25.6cqw;font:italic 500 6.6cqw/.8 var(--serif);letter-spacing:-.01em}
 .hero__welcome{position:absolute;left:7.6cqw;top:11.4cqw;font-size:2.5cqw}
+/* the mountain's lines stop short of the title's letters, which sit elsewhere in the stacked
+   layout: one set of strokes per layout (tools/scenes.py, title_masks) */
+.ink .v-stack{display:none}
 .hero__panel{position:absolute;z-index:6;left:var(--gut);bottom:clamp(30px,7svh,76px);width:min(27rem,calc(100% - 2*var(--gut)))}
 .hero__tagline{font:italic 500 clamp(1.7rem,2.5vw,2.3rem)/1.02 var(--serif);letter-spacing:-.01em}
 .hero__lede{margin-top:.9rem;font-size:1.0625rem;line-height:1.5;color:var(--ink-2);max-width:34ch}
 .hero__kicker{display:none}
-.hero__find{margin-top:.6rem}
+.hero__find{margin-top:1rem}
 .hero__find .find{margin-top:0;max-width:none}
-.hero__find .find input{font-size:1.45rem;padding:.55rem 0}
 .hero__find .find__msg{min-height:0;margin-top:.45rem}
 .hero__find .find__msg:empty{display:none}
 .hero__quick{margin-top:.9rem;display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;font:600 1rem/1.2 var(--sans);letter-spacing:.01em}
@@ -346,14 +367,22 @@ html:not(.js) .nav .rule{opacity:1}
 .help__head{display:grid;grid-template-columns:1.25fr 1fr;gap:6vw;align-items:end}
 .help__head>*{min-width:0}
 .help__intro p{font:600 clamp(1.4rem,1.8vw,1.7rem)/1.34 var(--serif);max-width:28ch}
-.find{position:relative;display:flex;align-items:center;margin-top:1.6rem;max-width:30rem}
-.find input{flex:1;min-width:0;border:0;background:none;outline:0;font:500 1.5rem/1.2 var(--serif);color:var(--ink);padding:.7rem 0}
-.find input::placeholder{color:var(--ink-2);font-style:italic}
-.find button{padding:.8rem 0 .8rem 1rem}
-.find .rule{position:absolute;left:0;bottom:-4px}
-.find:focus-within .rule path{stroke-width:2.2}
-/* the search fields show focus like every other control: the ink ring */
-.find input:focus-visible,.search input:focus-visible{outline:2px solid var(--ink);outline-offset:6px;border-radius:2px}
+/* A search box that looks like one: a paper-white field with the hand-drawn border "Skip intro"
+   has, a magnifier, an upright prompt and a labelled button. (It was a line under italic serif,
+   the same voice as the drawing's own notes.) */
+.find{position:relative;display:flex;align-items:center;gap:.7rem;margin-top:1.6rem;max-width:32rem;min-height:3.25rem;padding:0 .35rem 0 1rem;background:#fffcf5;border:1.5px solid var(--ink);border-radius:255px 15px 225px 15px/15px 225px 15px 255px}
+.find__ico{width:1.35rem;height:1.35rem;color:var(--ink-2)}
+.find input{flex:1;min-width:0;border:0;background:none;outline:0;font:500 1.0625rem/1.3 var(--sans);color:var(--ink);padding:.85rem 0}
+.find input::placeholder{color:var(--ink-2);opacity:1}
+.find input::-webkit-search-cancel-button{cursor:pointer}
+.find button{display:flex;align-items:center;gap:.55rem;min-height:2.75rem;padding:.4rem .85rem .4rem 1rem;font:600 .9375rem/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;border-left:1px solid var(--line);white-space:nowrap}
+.find button .ico{width:1.7rem;height:.8rem}
+.find button:hover{color:var(--green-d)}
+/* small phones: the button keeps its word and drops the arrow, so the prompt is never cut */
+@media (max-width:420px){.find{gap:.5rem;padding-left:.8rem}.find button{padding:.4rem .7rem;letter-spacing:.05em}.find button .ico{display:none}}
+/* the search fields show focus like every other control: the ink ring, round the whole field */
+.find:focus-within{outline:2px solid var(--ink);outline-offset:4px}
+.search input:focus-visible{outline:2px solid var(--ink);outline-offset:6px;border-radius:2px}
 .find__msg{min-height:1.6rem;margin-top:.6rem;font-size:1rem;color:var(--ink-2)}
 .street{position:relative;margin-top:clamp(2rem,5vw,4rem)}
 .street__scroll{overflow:hidden}
@@ -380,7 +409,7 @@ html:not(.js) .nav .rule{opacity:1}
 .svc-item>button span{font-size:1rem;color:var(--ink-2);justify-self:end;text-align:right}
 .svc-item>button:hover,.svc-item.is-hover>button{padding-left:.5rem}
 .svc-item.is-open>button{padding-left:.9rem}
-.svc-item.is-open>button b{font-style:italic;color:var(--green-d)}
+.svc-item.is-open>button b{color:var(--green-d)}
 .svc-item--alert.is-open>button b{color:var(--red-d)}
 .svc-item__body{display:none}
 .svc-item.is-open .svc-item__body{display:block}
@@ -448,7 +477,8 @@ html:not(.js) .nav .rule{opacity:1}
 .ledger i{font:italic 600 1.6rem/1 var(--serif);color:var(--ink-2)}
 .ledger h3{font-size:clamp(1.55rem,2.1vw,2rem);line-height:1.02;margin:.5rem 0 .6rem;font-weight:500}
 .ledger h3 a{text-decoration:none;background:var(--wob) no-repeat left bottom/0 5px;transition:background-size .4s var(--ease);padding-bottom:.2em}
-.ledger h3 a:hover,.ledger h3 a:focus-visible{background-size:100% 5px;font-style:italic}
+.ledger h3 a:focus-visible{background-size:100% 5px;color:var(--green-d)}
+@media (hover:hover){.ledger h3 a:hover{background-size:100% 5px;color:var(--green-d)}}
 .ledger p{font-size:1rem;color:var(--ink-2);max-width:26ch}
 
 /* -------------------------------------------------------------- 06 map */
@@ -464,8 +494,8 @@ html:not(.js) .nav .rule{opacity:1}
 .zones{margin:1.8rem 0 2rem;display:grid;grid-template-columns:1fr 1fr;gap:0 2rem}
 .zones button{position:relative;width:100%;text-align:left;font:600 1.5rem/1.1 var(--serif);padding:.75rem 0 .7rem 1.7rem;background:var(--wob) no-repeat left bottom/100% 4px}
 .zones button::before{content:"";position:absolute;left:.1rem;top:50%;width:.85rem;height:.8rem;margin-top:-.4rem;border:1.5px solid var(--ink);border-radius:52% 48% 46% 54%/55% 45% 55% 45%;transition:background .3s}
-.zones button:hover{font-style:italic}
-.zones button[aria-pressed="true"]{font-style:italic;color:var(--green-d)}
+@media (hover:hover){.zones button:hover{color:var(--green-d)}}
+.zones button[aria-pressed="true"]{color:var(--green-d)}
 .zones button[aria-pressed="true"]::before{background:var(--gold)}
 .zone-card{min-height:15rem}
 .zone-card .aside{font-size:1.4rem;color:var(--ink-2)}
@@ -485,7 +515,8 @@ html:not(.js) .nav .rule{opacity:1}
 .who{display:grid;grid-template-columns:repeat(4,1fr);gap:0 3vw;margin-top:clamp(1rem,2vw,2rem)}
 .who a{display:block;text-decoration:none;font:500 clamp(1.5rem,2vw,1.9rem)/1.05 var(--serif);padding:1.1rem 0 1rem;background:var(--wob) no-repeat left top/100% 4px;transition:padding .35s var(--ease)}
 .who a span{display:block;margin-top:.35rem;font:400 1rem/1.35 var(--sans);color:var(--ink-2)}
-.who a:hover,.who a:focus-visible,.who a.is-on{font-style:italic;padding-left:.6rem}
+.who a:focus-visible,.who a.is-on{color:var(--green-d);padding-left:.6rem}
+@media (hover:hover){.who a:hover{color:var(--green-d);padding-left:.6rem}}
 
 /* ----------------------------------------------------------- 08 fiesta */
 .fiesta{padding-top:clamp(1rem,3vw,3rem);overflow:hidden}
@@ -757,13 +788,16 @@ a:hover>.pic::before,a:focus-visible>.pic::before,summary:hover>.pic::before{tra
 .phero h1{margin-top:1.1rem}
 .phero__lede{margin-top:1.3rem;font:600 clamp(1.4rem,1.8vw,1.7rem)/1.34 var(--serif);max-width:26ch}
 .page__crumb{flex-wrap:wrap;row-gap:.4rem}
-.page__crumb span{white-space:normal}
-.page__crumb a{text-decoration:none}
+.page__crumb span{white-space:normal;line-height:2.3}
+/* each link carries its own line, in its own box: wrapped on a phone, an inline link's line fell on the next row, through the current page's name */
+.page__crumb a{display:inline-block;line-height:1.2;text-decoration:none;padding-bottom:.25em;background:var(--wob) no-repeat left bottom/100% 4px}
 .page__crumb b{font-weight:inherit}
-.page__crumb a:hover,.page__crumb a:focus-visible{text-decoration:underline;text-underline-offset:.3em}
+.page__crumb a:focus-visible{color:var(--green-d)}
+@media (hover:hover){.page__crumb a:hover{color:var(--green-d)}}
 .jump{display:grid;grid-template-columns:repeat(auto-fill,minmax(12.5rem,1fr));gap:0 2.2vw;align-self:end}
 .jump a{display:flex;align-items:center;gap:.7rem;padding:.55rem 0 .6rem;text-decoration:none;font:500 1.375rem/1.08 var(--serif);background:var(--wob) no-repeat left bottom/100% 4px}
-.jump a:hover,.jump a:focus-visible{font-style:italic}
+.jump a:focus-visible{color:var(--green-d)}
+@media (hover:hover){.jump a:hover{color:var(--green-d)}}
 .jump .pic{width:3.2rem;height:3.2rem}
 .jump .pic .icon{width:2.3rem;height:2.3rem}
 .page__art{margin:clamp(2rem,4vw,3.5rem) auto 0;width:min(100%,1800px);overflow:hidden}
@@ -788,7 +822,8 @@ a:hover>.pic::before,a:focus-visible>.pic::before,summary:hover>.pic::before{tra
 .tile .pic{grid-row:1/span 4;grid-column:1}
 .tile b{font:500 clamp(1.45rem,1.9vw,1.8rem)/1.08 var(--serif);letter-spacing:-.005em;padding-top:.35rem}
 .tile>span:not(.pic){font-size:1rem;line-height:1.45;color:var(--ink-2);max-width:32ch}
-a.tile:hover b,a.tile:focus-visible b{font-style:italic}
+a.tile:focus-visible b{color:var(--green-d)}
+@media (hover:hover){a.tile:hover b{color:var(--green-d)}}
 .tile__go{display:flex;flex-wrap:wrap;gap:.2rem 1.6rem;align-items:center;margin-top:.5rem}
 .tile__go .cta{padding:.7rem 0 .6rem}
 .tile__go .lk{font-size:.9375rem;font-weight:600}
@@ -826,7 +861,8 @@ a.tile:hover b,a.tile:focus-visible b{font-style:italic}
 .fold>summary>i::after{transform:rotate(90deg)}
 .fold[open]>summary>i{background:#e2ad2b55;transform:rotate(-6deg)}
 .fold[open]>summary>i::after{transform:rotate(0)}
-.fold>summary:hover b,.fold[open]>summary b{font-style:italic}
+.fold[open]>summary b{color:var(--green-d)}
+@media (hover:hover){.fold>summary:hover b{color:var(--green-d)}}
 .fold[open]>summary b{color:var(--green-d)}
 .fold__body{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:1.2rem 3.5vw;padding:.1rem 0 1.7rem 5.4rem}
 .folds--2 .fold__body{grid-template-columns:1fr;padding-left:5.4rem}
@@ -853,7 +889,8 @@ a.tile:hover b,a.tile:focus-visible b{font-style:italic}
 .call>span:not(.pic){font:600 .875rem/1.3 var(--sans);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
 .call>b{font:500 clamp(1.6rem,2.3vw,2.1rem)/1.05 var(--serif);white-space:nowrap}
 .call>.tag{justify-self:start}
-a.call:hover>b,a.call:focus-visible>b{font-style:italic}
+a.call:focus-visible>b{color:var(--green-d)}
+@media (hover:hover){a.call:hover>b{color:var(--green-d)}}
 .call--big{background:none;padding:0}
 .call--big>b{font-size:clamp(4rem,9vw,7.5rem);line-height:.9;letter-spacing:-.03em}
 .call--big .pic{width:5.4rem;height:5.4rem}
@@ -884,7 +921,8 @@ a.call:hover>b,a.call:focus-visible>b{font-style:italic}
 .dir b{display:block;font:500 1.3rem/1.15 var(--serif)}
 .dir span{display:block;margin-top:.2rem;font-size:.9375rem;line-height:1.4;color:var(--ink-2)}
 .dir a{text-decoration:none}
-.dir a:hover b,.dir a:focus-visible b{font-style:italic}
+.dir a:focus-visible b{color:var(--green-d)}
+@media (hover:hover){.dir a:hover b{color:var(--green-d)}}
 .docs li{display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;padding:.7rem 0 .8rem;background:var(--wob) no-repeat left bottom/100% 4px}
 .docs .icon{width:2.2rem;height:2.2rem}
 .docs b{font:500 1.3rem/1.15 var(--serif)}
@@ -1022,14 +1060,18 @@ a.call:hover>b,a.call:focus-visible>b{font-style:italic}
   .motion .hero{height:auto}
   .hero__stage,.motion .hero__stage{position:relative;height:auto;min-height:0;display:flex;flex-direction:column;padding-top:calc(96px + var(--util-h) + var(--alert-h,0px))}
   .hero__panel{position:relative;order:1;left:auto;bottom:auto;width:auto;max-width:36rem;margin:0 var(--gut)}
-  .hero__kicker{display:block;font:600 .875rem/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.9rem}
+  .hero__kicker{display:block;font:600 .9375rem/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.9rem}
   .hero__scene{position:relative;order:2;bottom:auto;flex:none;margin-top:.5rem;will-change:auto}
   .hero__end,.motion .hero__stage .hero__end{position:relative;order:3;left:auto;right:auto;top:auto;bottom:auto;width:auto;max-width:46rem;margin:0;padding:2.2rem var(--gut) 0;opacity:1;visibility:visible}
   .hero__panel::before,.motion .hero__stage .hero__end::before{display:none}
   .hero__scroll,.motion .hero__steps{display:none}
-  .hero__word{left:28.9cqw;top:17.6cqw;font-size:9.7cqw}
+  .hero__word{left:28.9cqw;top:16.6cqw;font-size:9.7cqw}   /* clear of the Basilica's cross */
   .hero__city{left:70.6cqw;top:25.6cqw;font-size:4.6cqw}
-  .hero__welcome{left:29.2cqw;top:14.3cqw;font-size:3.2cqw}
+  /* the line above the panel already says "Welcome to Batangas City": the drawing keeps the name */
+  .hero__welcome{display:none}
+  /* the mountain's lines stop short of the letters where the stacked title sits (tools/scenes.py) */
+  .ink .v-wide{display:none}
+  .ink .v-stack{display:inline}
   .hero__tagline{font-size:clamp(1.7rem,7.4vw,2.4rem)}
   .hero__end-title{font-size:clamp(2.2rem,9vw,3rem)}
 }
@@ -1050,6 +1092,10 @@ a.call:hover>b,a.call:focus-visible>b{font-style:italic}
 }
 @media (max-width:520px){
   .ledger,.who,.zones,.mayor__links{grid-template-columns:1fr}
+  /* the homepage's business routes: the letter beside the title (other ledgers label with a word) */
+  #business .ledger li{display:grid;grid-template-columns:1.6rem 1fr;column-gap:.7rem;padding-top:1rem}
+  #business .ledger i{grid-row:1/3;padding-top:.6rem}
+  #business .ledger h3{margin:.4rem 0 .35rem}
   .foot__grid{grid-template-columns:1fr}
   .dates li{grid-template-columns:5rem 1fr}
   .nav__name{font-size:1.25rem}
@@ -1075,7 +1121,7 @@ a.call:hover>b,a.call:focus-visible>b{font-style:italic}
   .nav.is-away{transform:translateY(-100%)}
 
   /* less air between chapters */
-  .ch{padding:2.6rem 0}
+  .ch{padding:2.1rem 0}
   .explore{padding:0}
   .fiesta{padding-top:1rem}
   /* the hero ends with its drawing: the chapter statement is the wide layout's closing frame */
@@ -1175,7 +1221,6 @@ a.call:hover>b,a.call:focus-visible>b{font-style:italic}
   .pic{background:var(--paper);border-radius:50%}
   .call--big>b{line-height:1.1}
   .lk,.cta{background-image:none;text-decoration:underline;text-underline-offset:.25em}
-  .ch__no span{background-image:none}
 }
 @media print{
   .nav,.intro,.cursor,.menu,.search,.totop{display:none}
