@@ -171,9 +171,25 @@ html.has-alert{scroll-padding-top:calc(84px + var(--alert-h))}
 .util__time abbr{text-decoration:none}
 html.is-scrolled .util{transform:translateY(-100%)}
 .motion.is-intro .util{opacity:0;visibility:hidden}
-@media (max-width:1240px){.util__gov{display:none}.util{justify-content:flex-end}}
+@media (max-width:1340px){.util__gov{display:none}.util{justify-content:flex-end}}
+/* larger text: the line keeps its tools and lets the welcome go; on a tablet the clock steps into the menu */
+@media (max-width:1700px){html.size-1 .util__gov,html.size-2 .util__gov{display:none}html.size-1 .util,html.size-2 .util{justify-content:flex-end}}
+@media (max-width:960px){.util .util__time{display:none}}
 @media (max-width:760px){:root{--util-h:0px}.util{display:none}}
 /* pressed: a filled dot before the label, which itself does not change */
+/* text size and contrast (decision D25): the same quiet controls as Pause motion */
+.util__read{display:inline-flex;align-items:center;gap:.15rem}
+.util__read>span{margin-right:.35rem}
+.util .util__read button,.menu__util .util__read button{min-width:2.1rem;padding-left:.3rem;padding-right:.3rem;text-decoration:none}
+.util__read button[aria-pressed="true"]{text-decoration:underline!important;text-decoration-thickness:3px!important;text-underline-offset:.3em}
+html.size-1{font-size:112.5%}
+html.size-2{font-size:125%}
+@media (min-width:1600px){html.size-1{font-size:calc(1.125*clamp(16px,.9vw,19px))}html.size-2{font-size:calc(1.25*clamp(16px,.9vw,19px))}}
+html.hc{--ink-2:#1c1b19;--graphite:#1c1b19;--line:rgba(28,27,25,.55)}
+html.hc body,html.hc .util,html.hc .dock{background:#fffdf7}
+html.hc .wash,html.hc .pic::before,html.hc .figs b::before,html.hc .band::before{opacity:.16!important}
+html.hc :focus-visible{outline-width:3px}
+[data-contrast][aria-pressed="true"]::before,
 [data-motion][aria-pressed="true"]::before{content:"";display:inline-block;width:.5em;height:.5em;margin-right:.45em;border-radius:50%;background:currentColor;vertical-align:.08em}
 
 /* ------------------------------------------------------------------ nav */
@@ -333,6 +349,10 @@ html:not(.js) .nav .rule{opacity:1}
 @media (min-width:1101px) and (min-aspect-ratio:1001/1000) and (max-height:859px),(min-width:1101px) and (min-aspect-ratio:1001/1000) and (max-width:1599px){
   .motion .hero__stage .hero__end>p:not(.ch__no):not(.hero__end-cta){display:none}
 }
+/* larger text (D25): the closing frame keeps its title and buttons, as on a short window */
+@media (min-width:1101px) and (min-aspect-ratio:1001/1000){
+  html.size-1.motion .hero__stage .hero__end>p:not(.ch__no):not(.hero__end-cta),html.size-2.motion .hero__stage .hero__end>p:not(.ch__no):not(.hero__end-cta){display:none}
+}
 
 /* motion: the hero starts almost empty and is drawn */
 .motion .hero .ink--hero path{stroke-dasharray:100 110;stroke-dashoffset:105}
@@ -426,6 +446,8 @@ html:not(.js) .nav .rule{opacity:1}
 .explore{padding:0}
 .explore__pin{padding:clamp(4rem,9vw,7rem) 0 clamp(3rem,6vw,5rem)}
 .explore__head{display:flex;justify-content:space-between;align-items:end;gap:2rem}
+/* larger text (D25): the italic heading's descenders need room above the pages that slide past */
+html.size-1 .explore__head,html.size-2 .explore__head{margin-bottom:1rem}
 .explore__nav{display:flex;align-items:center;gap:.8rem}
 .explore__count{font:600 1.375rem/1 var(--serif);margin-right:.8rem;color:var(--ink-2);white-space:nowrap}
 .explore__count b{font:600 1.9rem/1 var(--serif);color:var(--ink)}
@@ -565,6 +587,10 @@ html:not(.js) .nav .rule{opacity:1}
 .photo .portrait__ink{display:none}
 .photo .portrait__photo{display:block;position:absolute;left:50%;top:4%;width:min(66%,410px);height:auto;padding:.45rem;background:var(--paper);border:1.5px solid var(--ink);transform:translateX(-50%) rotate(1.4deg);pointer-events:none}
 .photo .mayor--rep .portrait__photo{width:76%;top:7%;transform:translateX(-50%) rotate(-1.2deg)}
+
+/* at a glance, under the map (D24) */
+.glance{display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem 2.2rem;margin-top:1.1rem;font-size:1.0625rem;color:var(--ink-2)}
+.glance b{font:600 1.75rem/1 var(--serif);color:var(--ink);margin-right:.15rem}
 
 /* ------------------------------------------------------------- 10 news */
 .news{padding-top:clamp(3rem,7vw,6rem)}
@@ -735,6 +761,11 @@ html.is-still .hero.is-live .mv,html.is-still .hero.is-live .mv>g,html.is-still 
 .totop.is-on{opacity:1;visibility:visible;transform:none;transition:opacity .3s,transform .3s var(--ease),background .25s}
 .totop .ico{transform:rotate(-90deg)}
 .totop:hover{background:#f0dba8}
+
+/* the Transparency Seal and FOI badges (the official artwork to be supplied): ivory frames on the dusk */
+.foot__badges{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.2rem}
+.badge{display:inline-flex;align-items:center;min-height:44px;padding:.45rem .9rem;font:600 .875rem/1.2 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--ivory);text-decoration:none;border:1.5px solid var(--ivory);border-radius:255px 15px 225px 15px/15px 225px 15px 255px}
+.badge:hover,.badge:focus-visible{background:rgba(241,232,210,.14)}
 
 /* ----------------------------------------------------------------- dock */
 .dock{display:none}
@@ -952,6 +983,10 @@ a.call:focus-visible>b{color:var(--green-d)}
 
 /* the sample article */
 .article{max-width:46rem}
+.article__tags{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2rem}
+.article__tags .tag{text-decoration:none;color:var(--green-d);padding:.55rem .7rem .5rem}
+.article__more{font:500 clamp(2rem,3.4vw,3rem)/1 var(--serif);margin:clamp(2.4rem,5vw,3.4rem) 0 1rem}
+.article__more em{font-weight:400;color:var(--green-d)}
 .article h1{font:500 clamp(2.4rem,4.6vw,4.4rem)/.96 var(--serif);letter-spacing:-.02em;margin-top:1rem}
 .article__meta{margin:1.1rem 0 1.6rem;font-size:1rem;color:var(--ink-2)}
 .article__lead{font:600 clamp(1.35rem,1.7vw,1.6rem)/1.4 var(--serif);color:var(--ink);margin:1.6rem 0}
@@ -983,6 +1018,157 @@ a.call:focus-visible>b{color:var(--green-d)}
   .figs{grid-template-columns:1fr 1fr}
 }
 @media (max-width:340px){.jump{grid-template-columns:1fr}}
+
+/* ----------------------------------------------- records (full mockup) */
+/* Lists of records (ordinances, bids, projects, forms, jobs, events,
+   barangays, the Charter) and the sample record each row opens. Same pen,
+   same paper: a ruled line between rows, the kind in the margin as a note,
+   the status in words on a drawn tag. */
+.rec__bar{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:1.2rem 3rem;padding:.2rem 0 1.2rem}
+.rec__groups{display:grid;gap:.5rem}
+.filters__lbl{align-self:center;font:600 .875rem/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-right:.2rem}
+.filters button[aria-selected="true"]{color:var(--ink);background-size:100% 5px}
+.find--list{margin-top:0;flex:0 1 26rem}
+.rec__count{font-size:1rem;color:var(--ink-2);padding:0 0 .7rem}
+.rows{margin:0}
+.row{position:relative;display:grid;grid-template-columns:8rem minmax(0,1fr) auto;gap:.25rem 1.8rem;align-items:baseline;padding:1.05rem 0 1.15rem;background:var(--wob) no-repeat left top/100% 4px}
+.row[hidden],[data-row][hidden]{display:none!important}
+.row>i{grid-row:1/span 2;font:italic 600 1.35rem/1.15 var(--serif);color:var(--ink-2)}
+.row h3{grid-column:2;font:500 clamp(1.4rem,1.8vw,1.7rem)/1.15 var(--serif)}
+.row h3 a{text-decoration:none;background:var(--wob) no-repeat left bottom/0 4px;transition:background-size .4s var(--ease);padding-bottom:.12em}
+.row h3 a::after{content:"";position:absolute;inset:0}
+.row h3 a:focus-visible{background-size:100% 4px;color:var(--green-d)}
+@media (hover:hover){.row h3 a:hover{background-size:100% 4px;color:var(--green-d)}}
+.row>p{grid-column:2;font-size:1rem;line-height:1.45;color:var(--ink-2)}
+.row>.tag{grid-column:3;grid-row:1/span 2;align-self:center;justify-self:end}
+.rec__empty{padding:1.6rem 0;color:var(--ink-2)}
+.tag--open{color:var(--green-d)}
+.tag--due{color:var(--sienna-d)}
+.tag--done{color:var(--ink-2)}
+
+/* a record's particulars */
+.facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:0 3vw;margin:0}
+.facts>div{padding:.9rem 0 1.05rem;background:var(--wob) no-repeat left top/100% 4px}
+.facts dt{font:600 .875rem/1.25 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.facts dd{margin:.4rem 0 0;font:500 1.45rem/1.2 var(--serif)}
+.facts dd .tag{margin-top:.2rem}
+.rec-head h1{font:500 clamp(2.3rem,4.4vw,4.2rem)/.98 var(--serif);letter-spacing:-.02em;margin-top:1rem;max-width:22ch}
+.rec-head .story__kick{margin-top:1.6rem}
+.rec-head .phero__lede{max-width:36ch}
+.sample{margin-top:1.2rem;font-size:1rem;color:var(--ink-2);max-width:60ch}
+.sample .tag{margin-right:.5rem;color:var(--sienna-d)}
+
+/* the Citizen's Charter's steps: a table on a wide screen, a card per step on a phone */
+.ladder{width:100%;border-collapse:collapse;font-size:1rem;line-height:1.45}
+.ladder caption{text-align:left;font:600 .875rem/1.2 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding-bottom:.6rem}
+.ladder th{text-align:left;font:600 .875rem/1.25 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);padding:.6rem 1.2rem .7rem 0;border-bottom:1.5px solid var(--ink);vertical-align:bottom}
+.ladder td{vertical-align:top;padding:1rem 1.2rem 1.1rem 0;border-bottom:1px solid var(--line);color:var(--ink)}
+.ladder td:first-child{font:600 1.5rem/1 var(--serif);width:3rem}
+.ladder tfoot td{font-weight:600;border-bottom:0;padding-top:1.1rem}
+.ladder tfoot td:first-child{font:600 1rem/1.45 var(--sans)}
+.ladder .tag{white-space:normal}
+.ladder--two td:first-child,.ladder--two td:first-child[data-th]{font:inherit;width:46%}
+
+/* progress, drawn: a hand-ruled box, filled with a wash */
+.bar{display:grid;grid-template-columns:minmax(6rem,9rem) minmax(0,1fr) 4rem;align-items:center;gap:1rem;margin:.5rem 0}
+.bar>span:first-child{font:600 .875rem/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.bar__track{position:relative;height:1.15rem;border:1.5px solid var(--ink);border-radius:255px 15px 225px 15px/15px 225px 15px 255px;overflow:hidden}
+.bar__track i{position:absolute;inset:0 auto 0 0;width:var(--v);background:var(--leaf);opacity:.6}
+.bar__track--g i{background:var(--gold);opacity:.75}
+.bar b{font:600 1.35rem/1 var(--serif);text-align:right}
+.row__bar{grid-column:2;max-width:30rem;margin:.4rem 0 0}
+/* a long directory (the 105 barangays): narrower columns, and on a phone two of them, names only */
+.dir--tight{columns:4 12rem}
+.dir li[hidden]{display:none}
+
+/* share a record */
+.share{display:flex;flex-wrap:wrap;align-items:center;gap:.3rem 1.5rem;margin-top:2.2rem;padding-top:1.1rem;background:var(--wob) no-repeat left top/100% 4px}
+.share__lbl{font:600 .875rem/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin-right:.3rem}
+.share .lk,.share button{font:600 1rem/1.3 var(--sans)}
+.share button[hidden]{display:none}
+
+/* the officials, as drawn cards */
+.council{display:grid;grid-template-columns:repeat(auto-fill,minmax(14.5rem,1fr));gap:0 3vw}
+.council li{position:relative;display:grid;justify-items:start;align-content:start;gap:.3rem;padding:1.2rem 0 1.5rem;background:var(--wob) no-repeat left top/100% 4px}
+.council .pic{width:5.6rem;height:5.6rem;margin-bottom:.3rem}
+.council .pic .icon{width:3.9rem;height:3.9rem}
+.council b{font:500 1.55rem/1.12 var(--serif)}
+.council b a{text-decoration:none}
+.council b a::after{content:"";position:absolute;inset:0}
+.council b a:focus-visible{color:var(--green-d)}
+@media (hover:hover){.council b a:hover{color:var(--green-d)}}
+.council span{font:600 .875rem/1.3 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.council small{font-size:1rem;line-height:1.4;color:var(--ink-2)}
+.council .tag{margin-top:.2rem}
+.council--lead{grid-template-columns:repeat(auto-fill,minmax(19rem,1fr))}
+.council--lead .pic{width:7rem;height:7rem}
+.council--lead .pic .icon{width:4.9rem;height:4.9rem}
+.council--lead b{font-size:clamp(1.8rem,2.4vw,2.2rem)}
+
+/* pages of a long list */
+.pager{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .8rem;margin-top:2rem}
+.pager a,.pager b{display:inline-grid;place-items:center;min-width:2.9rem;min-height:2.9rem;padding:0 .5rem;font:600 1.25rem/1 var(--serif);text-decoration:none}
+.pager b{border:1.5px solid var(--ink);border-radius:52% 48% 50% 50%/48% 52% 47% 53%;background:#e2ad2b40}
+.pager a{background:var(--wob) no-repeat left 85%/0 4px;transition:background-size .3s var(--ease)}
+.pager a:hover,.pager a:focus-visible{background-size:100% 4px}
+.pager .cta{font-size:.9375rem;padding-inline:0}
+
+/* the demonstration form */
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.3rem 3vw;max-width:60rem}
+.form[hidden]{display:none}
+.field{display:grid;gap:.45rem;align-content:start;min-width:0;margin:0;padding:0;border:0}
+.field--wide{grid-column:1/-1}
+.field>label,.field>legend{font:600 1rem/1.3 var(--sans);color:var(--ink);padding:0}
+.field small{font-size:.9375rem;line-height:1.4;color:var(--ink-2)}
+.field input,.field select,.field textarea{width:100%;min-height:3.25rem;padding:.75rem 1rem;font:500 1.0625rem/1.4 var(--sans);color:var(--ink);background:#fffcf5;border:1.5px solid var(--ink);border-radius:255px 15px 225px 15px/15px 225px 15px 255px}
+.field textarea{min-height:9rem;resize:vertical;border-radius:12px 6px 14px 5px/6px 14px 5px 12px}
+.field input:focus-visible,.field select:focus-visible,.field textarea:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.chips{display:flex;flex-wrap:wrap;gap:.6rem .7rem}
+.chips label{position:relative;display:inline-flex;align-items:center;min-height:2.9rem;padding:.4rem 1rem;font:600 1rem/1.2 var(--sans);border:1.5px solid var(--ink);border-radius:255px 15px 225px 15px/15px 225px 15px 255px;cursor:pointer;background:#fffcf5}
+.chips input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.chips input:checked+span::before{content:"";display:inline-block;width:.55em;height:.55em;margin-right:.5em;border-radius:50%;background:currentColor;vertical-align:.08em}
+.chips label:has(input:checked){background:#e2ad2b66}
+.chips label:has(input:focus-visible){outline:2px solid var(--ink);outline-offset:3px}
+.check{display:grid;grid-template-columns:auto 1fr;gap:.8rem;align-items:start;font-size:1rem;line-height:1.45;color:var(--ink)}
+.check input{width:1.4rem;height:1.4rem;margin:.1rem 0 0;accent-color:var(--green-d)}
+.form__go{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:1rem 2rem}
+.form__go p{font-size:.9375rem;color:var(--ink-2);max-width:44ch}
+.done{padding:1.4rem 0 .4rem;max-width:44rem}
+.done:focus{outline:0}
+.done[hidden]{display:none}
+.done b{display:block;font:500 clamp(2rem,4vw,3rem)/1 var(--serif);letter-spacing:-.01em;margin:.5rem 0 .8rem}
+.done p{color:var(--ink-2)}
+.done p+p{margin-top:.6rem}
+
+@media (max-width:900px){
+  .form{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  .row{grid-template-columns:minmax(0,1fr);gap:.35rem}
+  .row>i,.row h3,.row>p,.row>.tag,.row>.row__bar{grid-column:1;grid-row:auto;justify-self:start}
+  .row>.row__bar{justify-self:stretch}
+  .row>i{font-size:1.2rem}
+  .bar{grid-template-columns:minmax(0,1fr) 3.5rem;row-gap:.3rem}
+  .bar>span:first-child{grid-column:1/-1}
+  .find--list{flex-basis:100%}
+  /* the Charter's table becomes a card per step, each value under its label */
+  .ladder thead{display:none}   /* each cell carries its own label */
+  .ladder,.ladder tbody,.ladder tfoot,.ladder tr,.ladder td{display:block;width:auto}
+  .ladder tr{padding:1rem 0 1.1rem;background:var(--wob) no-repeat left top/100% 4px}
+  .ladder td{border:0;padding:.25rem 0}
+  .ladder td[data-th]{display:grid;grid-template-columns:8.5rem minmax(0,1fr);gap:.8rem}
+  .ladder td[data-th]::before{content:attr(data-th);font:600 .875rem/1.45 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+  .ladder td:first-child{width:auto;font-size:1.6rem;padding-bottom:.4rem}
+  .ladder--two td:first-child[data-th]{width:auto;font-size:inherit;padding-bottom:.25rem}
+  .council--lead{grid-template-columns:1fr}
+  .dir--tight{columns:2;column-gap:1.2rem}
+  .dir--tight span{display:none}
+  .dir--tight li{padding:0}
+  .dir--tight a{display:flex;align-items:center;min-height:48px}
+  .dir--tight b{font-size:1.2rem}
+  .facts{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:1.2rem}
+  .facts dd{font-size:1.3rem}
+}
 
 @media (max-width:1280px){
   .nav__links{display:none}
@@ -1192,7 +1378,10 @@ a.call:focus-visible>b{color:var(--green-d)}
   .nav__brand{min-height:44px}
   .nav__btn{min-width:44px;min-height:44px;justify-content:center}
   .foot nav li a,.foot__base a{display:inline-flex;align-items:center;min-width:44px;min-height:44px;padding:0}
-  .filters button,.menu__close{min-height:44px}
+  .filters button,.menu__close,.share button{min-height:44px}
+  .filters button,.util .util__read button,.menu__util .util__read button{min-width:44px}
+  .article__tags .tag{display:inline-flex;align-items:center;min-height:44px}
+  .check input{width:44px;height:44px;margin:-.5rem 0}
   .page__crumb a{display:inline-block;padding:15px 0;margin:-15px 0}
   .cta,.tile__go .lk{min-height:44px}
   .tile__go .lk,.spot a.lk{display:inline-flex;align-items:center;padding-top:0;padding-bottom:0}

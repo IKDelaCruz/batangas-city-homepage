@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//City Government of Batangas//Website prototype//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:feast-sto-nino@batangascity.gov.ph
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270116
+DTEND;VALUE=DATE:20270117
+RRULE:FREQ=YEARLY
+SUMMARY:Feast of the Sto. Niño\, Batangas City
+LOCATION:Basilica of the Immaculate Conception\, M. H. del Pilar Street\, Batangas City
+DESCRIPTION:The feast of the city's patron. The programme is posted on the City's website once announced.
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

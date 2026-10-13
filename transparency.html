@@ -23,6 +23,7 @@
 <meta name="twitter:title" content="Transparency · Batangas City">
 <meta name="twitter:description" content="The City Government of Batangas in the open: the Citizen&#x27;s Charter, the documents of the Full Disclosure Policy, bids and awards, and freedom of information.">
 <meta name="twitter:image" content="https://ikdelacruz.github.io/batangas-city-homepage/assets/images/share/transparency.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "GovernmentOrganization", "@id": "https://ikdelacruz.github.io/batangas-city-homepage/#city", "name": "City Government of Batangas", "url": "https://ikdelacruz.github.io/batangas-city-homepage/", "logo": "https://ikdelacruz.github.io/batangas-city-homepage/assets/images/seal-216.webp", "address": {"@type": "PostalAddress", "streetAddress": "City Hall Complex, P. Burgos Street, Barangay 17", "addressLocality": "Batangas City", "addressRegion": "Batangas", "postalCode": "4200", "addressCountry": "PH"}, "contactPoint": {"@type": "ContactPoint", "telephone": "+63-43-723-1511", "contactType": "customer service"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Batangas City", "item": "https://ikdelacruz.github.io/batangas-city-homepage/"}, {"@type": "ListItem", "position": 2, "name": "Government", "item": "https://ikdelacruz.github.io/batangas-city-homepage/government.html"}, {"@type": "ListItem", "position": 3, "name": "Transparency", "item": "https://ikdelacruz.github.io/batangas-city-homepage/transparency.html"}]}]}</script>
 <link rel="stylesheet" href="assets/css/style.css">
 <script>
   /* Motion is opt-in: without this class every drawing is simply there. Inner pages have no opening. */
@@ -30,6 +31,11 @@
     r.classList.add('js');   /* scripts run: the bar takes its paper once the page scrolls (without them it always has it) */
     var still = false;   /* Pause motion, kept from an earlier page */
     try { still = localStorage.getItem('bc8-still') === '1'; } catch (e) {}
+    try {   /* text size and contrast, kept from an earlier page (decision D25) */
+      var sz = localStorage.getItem('bc8-size');
+      if (sz === '1' || sz === '2') r.classList.add('size-' + sz);
+      if (localStorage.getItem('bc8-contrast') === '1') r.classList.add('hc');
+    } catch (e) {}
     if (still) r.classList.add('is-still');
     else if (!matchMedia('(prefers-reduced-motion: reduce)').matches) r.classList.add('motion');
     /* if the scripts never ran (blocked, or failed to load), the page shows as it is: checked once the
@@ -54,7 +60,7 @@
 <!-- the line above the bar: the official site, the time, the way to 911, accessibility, motion -->
 <aside class="util" id="util" aria-label="Site information">
   <p class="util__gov">The official website of the City Government of Batangas</p>
-  <p class="util__tools"><time class="util__time" data-pst>Philippine Standard Time</time><a href="tel:911">Call 911</a><a href="accessibility.html">Accessibility</a><button type="button" data-motion aria-pressed="false">Pause motion</button></p>
+  <p class="util__tools"><time class="util__time" data-pst>Philippine Standard Time</time><a href="tel:911">Call 911</a><a href="accessibility.html">Accessibility</a><button type="button" data-motion aria-pressed="false">Pause motion</button><span class="util__read" role="group" aria-label="Text size"><span aria-hidden="true">Text</span><button type="button" data-size="0" aria-pressed="true">A</button><button type="button" data-size="1" aria-pressed="false">A+</button><button type="button" data-size="2" aria-pressed="false">A++</button></span><button type="button" data-contrast aria-pressed="false">Contrast</button></p>
 </aside>
 
 <header class="nav is-page" id="nav">
@@ -89,13 +95,15 @@
   <div class="menu__in">
     <nav class="menu__main" aria-label="Sections">
       <a href="services.html">Services</a>
+      <p class="menu__sub"><a href="charter.html">Citizen's Charter</a><a href="forms.html">Forms</a><a href="jobs.html">Jobs</a><a href="services.html#online">Online services</a></p>
       <a href="emergency.html">Emergency</a>
       <a href="government.html">Government</a>
-      <p class="menu__sub"><a href="mayor.html">The Mayor</a><a href="congresswoman.html">The Congresswoman</a><a href="government.html#council">City Council</a><a href="government.html#departments">Offices</a><a href="government.html#barangays">Barangays</a><a href="transparency.html">Transparency</a></p>
+      <p class="menu__sub"><a href="mayor.html">The Mayor</a><a href="congresswoman.html">The Congresswoman</a><a href="officials.html">Officials</a><a href="government.html#departments">Offices</a><a href="barangays.html">Barangays</a><a href="ordinances.html">Ordinances</a><a href="projects.html">Projects</a><a href="bids.html">Bids and awards</a><a href="transparency.html">Transparency</a><a href="about.html">About the City</a></p>
       <a href="business.html">Business</a>
       <a href="visit.html">Discover</a>
       <p class="menu__sub"><a href="visit.html#plan">Plan a visit</a><a href="heritage.html">Heritage</a><a href="visit.html#eat">Where to eat</a><a href="visit.html#fiesta">The fiesta</a><a href="index.html#map">City map</a></p>
       <a href="news.html">News</a>
+      <p class="menu__sub"><a href="events.html">Events</a><a href="event.html">The Sto. Niño feast</a></p>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="menu__side">
@@ -109,7 +117,7 @@
         <li><a href="news.html">Advisories and notices</a></li>
       </ul>
       <p class="menu__call">In an emergency call <a href="tel:911">911</a></p>
-      <p class="menu__util"><time class="util__time" data-pst>Philippine Standard Time</time><a href="accessibility.html">Accessibility</a><button type="button" data-motion aria-pressed="false">Pause motion</button></p>
+      <p class="menu__util"><time class="util__time" data-pst>Philippine Standard Time</time><a href="accessibility.html">Accessibility</a><button type="button" data-motion aria-pressed="false">Pause motion</button><span class="util__read" role="group" aria-label="Text size"><span aria-hidden="true">Text</span><button type="button" data-size="0" aria-pressed="true">A</button><button type="button" data-size="1" aria-pressed="false">A+</button><button type="button" data-size="2" aria-pressed="false">A++</button></span><button type="button" data-contrast aria-pressed="false">Contrast</button></p>
     </div>
   </div>
 </div>
@@ -155,7 +163,7 @@
     <p class="sec__lede" data-reveal>Each service with its requirements, steps, fees, time and who answers for it, updated every year by 31 March.</p>
   </header>
   <ul class="tiles tiles--3">
-    <li class="tile" data-reveal><span class="pic"><svg class="icon"><use href="#i-g-download"/></svg></span><b>The handbook</b><span>the Citizen's Charter for this year, as a document <span class="tag">To be supplied</span></span></li>
+    <li data-reveal><a class="tile" href="charter.html"><span class="pic"><svg class="icon"><use href="#i-g-handshake"/></svg></span><b>The Charter</b><span>every service, its fees and its time</span></a></li>
     <li data-reveal><a class="tile" href="services.html#details"><span class="pic pic--g"><svg class="icon"><use href="#i-g-certificate"/></svg></span><b>Service by service</b><span>what to bring and where to go, on the Services page</span></a></li>
     <li data-reveal><a class="tile" href="contact.html#feedback"><span class="pic pic--s"><svg class="icon"><use href="#i-g-megaphone"/></svg></span><b>When it goes wrong</b><span>feedback and complaints</span></a></li>
   </ul>
@@ -167,37 +175,39 @@
     <div data-reveal><p class="aside">the Full Disclosure Policy</p><h2 id="t-disclosure">Full <em>disclosure</em></h2></div>
     <p class="sec__lede" data-reveal>The fourteen documents every city posts, also on the DILG's Full Disclosure Policy Portal. <span class="tag">Link to be supplied</span></p>
   </header>
+  <div data-list>
+  <div class="rec__bar"><div class="filters" role="group" aria-label="How often it is posted" data-key="often"><span class="filters__lbl" aria-hidden="true">Posted</span><button type="button" data-filter="all" aria-pressed="true">All</button><button type="button" data-filter="year" aria-pressed="false">Every year</button><button type="button" data-filter="quarter" aria-pressed="false">Every quarter</button></div></div>
+  <p class="rec__count" data-list-count data-noun="documents" role="status"></p>
   <ul class="docs">
-    <li data-reveal><svg class="icon"><use href="#i-g-download"/></svg><b>Annual budget report<small>every year</small></b><span class="tag">To be supplied</span></li>
-    <li data-reveal><svg class="icon"><use href="#i-g-download"/></svg><b>Annual procurement plan<small>every year</small></b><span class="tag">To be supplied</span></li>
-    <li data-reveal><svg class="icon"><use href="#i-g-download"/></svg><b>Supplemental procurement plan<small>every year</small></b><span class="tag">To be supplied</span></li>
-    <li data-reveal><svg class="icon"><use href="#i-g-download"/></svg><b>Gender and development accomplishment report<small>every year</small></b><span class="tag">To be supplied</span></li>
-    <li data-reveal><svg class="icon"><use href="#i-g-download"/></svg><b>Statement of receipts and expenditures<small>every quarter</small></b><span class="tag">To be supplied</span></li>
-    <li data-reveal><svg class="icon"><use href="#i-g-download"/></svg><b>Statement of indebtedness, payments and balances<small>every quarter</small></b><span class="tag">To be supplied</span></li>
-    <li data-reveal><svg class="icon"><use href="#i-g-download"/></svg><b>Trust fund utilisation<small>every quarter</small></b><span class="tag">To be supplied</span></li>
-    <li data-reveal><svg class="icon"><use href="#i-g-download"/></svg><b>The 20% development fund<small>every quarter</small></b><span class="tag">To be supplied</span></li>
-    <li data-reveal><svg class="icon"><use href="#i-g-download"/></svg><b>Disaster risk reduction fund<small>every quarter</small></b><span class="tag">To be supplied</span></li>
-    <li data-reveal><svg class="icon"><use href="#i-g-download"/></svg><b>Special Education Fund<small>every quarter</small></b><span class="tag">To be supplied</span></li>
-    <li data-reveal><svg class="icon"><use href="#i-g-download"/></svg><b>Statement of cash flows<small>every quarter</small></b><span class="tag">To be supplied</span></li>
-    <li data-reveal><svg class="icon"><use href="#i-g-download"/></svg><b>Bid results<small>every quarter</small></b><span class="tag">To be supplied</span></li>
-    <li data-reveal><svg class="icon"><use href="#i-g-download"/></svg><b>Unliquidated cash advances<small>every quarter</small></b><span class="tag">To be supplied</span></li>
-    <li data-reveal><svg class="icon"><use href="#i-g-download"/></svg><b>Human resources complement<small>every quarter</small></b><span class="tag">To be supplied</span></li>
+    <li data-row data-often="year"><svg class="icon"><use href="#i-g-download"/></svg><b>Annual budget report<small>every year</small></b><span class="tag">To be supplied</span></li>
+    <li data-row data-often="year"><svg class="icon"><use href="#i-g-download"/></svg><b>Annual procurement plan<small>every year</small></b><span class="tag">To be supplied</span></li>
+    <li data-row data-often="year"><svg class="icon"><use href="#i-g-download"/></svg><b>Supplemental procurement plan<small>every year</small></b><span class="tag">To be supplied</span></li>
+    <li data-row data-often="year"><svg class="icon"><use href="#i-g-download"/></svg><b>Gender and development accomplishment report<small>every year</small></b><span class="tag">To be supplied</span></li>
+    <li data-row data-often="quarter"><svg class="icon"><use href="#i-g-download"/></svg><b>Statement of receipts and expenditures<small>every quarter</small></b><span class="tag">To be supplied</span></li>
+    <li data-row data-often="quarter"><svg class="icon"><use href="#i-g-download"/></svg><b>Statement of indebtedness, payments and balances<small>every quarter</small></b><span class="tag">To be supplied</span></li>
+    <li data-row data-often="quarter"><svg class="icon"><use href="#i-g-download"/></svg><b>Trust fund utilisation<small>every quarter</small></b><span class="tag">To be supplied</span></li>
+    <li data-row data-often="quarter"><svg class="icon"><use href="#i-g-download"/></svg><b>The 20% development fund<small>every quarter</small></b><span class="tag">To be supplied</span></li>
+    <li data-row data-often="quarter"><svg class="icon"><use href="#i-g-download"/></svg><b>Disaster risk reduction fund<small>every quarter</small></b><span class="tag">To be supplied</span></li>
+    <li data-row data-often="quarter"><svg class="icon"><use href="#i-g-download"/></svg><b>Special Education Fund<small>every quarter</small></b><span class="tag">To be supplied</span></li>
+    <li data-row data-often="quarter"><svg class="icon"><use href="#i-g-download"/></svg><b>Statement of cash flows<small>every quarter</small></b><span class="tag">To be supplied</span></li>
+    <li data-row data-often="quarter"><svg class="icon"><use href="#i-g-download"/></svg><b>Bid results<small>every quarter</small></b><span class="tag">To be supplied</span></li>
+    <li data-row data-often="quarter"><svg class="icon"><use href="#i-g-download"/></svg><b>Unliquidated cash advances<small>every quarter</small></b><span class="tag">To be supplied</span></li>
+    <li data-row data-often="quarter"><svg class="icon"><use href="#i-g-download"/></svg><b>Human resources complement<small>every quarter</small></b><span class="tag">To be supplied</span></li>
   </ul>
+  </div>
 </section>
 
 <section class="sec wrap" id="procurement" aria-labelledby="t-procurement">
   <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 7 150 7Q200 7 250 7Q300 6 350 5Q400 4 450 6Q500 7 550 7Q600 8 650 7Q700 6 750 6Q800 6 850 5Q900 5 950 4Q1000 4 1050 5Q1100 5 1200 7"/></svg>
   <header class="sec__head">
     <div data-reveal><p class="aside">the Bids and Awards Committee</p><h2 id="t-procurement">Bids and <em>awards</em></h2></div>
-    <p class="sec__lede" data-reveal>Invitations, bidding documents and results, also posted on <a class="lk" href="https://www.philgeps.gov.ph" target="_blank" rel="noopener">PhilGEPS<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a>.</p>
+    <p class="sec__lede" data-reveal>Invitations, bidding documents and results, also posted on <a class="lk" href="https://www.philgeps.gov.ph" target="_blank" rel="noopener">PhilGEPS<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a>. <a class="cta" href="bids.html">Every bid <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a></p>
   </header>
-  <ul class="ledger">
-    <li data-reveal><i>APP</i><h3><a href="#disclosure">Annual procurement plan</a></h3><p>What the City will buy this year</p></li>
-    <li data-reveal><i>ITB</i><h3><a href="#procurement">Sample invitation to bid</a></h3><p>Deadline: placeholder date</p></li>
-    <li data-reveal><i>ITB</i><h3><a href="#procurement">Sample invitation to bid</a></h3><p>Deadline: placeholder date</p></li>
-    <li data-reveal><i>Live</i><h3><a href="#procurement">Bid openings, streamed</a></h3><p>Link <span class="tag">To be supplied</span></p></li>
-    <li data-reveal><i>NOA</i><h3><a href="#procurement">Sample notice of award</a></h3><p>Awarded</p></li>
-    <li data-reveal><i>How</i><h3><a href="business.html#start">Selling to the City</a></h3><p>Register on PhilGEPS first</p></li>
+  <ul class="tiles">
+    <li data-reveal><a class="tile" href="bids.html?status=open#open"><span class="pic"><svg class="icon"><use href="#i-g-briefcase"/></svg></span><b>Open bids</b><span>until when you can bid</span></a></li>
+    <li data-reveal><a class="tile" href="bids.html#plan"><span class="pic pic--g"><svg class="icon"><use href="#i-g-pie"/></svg></span><b>Procurement plans</b><span>what the City will buy this year</span></a></li>
+    <li data-reveal><a class="tile" href="bids.html?status=awarded#open"><span class="pic pic--s"><svg class="icon"><use href="#i-g-certificate"/></svg></span><b>Awards</b><span>who won, for how much</span></a></li>
+    <li data-reveal><a class="tile" href="projects.html"><span class="pic pic--t"><svg class="icon"><use href="#i-g-hardhat"/></svg></span><b>Projects</b><span>the works, and how far along</span></a></li>
   </ul>
 </section>
 
@@ -207,10 +217,11 @@
     <div data-reveal><p class="aside">ask for a record</p><h2 id="t-foi">Freedom <em>of information</em></h2></div>
     <p class="sec__lede" data-reveal>Records the City holds can be asked for, and the City answers.</p>
   </header>
-  <ul class="tiles tiles--3">
+  <ul class="tiles">
     <li data-reveal><a class="tile" href="https://www.foi.gov.ph" target="_blank" rel="noopener"><span class="pic"><span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg> <svg class="icon"><use href="#i-g-document"/></svg></span><b>The eFOI portal</b><span>foi.gov.ph, for requests online</span></a></li>
     <li class="tile" data-reveal><span class="pic pic--g"><svg class="icon"><use href="#i-g-book"/></svg></span><b>The City's FOI manual</b><span>how to ask, and how long it takes <span class="tag">To be supplied</span></span></li>
     <li data-reveal><a class="tile" href="services.html#certified-true-copies"><span class="pic pic--t"><svg class="icon"><use href="#i-g-certificate"/></svg></span><b>Certified true copies</b><span>of records and ordinances</span></a></li>
+    <li class="tile" data-reveal><span class="pic pic--s"><svg class="icon"><use href="#i-g-bust"/></svg></span><b>The FOI receiving officer</b><span>who takes requests at City Hall <span class="tag">To be supplied</span></span></li>
   </ul>
 </section>
 
@@ -232,6 +243,7 @@
           <img src="assets/images/seal-144.webp" width="72" height="72" alt="Official seal of Batangas City" loading="lazy">
           <p><strong>City Government of Batangas</strong><br>City Hall, P. Burgos Street<br>Batangas City 4200, Philippines</p>
           <p class="foot__ph"><a href="contact.html">Contact City Hall</a> · trunkline <span class="tag tag--dark">To be supplied</span></p>
+          <p class="foot__badges"><a class="badge" href="transparency.html#disclosure">Transparency Seal</a><a class="badge" href="https://www.foi.gov.ph" target="_blank" rel="noopener">Freedom of Information<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></p>
         </div>
         <nav aria-label="Emergency">
           <h2>Emergency</h2>
@@ -247,11 +259,14 @@
           <ul>
             <li><a href="mayor.html#office">Office of the City Mayor</a></li>
             <li><a href="congresswoman.html#office">Office of the Representative</a></li>
-            <li><a href="government.html#council">City Council</a></li>
+            <li><a href="officials.html">Officials and the City Council</a></li>
             <li><a href="government.html#departments">Departments and offices</a></li>
-            <li><a href="government.html#barangays">The 105 barangays</a></li>
+            <li><a href="barangays.html">The 105 barangays</a></li>
+            <li><a href="ordinances.html">Ordinances</a></li>
+            <li><a href="projects.html">Projects</a></li>
             <li><a href="transparency.html">Transparency and full disclosure</a></li>
-            <li><a href="transparency.html#procurement">Bids and awards</a></li>
+            <li><a href="bids.html">Bids and awards</a></li>
+            <li><a href="about.html">About the City</a></li>
           </ul>
         </nav>
         <nav aria-label="Government links">
@@ -267,15 +282,15 @@
           <h2>Site map</h2>
           <ul>
             <li><a href="services.html">Services</a></li>
+            <li><a href="charter.html">Citizen's Charter</a></li>
+            <li><a href="forms.html">Forms</a></li>
+            <li><a href="jobs.html">Jobs</a></li>
             <li><a href="emergency.html">Emergency</a></li>
-            <li><a href="mayor.html">The Mayor</a></li>
-            <li><a href="congresswoman.html">The Congresswoman</a></li>
             <li><a href="government.html">City Government</a></li>
             <li><a href="business.html">Business</a></li>
             <li><a href="visit.html">Discover</a></li>
-            <li><a href="heritage.html">Heritage</a></li>
-            <li><a href="index.html#map">City map</a></li>
             <li><a href="news.html">News</a></li>
+            <li><a href="events.html">Events</a></li>
           </ul>
         </nav>
       </div>
@@ -284,6 +299,7 @@
         <ul>
           <li><a href="accessibility.html">Accessibility</a></li>
           <li><a href="privacy.html">Privacy notice</a></li>
+          <li><a href="terms.html">Terms of use</a></li>
           <li><button type="button" data-motion aria-pressed="false">Pause motion</button></li>
           <li><a href="#">Facebook</a></li>
           <li><a href="#">YouTube</a></li>
@@ -310,7 +326,6 @@
 
 <script src="assets/js/vendor/gsap.min.js"></script>
 <script src="assets/js/vendor/ScrollTrigger.min.js"></script>
-<script src="assets/data/pages.js"></script>
 <script src="assets/js/main.js"></script>
 </body>
 </html>

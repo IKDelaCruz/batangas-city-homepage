@@ -23,6 +23,7 @@
 <meta name="twitter:title" content="News · Batangas City">
 <meta name="twitter:description" content="News, advisories, events and public notices of the City Government of Batangas.">
 <meta name="twitter:image" content="https://ikdelacruz.github.io/batangas-city-homepage/assets/images/share/news.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "GovernmentOrganization", "@id": "https://ikdelacruz.github.io/batangas-city-homepage/#city", "name": "City Government of Batangas", "url": "https://ikdelacruz.github.io/batangas-city-homepage/", "logo": "https://ikdelacruz.github.io/batangas-city-homepage/assets/images/seal-216.webp", "address": {"@type": "PostalAddress", "streetAddress": "City Hall Complex, P. Burgos Street, Barangay 17", "addressLocality": "Batangas City", "addressRegion": "Batangas", "postalCode": "4200", "addressCountry": "PH"}, "contactPoint": {"@type": "ContactPoint", "telephone": "+63-43-723-1511", "contactType": "customer service"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Batangas City", "item": "https://ikdelacruz.github.io/batangas-city-homepage/"}, {"@type": "ListItem", "position": 2, "name": "News", "item": "https://ikdelacruz.github.io/batangas-city-homepage/news.html"}]}]}</script>
 <link rel="stylesheet" href="assets/css/style.css">
 <script>
   /* Motion is opt-in: without this class every drawing is simply there. Inner pages have no opening. */
@@ -30,6 +31,11 @@
     r.classList.add('js');   /* scripts run: the bar takes its paper once the page scrolls (without them it always has it) */
     var still = false;   /* Pause motion, kept from an earlier page */
     try { still = localStorage.getItem('bc8-still') === '1'; } catch (e) {}
+    try {   /* text size and contrast, kept from an earlier page (decision D25) */
+      var sz = localStorage.getItem('bc8-size');
+      if (sz === '1' || sz === '2') r.classList.add('size-' + sz);
+      if (localStorage.getItem('bc8-contrast') === '1') r.classList.add('hc');
+    } catch (e) {}
     if (still) r.classList.add('is-still');
     else if (!matchMedia('(prefers-reduced-motion: reduce)').matches) r.classList.add('motion');
     /* if the scripts never ran (blocked, or failed to load), the page shows as it is: checked once the
@@ -54,7 +60,7 @@
 <!-- the line above the bar: the official site, the time, the way to 911, accessibility, motion -->
 <aside class="util" id="util" aria-label="Site information">
   <p class="util__gov">The official website of the City Government of Batangas</p>
-  <p class="util__tools"><time class="util__time" data-pst>Philippine Standard Time</time><a href="tel:911">Call 911</a><a href="accessibility.html">Accessibility</a><button type="button" data-motion aria-pressed="false">Pause motion</button></p>
+  <p class="util__tools"><time class="util__time" data-pst>Philippine Standard Time</time><a href="tel:911">Call 911</a><a href="accessibility.html">Accessibility</a><button type="button" data-motion aria-pressed="false">Pause motion</button><span class="util__read" role="group" aria-label="Text size"><span aria-hidden="true">Text</span><button type="button" data-size="0" aria-pressed="true">A</button><button type="button" data-size="1" aria-pressed="false">A+</button><button type="button" data-size="2" aria-pressed="false">A++</button></span><button type="button" data-contrast aria-pressed="false">Contrast</button></p>
 </aside>
 
 <header class="nav is-page" id="nav">
@@ -89,13 +95,15 @@
   <div class="menu__in">
     <nav class="menu__main" aria-label="Sections">
       <a href="services.html">Services</a>
+      <p class="menu__sub"><a href="charter.html">Citizen's Charter</a><a href="forms.html">Forms</a><a href="jobs.html">Jobs</a><a href="services.html#online">Online services</a></p>
       <a href="emergency.html">Emergency</a>
       <a href="government.html">Government</a>
-      <p class="menu__sub"><a href="mayor.html">The Mayor</a><a href="congresswoman.html">The Congresswoman</a><a href="government.html#council">City Council</a><a href="government.html#departments">Offices</a><a href="government.html#barangays">Barangays</a><a href="transparency.html">Transparency</a></p>
+      <p class="menu__sub"><a href="mayor.html">The Mayor</a><a href="congresswoman.html">The Congresswoman</a><a href="officials.html">Officials</a><a href="government.html#departments">Offices</a><a href="barangays.html">Barangays</a><a href="ordinances.html">Ordinances</a><a href="projects.html">Projects</a><a href="bids.html">Bids and awards</a><a href="transparency.html">Transparency</a><a href="about.html">About the City</a></p>
       <a href="business.html">Business</a>
       <a href="visit.html">Discover</a>
       <p class="menu__sub"><a href="visit.html#plan">Plan a visit</a><a href="heritage.html">Heritage</a><a href="visit.html#eat">Where to eat</a><a href="visit.html#fiesta">The fiesta</a><a href="index.html#map">City map</a></p>
       <a href="news.html">News</a>
+      <p class="menu__sub"><a href="events.html">Events</a><a href="event.html">The Sto. Niño feast</a></p>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="menu__side">
@@ -109,7 +117,7 @@
         <li><a href="news.html">Advisories and notices</a></li>
       </ul>
       <p class="menu__call">In an emergency call <a href="tel:911">911</a></p>
-      <p class="menu__util"><time class="util__time" data-pst>Philippine Standard Time</time><a href="accessibility.html">Accessibility</a><button type="button" data-motion aria-pressed="false">Pause motion</button></p>
+      <p class="menu__util"><time class="util__time" data-pst>Philippine Standard Time</time><a href="accessibility.html">Accessibility</a><button type="button" data-motion aria-pressed="false">Pause motion</button><span class="util__read" role="group" aria-label="Text size"><span aria-hidden="true">Text</span><button type="button" data-size="0" aria-pressed="true">A</button><button type="button" data-size="1" aria-pressed="false">A+</button><button type="button" data-size="2" aria-pressed="false">A++</button></span><button type="button" data-contrast aria-pressed="false">Contrast</button></p>
     </div>
   </div>
 </div>
@@ -209,6 +217,8 @@
       </article>
     </div>
   </div>
+  <nav class="pager" aria-label="Pages of the archive"><b aria-current="page">1</b><a href="news.html">2</a><a href="news.html">3</a><a class="cta" href="news.html">Older <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a></nav>
+  <p class="sec__foot"><a class="cta cta--main" href="events.html">The calendar of events <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a></p>
 </section>
 
 <p class="page__note wrap"><span class="tag">Sample content</span> The feed is to be wired to the City's newsroom; who publishes, and in what form, is to be supplied.</p>
@@ -229,6 +239,7 @@
           <img src="assets/images/seal-144.webp" width="72" height="72" alt="Official seal of Batangas City" loading="lazy">
           <p><strong>City Government of Batangas</strong><br>City Hall, P. Burgos Street<br>Batangas City 4200, Philippines</p>
           <p class="foot__ph"><a href="contact.html">Contact City Hall</a> · trunkline <span class="tag tag--dark">To be supplied</span></p>
+          <p class="foot__badges"><a class="badge" href="transparency.html#disclosure">Transparency Seal</a><a class="badge" href="https://www.foi.gov.ph" target="_blank" rel="noopener">Freedom of Information<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></p>
         </div>
         <nav aria-label="Emergency">
           <h2>Emergency</h2>
@@ -244,11 +255,14 @@
           <ul>
             <li><a href="mayor.html#office">Office of the City Mayor</a></li>
             <li><a href="congresswoman.html#office">Office of the Representative</a></li>
-            <li><a href="government.html#council">City Council</a></li>
+            <li><a href="officials.html">Officials and the City Council</a></li>
             <li><a href="government.html#departments">Departments and offices</a></li>
-            <li><a href="government.html#barangays">The 105 barangays</a></li>
+            <li><a href="barangays.html">The 105 barangays</a></li>
+            <li><a href="ordinances.html">Ordinances</a></li>
+            <li><a href="projects.html">Projects</a></li>
             <li><a href="transparency.html">Transparency and full disclosure</a></li>
-            <li><a href="transparency.html#procurement">Bids and awards</a></li>
+            <li><a href="bids.html">Bids and awards</a></li>
+            <li><a href="about.html">About the City</a></li>
           </ul>
         </nav>
         <nav aria-label="Government links">
@@ -264,15 +278,15 @@
           <h2>Site map</h2>
           <ul>
             <li><a href="services.html">Services</a></li>
+            <li><a href="charter.html">Citizen's Charter</a></li>
+            <li><a href="forms.html">Forms</a></li>
+            <li><a href="jobs.html">Jobs</a></li>
             <li><a href="emergency.html">Emergency</a></li>
-            <li><a href="mayor.html">The Mayor</a></li>
-            <li><a href="congresswoman.html">The Congresswoman</a></li>
             <li><a href="government.html">City Government</a></li>
             <li><a href="business.html">Business</a></li>
             <li><a href="visit.html">Discover</a></li>
-            <li><a href="heritage.html">Heritage</a></li>
-            <li><a href="index.html#map">City map</a></li>
             <li><a href="news.html">News</a></li>
+            <li><a href="events.html">Events</a></li>
           </ul>
         </nav>
       </div>
@@ -281,6 +295,7 @@
         <ul>
           <li><a href="accessibility.html">Accessibility</a></li>
           <li><a href="privacy.html">Privacy notice</a></li>
+          <li><a href="terms.html">Terms of use</a></li>
           <li><button type="button" data-motion aria-pressed="false">Pause motion</button></li>
           <li><a href="#">Facebook</a></li>
           <li><a href="#">YouTube</a></li>
@@ -307,7 +322,6 @@
 
 <script src="assets/js/vendor/gsap.min.js"></script>
 <script src="assets/js/vendor/ScrollTrigger.min.js"></script>
-<script src="assets/data/pages.js"></script>
 <script src="assets/js/main.js"></script>
 </body>
 </html>

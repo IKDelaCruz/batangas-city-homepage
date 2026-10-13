@@ -1079,7 +1079,7 @@
     $('#feast-date').textContent = '16 January ' + f.getFullYear();
   })();
 
-  const filters = $$('.filters button');
+  const filters = $$('.news__bar .filters button');
   const stories = $$('#news-grid .story');
   filters.forEach(b => b.addEventListener('click', () => {
     const cat = b.dataset.filter;
@@ -1156,7 +1156,7 @@
     }
     const first = id === 'search' ? $('#q') : $('.menu__main a', layer);
     setTimeout(() => first.focus({ preventScroll: true }), 40);
-    if (id === 'search') renderResults('');
+    if (id === 'search') { loadPages(); renderResults(''); }
   }
   function closeLayer(silent) {
     if (!layer) return;
@@ -1214,8 +1214,26 @@
     ['Contact City Hall', 'Contact', 'contact.html', 'contact address phone hotline office city hall'],
     ['City Government', 'Government', '#government', 'mayor council sanggunian departments barangay transparency']
   ].forEach(r => index.push({ label: r[0], kind: r[1], href: (r[2][0] === '#' ? home : '') + r[2], home: 1, words: r[3] }));
-  /* the ten pages and their sections, written by the build into assets/data/pages.js */
-  (window.__pages || []).forEach(p => index.push(p));
+  /* the pages and their sections, written by the build into assets/data/pages.js. It is fetched
+     when a search box is first used, not with the page: the first screen stays within its weight */
+  let docs = null;
+  let pagesIn = false;
+  function addPages() {
+    if (pagesIn || !window.__pages) return;
+    pagesIn = true;
+    window.__pages.forEach(p => index.push(p));
+    docs = null;
+  }
+  function loadPages() {
+    if (window.__pages) { addPages(); return; }
+    if (loadPages.started) return;
+    loadPages.started = true;
+    const s = d.createElement('script');
+    s.src = 'assets/data/pages.js';
+    s.onload = () => { addPages(); const box = $('#search'); if (box && !box.hidden) renderResults($('#q').value); };
+    d.body.appendChild(s);
+  }
+  d.addEventListener('focusin', e => { if (e.target.matches && e.target.matches('input[type=search]')) loadPages(); });
 
   /* Every word typed must be found, in the title, the keywords or the words of
      the section, allowing for the other language, a plural or one slip of the
@@ -1256,7 +1274,7 @@
     }
     return best;
   };
-  const docs = index.map(e => ({ e, title: toks(e.label), all: toks([e.label, e.words, e.text, e.kind].join(' ')) }));
+  const allDocs = () => docs || (docs = index.map(e => ({ e, title: toks(e.label), all: toks([e.label, e.words, e.text, e.kind].join(' ')) })));
   const RANK = { Service: 4, Page: 3 };
   function searchFor(q) {
     const qt = toks(q).filter(t => !STOPQ.has(t));
@@ -1278,12 +1296,13 @@
       if (rest.length && rest.every(w => qt.some(t => alts(t).some(a => w === a || (a.length >= 3 && w.startsWith(a)))))) score += 2;
       /* a page wins on its title; found only in its keywords, its sections come first */
       const rank = doc.e.kind === 'Page' ? (inTitle ? 3 : 1) : RANK[doc.e.kind] || (doc.e.home ? 1 : 2);
-      return score * 10 + rank;
+      /* sample records and reference pages are found, but after the service they describe */
+      return score * 10 + rank - (doc.e.low ? 30 : 0);
     };
     let out = [];
-    docs.forEach(doc => { const s = rate(doc, 0); if (s !== null) out.push({ e: doc.e, score: s }); });
+    allDocs().forEach(doc => { const s = rate(doc, 0); if (s !== null) out.push({ e: doc.e, score: s }); });
     /* nothing has every word ("garbage collection"): the places that have all but one */
-    if (!out.length && qt.length > 1) docs.forEach(doc => { const s = rate(doc, 1); if (s !== null) out.push({ e: doc.e, score: s }); });
+    if (!out.length && qt.length > 1) allDocs().forEach(doc => { const s = rate(doc, 1); if (s !== null) out.push({ e: doc.e, score: s }); });
     /* one line per place: the same sheet can be in the index twice (from this page's list and from the pages) */
     const here = location.pathname.split('/').pop() || 'index.html';
     const seen = new Set();
@@ -1380,6 +1399,110 @@
     say('This page is not part of the prototype yet.');
   });
 
+  /* ------------------------------------------------------- record lists
+     A list with groups of filters and a search box: a row shows when it
+     matches the pressed filter of every group and every word typed. The
+     address can choose a filter (ordinances.html?kind=eo). */
+  $$('[data-list]').forEach(list => {
+    const rows = $$('[data-row]', list);
+    const q = $('[data-list-q]', list);
+    const count = $('[data-list-count]', list);
+    const empty = $('[data-list-empty]', list);
+    const groups = $$('.filters[data-key]', list);
+    const noun = (count && count.dataset.noun) || 'items';
+    rows.forEach(r => { r._t = plain(r.textContent + ' ' + (r.dataset.words || '')); });
+    const apply = () => {
+      const words = q ? plain(q.value).split(/\s+/).filter(Boolean) : [];
+      const pick = groups.map(g => [g.dataset.key, ($('[aria-pressed="true"]', g) || { dataset: { filter: 'all' } }).dataset.filter]);
+      let n = 0;
+      rows.forEach(r => {
+        const ok = pick.every(([k, v]) => v === 'all' || (r.dataset[k] || '').split(' ').includes(v)) && words.every(w => r._t.includes(w));
+        r.hidden = !ok;
+        if (ok) n++;
+      });
+      if (count) count.textContent = n === rows.length ? `${n} ${noun}` : `${n} of ${rows.length} ${noun}`;
+      if (empty) empty.hidden = n > 0;
+    };
+    groups.forEach(g => $$('button', g).forEach(b => b.addEventListener('click', () => {
+      $$('button', g).forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+      apply();
+    })));
+    if (q) q.addEventListener('input', apply);
+    const ask = new URLSearchParams(location.search);
+    groups.forEach(g => {
+      const v = ask.get(g.dataset.key);
+      const b = v && $$('button', g).find(x => x.dataset.filter === v);
+      if (b) $$('button', g).forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    });
+    apply();
+  });
+
+  /* tabs: one panel at a time, the arrow keys move between them */
+  $$('[role="tablist"]').forEach(tl => {
+    const tabs = $$('[role="tab"]', tl);
+    const show = t => tabs.forEach(x => {
+      const on = x === t;
+      x.setAttribute('aria-selected', String(on));
+      x.tabIndex = on ? 0 : -1;
+      d.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+    });
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => show(t));
+      t.addEventListener('keydown', e => {
+        const step = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+        if (!step) return;
+        const n = tabs[(i + step + tabs.length) % tabs.length];
+        show(n);
+        n.focus();
+      });
+    });
+  });
+
+  /* share: the phone's own share sheet where there is one, the usual places, and the link */
+  $$('.share').forEach(s => {
+    const url = location.href.split('#')[0];
+    const u = encodeURIComponent(url);
+    const t = encodeURIComponent(d.title);
+    const to = {
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${u}`,
+      x: `https://x.com/intent/post?url=${u}&text=${t}`,
+      viber: `viber://forward?text=${t}%20${u}`,
+      email: `mailto:?subject=${t}&body=${u}`
+    };
+    $$('a[data-share]', s).forEach(a => { a.href = to[a.dataset.share]; });
+    const native = $('[data-share-native]', s);
+    if (native && navigator.share) {
+      native.hidden = false;
+      native.addEventListener('click', () => navigator.share({ title: d.title, url }).catch(() => {}));
+    }
+    const copy = $('[data-share-copy]', s);
+    if (copy) copy.addEventListener('click', () => {
+      const done = () => say('The link is copied.');
+      if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, () => say(url, 6000));
+      else say(url, 6000);
+    });
+  });
+
+  /* the demonstration form: nothing is sent; it answers with a reference number in the City's style */
+  const demo = $('#feedback-form');
+  if (demo) demo.addEventListener('submit', e => {
+    e.preventDefault();
+    const t = new Date();
+    const ymd = t.getFullYear() + String(t.getMonth() + 1).padStart(2, '0') + String(t.getDate()).padStart(2, '0');
+    $('#fb-ref').textContent = `BC-${ymd}-${String(1000 + Math.floor(Math.random() * 9000))}`;
+    demo.hidden = true;
+    const done = $('#fb-done');
+    done.hidden = false;
+    done.focus();
+  });
+  const again = $('#fb-again');
+  if (again) again.addEventListener('click', () => {
+    demo.reset();
+    demo.hidden = false;
+    $('#fb-done').hidden = true;
+    $('input, select, textarea', demo).focus();
+  });
+
   /* ------------------------------------------------ an urgent notice (D10)
      One notice at a time, above everything. In the prototype a sample shows
      only with ?alert; a dismissed notice stays dismissed for the visit. */
@@ -1433,6 +1556,35 @@
     setStill(on);
     say(on ? 'Motion paused, here and on the next pages.' : motion ? 'Motion back on.' : 'Motion comes back on the next page you open.', 3200);
   }));
+
+  /* ------------------------------------- text size and contrast (decision D25)
+     Beside Pause motion: three text sizes and a high-contrast paper, kept for
+     the next pages (the head script applies them before the first paint). */
+  const sizeBtns = $$('[data-size]');
+  const hcBtns = $$('[data-contrast]');
+  const showRead = () => {
+    const s = root.classList.contains('size-2') ? '2' : root.classList.contains('size-1') ? '1' : '0';
+    sizeBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.size === s)));
+    hcBtns.forEach(b => b.setAttribute('aria-pressed', String(root.classList.contains('hc'))));
+  };
+  const keep = (k, v) => { try { if (v) localStorage.setItem(k, v); else localStorage.removeItem(k); } catch (e) {} };
+  sizeBtns.forEach(b => b.addEventListener('click', () => {
+    const s = b.dataset.size;
+    root.classList.remove('size-1', 'size-2');
+    if (s !== '0') root.classList.add('size-' + s);
+    keep('bc8-size', s === '0' ? '' : s);
+    showRead();
+    if (motion) ST.refresh();
+    say(['Text at its usual size.', 'Larger text, here and on the next pages.', 'Largest text, here and on the next pages.'][+s], 3000);
+  }));
+  hcBtns.forEach(b => b.addEventListener('click', () => {
+    const on = !root.classList.contains('hc');
+    root.classList.toggle('hc', on);
+    keep('bc8-contrast', on ? '1' : '');
+    showRead();
+    say(on ? 'High contrast on, here and on the next pages.' : 'High contrast off.', 3000);
+  }));
+  showRead();
 
   /* ------------------------------------------------------------- footer */
   /* On a phone the four lists of links fold under their headings (the first

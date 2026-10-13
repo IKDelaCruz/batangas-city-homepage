@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Citizen's Charter · Batangas City</title>
+<meta name="description" content="The Citizen's Charter of the City Government of Batangas, 2026: every frontline service with its office, classification, fees and processing time, under the Ease of Doing Business Act.">
+<meta name="theme-color" content="#f7f2e7">
+<link rel="icon" href="assets/images/icons/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Batangas City">
+<meta property="og:locale" content="en_PH">
+<meta property="og:title" content="Citizen&#x27;s Charter · Batangas City">
+<meta property="og:description" content="The Citizen&#x27;s Charter of the City Government of Batangas, 2026: every frontline service with its office, classification, fees and processing time, under the Ease of Doing Business Act.">
+<meta property="og:url" content="https://ikdelacruz.github.io/batangas-city-homepage/charter.html">
+<meta property="og:image" content="https://ikdelacruz.github.io/batangas-city-homepage/assets/images/share/charter.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="An ink and wash drawing of Batangas City">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Citizen&#x27;s Charter · Batangas City">
+<meta name="twitter:description" content="The Citizen&#x27;s Charter of the City Government of Batangas, 2026: every frontline service with its office, classification, fees and processing time, under the Ease of Doing Business Act.">
+<meta name="twitter:image" content="https://ikdelacruz.github.io/batangas-city-homepage/assets/images/share/charter.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "GovernmentOrganization", "@id": "https://ikdelacruz.github.io/batangas-city-homepage/#city", "name": "City Government of Batangas", "url": "https://ikdelacruz.github.io/batangas-city-homepage/", "logo": "https://ikdelacruz.github.io/batangas-city-homepage/assets/images/seal-216.webp", "address": {"@type": "PostalAddress", "streetAddress": "City Hall Complex, P. Burgos Street, Barangay 17", "addressLocality": "Batangas City", "addressRegion": "Batangas", "postalCode": "4200", "addressCountry": "PH"}, "contactPoint": {"@type": "ContactPoint", "telephone": "+63-43-723-1511", "contactType": "customer service"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Batangas City", "item": "https://ikdelacruz.github.io/batangas-city-homepage/"}, {"@type": "ListItem", "position": 2, "name": "Services", "item": "https://ikdelacruz.github.io/batangas-city-homepage/services.html"}, {"@type": "ListItem", "position": 3, "name": "Citizen's Charter", "item": "https://ikdelacruz.github.io/batangas-city-homepage/charter.html"}]}]}</script>
+<link rel="stylesheet" href="assets/css/style.css">
+<script>
+  /* Motion is opt-in: without this class every drawing is simply there. Inner pages have no opening. */
+  (function (r) {
+    r.classList.add('js');   /* scripts run: the bar takes its paper once the page scrolls (without them it always has it) */
+    var still = false;   /* Pause motion, kept from an earlier page */
+    try { still = localStorage.getItem('bc8-still') === '1'; } catch (e) {}
+    try {   /* text size and contrast, kept from an earlier page (decision D25) */
+      var sz = localStorage.getItem('bc8-size');
+      if (sz === '1' || sz === '2') r.classList.add('size-' + sz);
+      if (localStorage.getItem('bc8-contrast') === '1') r.classList.add('hc');
+    } catch (e) {}
+    if (still) r.classList.add('is-still');
+    else if (!matchMedia('(prefers-reduced-motion: reduce)').matches) r.classList.add('motion');
+    /* if the scripts never ran (blocked, or failed to load), the page shows as it is: checked once the
+       parser has run them all, however slow the connection, and after 15 s for a download that stalls */
+    var undo = function () { if (!window.__drawn) r.classList.remove('motion'); };
+    document.addEventListener('DOMContentLoaded', undo);
+    setTimeout(undo, 15000);
+  })(document.documentElement);
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<script src="assets/data/shell.js"></script>
+
+<!-- ======================================================= navigation -->
+<!-- an urgent notice from the City (a typhoon, a class suspension): one at a time, above everything -->
+<div class="alert" id="alert" hidden>
+  <p class="alert__in" role="status"><span class="tag" id="alert-kind"></span> <span id="alert-text"></span> <a class="lk" id="alert-more" href="news.html">Details</a></p>
+  <button type="button" class="alert__close" id="alert-close" aria-label="Dismiss this notice"><svg class="ico" viewBox="0 0 26 26" aria-hidden="true"><use href="#i-close"/></svg></button>
+</div>
+
+<!-- the line above the bar: the official site, the time, the way to 911, accessibility, motion -->
+<aside class="util" id="util" aria-label="Site information">
+  <p class="util__gov">The official website of the City Government of Batangas</p>
+  <p class="util__tools"><time class="util__time" data-pst>Philippine Standard Time</time><a href="tel:911">Call 911</a><a href="accessibility.html">Accessibility</a><button type="button" data-motion aria-pressed="false">Pause motion</button><span class="util__read" role="group" aria-label="Text size"><span aria-hidden="true">Text</span><button type="button" data-size="0" aria-pressed="true">A</button><button type="button" data-size="1" aria-pressed="false">A+</button><button type="button" data-size="2" aria-pressed="false">A++</button></span><button type="button" data-contrast aria-pressed="false">Contrast</button></p>
+</aside>
+
+<header class="nav is-page" id="nav">
+  <a class="nav__brand" href="index.html" aria-label="Batangas City, home">
+    <img src="assets/images/seal-92.webp" width="46" height="46" alt="">
+    <span class="nav__name">Batangas City<small>Republic of the Philippines</small></span>
+  </a>
+  <nav class="nav__links" aria-label="Primary">
+    <a href="services.html" data-nav="services" aria-current="true">Services</a>
+    <a href="emergency.html" data-nav="emergency">Emergency</a>
+    <a href="government.html" data-nav="government">Government</a>
+    <a href="business.html" data-nav="business">Business</a>
+    <a href="visit.html" data-nav="discover">Discover</a>
+    <a href="news.html" data-nav="news">News</a>
+    <a href="contact.html" data-nav="contact">Contact</a>
+  </nav>
+  <div class="nav__tools">
+    <a class="nav__btn" href="services.html" data-open="search">
+      <svg class="ico" viewBox="0 0 28 28"><use href="#i-search"/></svg><span>Search</span>
+    </a>
+    <a class="nav__btn" href="#sitemap" data-open="menu">
+      <svg class="ico" viewBox="0 0 30 24"><use href="#i-menu"/></svg><span>Menu</span>
+    </a>
+  </div>
+  <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 5 150 6Q200 7 250 6Q300 5 350 6Q400 6 450 6Q500 5 550 5Q600 4 650 5Q700 6 750 5Q800 4 850 5Q900 6 950 5Q1000 4 1050 4Q1100 5 1200 6"/></svg>
+</header>
+
+<!-- ============================================================= menu -->
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Site menu" hidden>
+  <div class="menu__wash" aria-hidden="true"><img class="wash" data-w="blot" src="assets/art/wash/menu-blot.webp" alt="" width="678" height="561" loading="lazy" decoding="async" style="left:3.71%;top:0.00%;width:96.86%;height:100.18%"><img class="wash" data-w="gold" src="assets/art/wash/menu-gold.webp" alt="" width="197" height="205" loading="lazy" decoding="async" style="left:67.57%;top:1.96%;width:28.14%;height:36.61%"></div>
+  <button class="menu__close" type="button" data-close>Close <svg class="ico" viewBox="0 0 26 26"><use href="#i-close"/></svg></button>
+  <div class="menu__in">
+    <nav class="menu__main" aria-label="Sections">
+      <a href="services.html">Services</a>
+      <p class="menu__sub"><a href="charter.html">Citizen's Charter</a><a href="forms.html">Forms</a><a href="jobs.html">Jobs</a><a href="services.html#online">Online services</a></p>
+      <a href="emergency.html">Emergency</a>
+      <a href="government.html">Government</a>
+      <p class="menu__sub"><a href="mayor.html">The Mayor</a><a href="congresswoman.html">The Congresswoman</a><a href="officials.html">Officials</a><a href="government.html#departments">Offices</a><a href="barangays.html">Barangays</a><a href="ordinances.html">Ordinances</a><a href="projects.html">Projects</a><a href="bids.html">Bids and awards</a><a href="transparency.html">Transparency</a><a href="about.html">About the City</a></p>
+      <a href="business.html">Business</a>
+      <a href="visit.html">Discover</a>
+      <p class="menu__sub"><a href="visit.html#plan">Plan a visit</a><a href="heritage.html">Heritage</a><a href="visit.html#eat">Where to eat</a><a href="visit.html#fiesta">The fiesta</a><a href="index.html#map">City map</a></p>
+      <a href="news.html">News</a>
+      <p class="menu__sub"><a href="events.html">Events</a><a href="event.html">The Sto. Niño feast</a></p>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="menu__side">
+      <p class="aside menu__hand">most people come for</p>
+      <ul>
+        <li><a href="services.html#mac">EBD and the Mayor's Action Center</a></li>
+        <li><a href="services.html#birth-marriage-death-certificates">Birth, marriage and death certificates</a></li>
+        <li><a href="services.html#business-permit">Business permit, new or renewal</a></li>
+        <li><a href="services.html#real-property-tax">Real property tax</a></li>
+        <li><a href="services.html#job-vacancies">Job vacancies</a></li>
+        <li><a href="news.html">Advisories and notices</a></li>
+      </ul>
+      <p class="menu__call">In an emergency call <a href="tel:911">911</a></p>
+      <p class="menu__util"><time class="util__time" data-pst>Philippine Standard Time</time><a href="accessibility.html">Accessibility</a><button type="button" data-motion aria-pressed="false">Pause motion</button><span class="util__read" role="group" aria-label="Text size"><span aria-hidden="true">Text</span><button type="button" data-size="0" aria-pressed="true">A</button><button type="button" data-size="1" aria-pressed="false">A+</button><button type="button" data-size="2" aria-pressed="false">A++</button></span><button type="button" data-contrast aria-pressed="false">Contrast</button></p>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================== search -->
+<div class="search" id="search" role="dialog" aria-modal="true" aria-label="Search the site" hidden>
+  <button class="menu__close" type="button" data-close>Close <svg class="ico" viewBox="0 0 26 26"><use href="#i-close"/></svg></button>
+  <div class="search__in">
+    <label class="aside" for="q">what are you looking for?</label>
+    <input id="q" type="search" autocomplete="off" placeholder="permit, taxes, ferry, hotline…" aria-controls="q-results">
+    <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 7 150 7Q200 7 250 7Q300 8 350 6Q400 5 450 5Q500 5 550 6Q600 7 650 7Q700 7 750 6Q800 6 850 6Q900 7 950 6Q1000 6 1050 6Q1100 7 1200 4"/></svg>
+    <ul class="search__results" id="q-results"></ul>
+    <p class="sr" id="q-count" role="status"></p>
+    <p class="search__hint">This prototype searches the homepage and its ten pages.</p>
+  </div>
+</div>
+
+<main id="main" class="page">
+
+<header class="phero wrap">
+  <div>
+    <nav class="ch__no page__crumb" aria-label="Breadcrumb" data-reveal><span><a href="index.html">Batangas City</a> · <a href="services.html">Services</a> · <b aria-current="page">Citizen's Charter</b></span><i class="aside">what every office promises</i></nav>
+    <h1 class="display display--s" data-reveal>Citizen's <em>Charter</em></h1>
+    <p class="phero__lede" data-reveal>Every service: what to bring, the steps, the fee, the time, and who answers for it.</p>
+  </div>
+  <nav class="jump" aria-label="On this page" data-reveal>
+    <a href="#find"><span class="pic"><svg class="icon"><use href="#i-g-handshake"/></svg></span>Find a service</a>
+    <a href="#limits"><span class="pic pic--g"><svg class="icon"><use href="#i-g-clock"/></svg></span>How long, at most</a>
+    <a href="#handbook"><span class="pic pic--s"><svg class="icon"><use href="#i-g-download"/></svg></span>The handbook</a>
+    <a href="#complain"><span class="pic pic--t"><svg class="icon"><use href="#i-g-megaphone"/></svg></span>When it goes wrong</a>
+  </nav>
+</header>
+
+<section class="sec wrap" id="find" aria-labelledby="t-find">
+  <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 7 150 7Q200 7 250 7Q300 6 350 5Q400 4 450 6Q500 7 550 7Q600 8 650 7Q700 6 750 6Q800 6 850 5Q900 5 950 4Q1000 4 1050 5Q1100 5 1200 7"/></svg>
+  <header class="sec__head">
+    <div data-reveal><p class="aside">the 2026 edition</p><h2 id="t-find">Find <em>a service</em></h2></div>
+    <p class="sec__lede" data-reveal>Pick an office or a kind of service, or type what you need.</p>
+  </header>
+  <div data-list>
+    <div class="rec__bar">
+      <div class="rec__groups">
+        <div class="filters" role="group" aria-label="Office" data-key="office"><span class="filters__lbl" aria-hidden="true">Office</span><button type="button" data-filter="all" aria-pressed="true">All</button><button type="button" data-filter="registrar" aria-pressed="false">Civil Registrar</button><button type="button" data-filter="bplo" aria-pressed="false">Business permits</button><button type="button" data-filter="engineer" aria-pressed="false">Engineering</button><button type="button" data-filter="treasurer" aria-pressed="false">Treasurer</button><button type="button" data-filter="social" aria-pressed="false">Social services</button><button type="button" data-filter="other" aria-pressed="false">Other offices</button></div>
+        <div class="filters" role="group" aria-label="Classification" data-key="class"><span class="filters__lbl" aria-hidden="true">Kind</span><button type="button" data-filter="all" aria-pressed="true">All</button><button type="button" data-filter="simple" aria-pressed="false">Simple</button><button type="button" data-filter="complex" aria-pressed="false">Complex</button><button type="button" data-filter="technical" aria-pressed="false">Highly technical</button></div>
+        <div class="filters" role="group" aria-label="Who it is for" data-key="client"><span class="filters__lbl" aria-hidden="true">For</span><button type="button" data-filter="all" aria-pressed="true">All</button><button type="button" data-filter="g2c" aria-pressed="false">Citizens</button><button type="button" data-filter="g2b" aria-pressed="false">Businesses</button></div>
+      </div>
+      <div class="find find--list" role="search"><label class="sr" for="cc-q">Find a service</label><svg class="ico find__ico" viewBox="0 0 28 28" aria-hidden="true"><use href="#i-search"/></svg><input id="cc-q" type="search" autocomplete="off" placeholder="Birth certificate, permit, cedula…" data-list-q></div>
+    </div>
+    <p class="rec__count" data-list-count data-noun="services" role="status"></p>
+    <ul class="rows">
+      <li class="row" data-row data-office="registrar" data-class="simple" data-client="g2c" data-words="birth marriage death certificate copy civil registry kapanganakan kasal"><i>Civil Registrar</i><h3><a href="charter-service.html">Copy of a birth, marriage or death certificate</a></h3><p>₱80.00 a copy · 2 hours 24 minutes · for citizens · Charter, p. 400</p><span class="tag tag--open">Simple</span></li>
+      <li class="row" data-row data-office="bplo" data-class="simple" data-client="g2b" data-words="business permit new registration negosyo"><i>Business permits</i><h3><a href="services.html#business-permit">New business registration, at the office</a></h3><p>Taxes and fees by capital, under the City's revenue code · 1 hour 30 minutes · Charter, p. 86</p><span class="tag tag--open">Simple</span></li>
+      <li class="row" data-row data-office="bplo" data-class="simple" data-client="g2b" data-words="business permit renewal negosyo"><i>Business permits</i><h3><a href="services.html#business-permit">Business registration renewal, at the office</a></h3><p>Taxes and fees by gross sales · 1 hour 30 minutes · Charter, p. 88</p><span class="tag tag--open">Simple</span></li>
+      <li class="row" data-row data-office="engineer" data-class="simple complex technical" data-client="g2c" data-words="building permit construction house"><i>Engineering</i><h3><a href="services.html#building-permit">Building permit</a></h3><p>Fees under the National Building Code · 3, 7 or 20 days, by the kind of building · Charter, pp. 847 to 853</p><span class="tag tag--open">By project</span></li>
+      <li class="row" data-row data-office="treasurer" data-class="simple" data-client="g2b" data-words="real property tax amilyar land house"><i>Treasurer</i><h3><a href="services.html#real-property-tax">Real property tax, assessed and paid</a></h3><p>2.5% of the assessed value; 2% a month if late, up to 72% · 35 minutes · Charter, p. 538</p><span class="tag tag--open">Simple</span></li>
+      <li class="row" data-row data-office="treasurer" data-class="simple" data-client="g2b" data-words="community tax certificate cedula sedula"><i>Treasurer</i><h3><a href="services.html#community-tax-certificate">Community tax certificate, the cedula</a></h3><p>For a person, ₱5.00 plus ₱1.00 for every ₱1,000 of income, up to ₱5,000 · 35 minutes · Charter, p. 525</p><span class="tag tag--open">Simple</span></li>
+      <li class="row" data-row data-office="social" data-class="simple" data-client="g2c" data-words="senior citizen id osca"><i>Social services</i><h3><a href="services.html#senior-citizen-id">Senior citizen ID, with the purchase booklets</a></h3><p>Free · 1 day and 15 minutes · Charter, p. 213</p><span class="tag tag--open">Simple</span></li>
+      <li class="row" data-row data-office="registrar" data-client="g2c" data-words="marriage licence license wedding kasal"><i>Civil Registrar</i><h3><a href="services.html#marriage-licence">Marriage licence</a></h3><p>Fee and time in the Charter</p><span class="tag">To be added</span></li>
+      <li class="row" data-row data-office="engineer" data-client="g2c" data-words="occupancy permit"><i>Engineering</i><h3><a href="services.html#occupancy-permit">Occupancy permit</a></h3><p>Fee and time in the Charter</p><span class="tag">To be added</span></li>
+      <li class="row" data-row data-office="other" data-client="g2c" data-words="zoning locational clearance"><i>Planning</i><h3><a href="services.html#zoning-clearance">Zoning and locational clearance</a></h3><p>Fee and time in the Charter</p><span class="tag">To be added</span></li>
+      <li class="row" data-row data-office="social" data-client="g2c" data-words="pwd disability id"><i>Social services</i><h3><a href="services.html#pwd-id">PWD ID</a></h3><p>Fee and time in the Charter</p><span class="tag">To be added</span></li>
+      <li class="row" data-row data-office="social" data-client="g2c" data-words="solo parent id"><i>Social services</i><h3><a href="services.html#solo-parent-id">Solo parent ID</a></h3><p>Fee and time in the Charter</p><span class="tag">To be added</span></li>
+      <li class="row" data-row data-office="other" data-client="g2c" data-words="medical burial assistance ebd mac"><i>Mayor's Action Center</i><h3><a href="services.html#mac-assistance">Medical and burial assistance</a></h3><p>Fee and time in the Charter</p><span class="tag">To be added</span></li>
+      <li class="row" data-row data-office="other" data-client="g2b" data-words="health sanitary permit food"><i>City Health</i><h3><a href="services.html#health-permits">Health and sanitary permits</a></h3><p>Fee and time in the Charter</p><span class="tag">To be added</span></li>
+      <li class="row" data-row data-office="other" data-client="g2c" data-words="certified true copy ordinance resolution"><i>City Council</i><h3><a href="services.html#certified-true-copies">Certified copy of an ordinance or resolution</a></h3><p>Fee and time in the Charter</p><span class="tag">To be added</span></li>
+      <li class="row" data-row data-office="other" data-client="g2c" data-words="job seeker registration peso employment"><i>PESO</i><h3><a href="services.html#job-vacancies">Job seeker registration</a></h3><p>Fee and time in the Charter</p><span class="tag">To be added</span></li>
+    </ul>
+    <p class="rec__empty" data-list-empty hidden>Nothing matches. Every service is in <a class="lk" href="#handbook">the handbook</a>, or ask at the public assistance desk.</p>
+  </div>
+  <p class="sample">The first seven are as the Charter 2026 (2nd edition) prints them; the rest are to be added from it. The first opens the Charter's full entry; the others, what to bring.</p>
+</section>
+
+<section class="sec wrap" id="limits" aria-labelledby="t-limits">
+  <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 4 150 5Q200 6 250 5Q300 5 350 5Q400 5 450 5Q500 6 550 6Q600 5 650 5Q700 5 750 5Q800 5 850 7Q900 8 950 6Q1000 4 1050 4Q1100 4 1200 4"/></svg>
+  <header class="sec__head">
+    <div data-reveal><p class="aside">the Ease of Doing Business Act, RA 11032</p><h2 id="t-limits">How long, <em>at most</em></h2></div>
+    <p class="sec__lede" data-reveal>Every service is classified, and the law sets the longest it may take, in working days.</p>
+  </header>
+  <ul class="figs" data-reveal>
+    <li><b>3</b><span>days for a simple service</span></li>
+    <li><b>7</b><span>days for a complex one</span></li>
+    <li><b>20</b><span>days for a highly technical one</span></li>
+  </ul>
+  <ul class="tiles">
+    <li class="tile" data-reveal><span class="pic"><svg class="icon"><use href="#i-g-clipboard"/></svg></span><b>What to bring</b><span>and where to get each paper</span></li>
+    <li class="tile" data-reveal><span class="pic pic--g"><svg class="icon"><use href="#i-g-people"/></svg></span><b>The steps</b><span>yours, and the office's</span></li>
+    <li class="tile" data-reveal><span class="pic pic--s"><svg class="icon"><use href="#i-g-coins"/></svg></span><b>The fees</b><span>nothing beyond what is listed</span></li>
+    <li class="tile" data-reveal><span class="pic pic--t"><svg class="icon"><use href="#i-g-bust"/></svg></span><b>Who answers</b><span>a person responsible for each step</span></li>
+  </ul>
+</section>
+
+<section class="sec wrap" id="handbook" aria-labelledby="t-handbook">
+  <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 7 150 7Q200 7 250 7Q300 6 350 5Q400 4 450 6Q500 7 550 7Q600 8 650 7Q700 6 750 6Q800 6 850 5Q900 5 950 4Q1000 4 1050 5Q1100 5 1200 7"/></svg>
+  <header class="sec__head">
+    <div data-reveal><p class="aside">every office, every service</p><h2 id="t-handbook">The <em>handbook</em></h2></div>
+    <p class="sec__lede" data-reveal>The whole Charter as the City publishes it, also posted at every office.</p>
+  </header>
+  <ul class="docs">
+    <li data-reveal><svg class="icon"><use href="#i-g-download"/></svg><b><a class="lk" href="https://www.batangascity.gov.ph/web/images/downloads/City-Government-of-Batangas-Citizens-Charter-2026-2nd-Edition.pdf" target="_blank" rel="noopener">Citizen's Charter 2026, 2nd edition<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a><small>PDF, 1,133 pages, 15.6 MB, on the City's website</small></b><span></span></li>
+  </ul>
+</section>
+
+<section class="sec wrap" id="complain" aria-labelledby="t-complain">
+  <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 4 150 5Q200 6 250 5Q300 5 350 5Q400 5 450 5Q500 6 550 6Q600 5 650 5Q700 5 750 5Q800 5 850 7Q900 8 950 6Q1000 4 1050 4Q1100 4 1200 4"/></svg>
+  <header class="sec__head">
+    <div data-reveal><p class="aside">when a promise is broken</p><h2 id="t-complain">When it <em>goes wrong</em></h2></div>
+    <p class="sec__lede" data-reveal>Tell the office first; if it is not resolved, the national hotline and the Anti-Red Tape Authority.</p>
+  </header>
+  <ol class="track" data-reveal>
+    <li><b>The office</b><span>its public assistance desk</span></li>
+    <li><b>City Hall</b><span><a class="lk" href="contact.html#feedback">the feedback form</a></span></li>
+    <li><b>8888</b><span>the national hotline</span></li>
+    <li><b>ARTA</b><span><a class="lk" href="https://arta.gov.ph" target="_blank" rel="noopener">arta.gov.ph<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></span></li>
+  </ol>
+</section>
+
+<p class="page__note wrap"><span class="tag">Sources</span> Classifications, fees and times: the City Government of Batangas Citizen's Charter 2026 (2nd edition), pages as cited; the limits: Republic Act 11032. The remaining entries are to be added from the Charter before launch.</p>
+
+</main>
+
+<!-- ============================================================ footer -->
+<footer class="foot" id="contact">
+  <div class="foot__art" data-draw data-total="2.6">
+    <div class="scene scene--dusk" style="--ar:2000/430" data-shell="dusk"></div>
+  </div>
+  <div class="foot__in">
+    <div class="wrap">
+      <p class="foot__sign aside">and the light goes, and the sketchbook closes.</p>
+      <p class="foot__refrain" lang="fil">Mabuhay ang Lungsod ng Batangas!</p>
+      <div class="foot__grid">
+        <div class="foot__brand">
+          <img src="assets/images/seal-144.webp" width="72" height="72" alt="Official seal of Batangas City" loading="lazy">
+          <p><strong>City Government of Batangas</strong><br>City Hall, P. Burgos Street<br>Batangas City 4200, Philippines</p>
+          <p class="foot__ph"><a href="contact.html">Contact City Hall</a> · trunkline <span class="tag tag--dark">To be supplied</span></p>
+          <p class="foot__badges"><a class="badge" href="transparency.html#disclosure">Transparency Seal</a><a class="badge" href="https://www.foi.gov.ph" target="_blank" rel="noopener">Freedom of Information<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></p>
+        </div>
+        <nav aria-label="Emergency">
+          <h2>Emergency</h2>
+          <ul>
+            <li><a href="tel:911">Call 911</a></li>
+            <li><a href="emergency.html">Rescue, fire and police</a></li>
+            <li><a href="emergency.html#weather">Weather and advisories</a></li>
+          </ul>
+          <p class="foot__ph">City hotlines <span class="tag tag--dark">To be supplied</span></p>
+        </nav>
+        <nav aria-label="City Government" id="government">
+          <h2>City Government</h2>
+          <ul>
+            <li><a href="mayor.html#office">Office of the City Mayor</a></li>
+            <li><a href="congresswoman.html#office">Office of the Representative</a></li>
+            <li><a href="officials.html">Officials and the City Council</a></li>
+            <li><a href="government.html#departments">Departments and offices</a></li>
+            <li><a href="barangays.html">The 105 barangays</a></li>
+            <li><a href="ordinances.html">Ordinances</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="transparency.html">Transparency and full disclosure</a></li>
+            <li><a href="bids.html">Bids and awards</a></li>
+            <li><a href="about.html">About the City</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Government links">
+          <h2>Government links</h2>
+          <ul>
+            <li><a href="https://www.gov.ph" target="_blank" rel="noopener">GOV.PH<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://www.foi.gov.ph" target="_blank" rel="noopener">Freedom of Information<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://www.officialgazette.gov.ph" target="_blank" rel="noopener">Official Gazette<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://data.gov.ph" target="_blank" rel="noopener">Open Data Philippines<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Site map" id="sitemap">
+          <h2>Site map</h2>
+          <ul>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="charter.html">Citizen's Charter</a></li>
+            <li><a href="forms.html">Forms</a></li>
+            <li><a href="jobs.html">Jobs</a></li>
+            <li><a href="emergency.html">Emergency</a></li>
+            <li><a href="government.html">City Government</a></li>
+            <li><a href="business.html">Business</a></li>
+            <li><a href="visit.html">Discover</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="events.html">Events</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="foot__base">
+        <p>© City Government of Batangas. The illustrations are an artist's interpretation of the city, drawn, not photographed.</p>
+        <ul>
+          <li><a href="accessibility.html">Accessibility</a></li>
+          <li><a href="privacy.html">Privacy notice</a></li>
+          <li><a href="terms.html">Terms of use</a></li>
+          <li><button type="button" data-motion aria-pressed="false">Pause motion</button></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#top">Back to top</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- the way back up: in the right-hand gutter on a desktop, with the upward scroll on a phone -->
+<a class="totop rnd" id="totop" href="#top" aria-label="Back to top" data-cursor="Top"><svg class="ico" viewBox="0 0 56 24" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+
+<!-- phones: the four things people come for, within reach of a thumb -->
+<nav class="dock" id="dock" aria-label="Quick access">
+  <a href="services.html"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><path d="M4 24h20M6 24V11.500l8-6.500 8 6.500V24M11.500 24v-7h5v7"/></svg><span>Services</span></a>
+  <a href="services.html" data-open="search"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><use href="#i-search"/></svg><span>Search</span></a>
+  <a href="emergency.html"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><path d="M14 4v20M4 14h20M7.500 7.500l13 13M20.500 7.500l-13 13"/></svg><span>Emergency</span></a>
+  <a href="#sitemap" data-open="menu"><svg class="ico" viewBox="0 0 30 24" aria-hidden="true"><use href="#i-menu"/></svg><span>Menu</span></a>
+</nav>
+
+<p class="note" id="note" role="status"></p>
+<div class="cursor" id="cursor" aria-hidden="true"><i></i><svg viewBox="0 0 64 64"><use href="#i-ring"/></svg><b></b></div>
+
+<script src="assets/js/vendor/gsap.min.js"></script>
+<script src="assets/js/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

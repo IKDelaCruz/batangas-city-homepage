@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sample ordinance · Batangas City</title>
+<meta name="description" content="One record of the City's register of ordinances, resolutions and executive orders, showing how each reads on this site.">
+<meta name="theme-color" content="#f7f2e7">
+<link rel="icon" href="assets/images/icons/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Batangas City">
+<meta property="og:locale" content="en_PH">
+<meta property="og:title" content="Sample ordinance · Batangas City">
+<meta property="og:description" content="One record of the City&#x27;s register of ordinances, resolutions and executive orders, showing how each reads on this site.">
+<meta property="og:url" content="https://ikdelacruz.github.io/batangas-city-homepage/ordinance.html">
+<meta property="og:image" content="https://ikdelacruz.github.io/batangas-city-homepage/assets/images/share/ordinance.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="An ink and wash drawing of Batangas City">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sample ordinance · Batangas City">
+<meta name="twitter:description" content="One record of the City&#x27;s register of ordinances, resolutions and executive orders, showing how each reads on this site.">
+<meta name="twitter:image" content="https://ikdelacruz.github.io/batangas-city-homepage/assets/images/share/ordinance.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "GovernmentOrganization", "@id": "https://ikdelacruz.github.io/batangas-city-homepage/#city", "name": "City Government of Batangas", "url": "https://ikdelacruz.github.io/batangas-city-homepage/", "logo": "https://ikdelacruz.github.io/batangas-city-homepage/assets/images/seal-216.webp", "address": {"@type": "PostalAddress", "streetAddress": "City Hall Complex, P. Burgos Street, Barangay 17", "addressLocality": "Batangas City", "addressRegion": "Batangas", "postalCode": "4200", "addressCountry": "PH"}, "contactPoint": {"@type": "ContactPoint", "telephone": "+63-43-723-1511", "contactType": "customer service"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Batangas City", "item": "https://ikdelacruz.github.io/batangas-city-homepage/"}, {"@type": "ListItem", "position": 2, "name": "Government", "item": "https://ikdelacruz.github.io/batangas-city-homepage/government.html"}, {"@type": "ListItem", "position": 3, "name": "Ordinances", "item": "https://ikdelacruz.github.io/batangas-city-homepage/ordinances.html"}, {"@type": "ListItem", "position": 4, "name": "Sample ordinance", "item": "https://ikdelacruz.github.io/batangas-city-homepage/ordinance.html"}]}]}</script>
+<link rel="stylesheet" href="assets/css/style.css">
+<script>
+  /* Motion is opt-in: without this class every drawing is simply there. Inner pages have no opening. */
+  (function (r) {
+    r.classList.add('js');   /* scripts run: the bar takes its paper once the page scrolls (without them it always has it) */
+    var still = false;   /* Pause motion, kept from an earlier page */
+    try { still = localStorage.getItem('bc8-still') === '1'; } catch (e) {}
+    try {   /* text size and contrast, kept from an earlier page (decision D25) */
+      var sz = localStorage.getItem('bc8-size');
+      if (sz === '1' || sz === '2') r.classList.add('size-' + sz);
+      if (localStorage.getItem('bc8-contrast') === '1') r.classList.add('hc');
+    } catch (e) {}
+    if (still) r.classList.add('is-still');
+    else if (!matchMedia('(prefers-reduced-motion: reduce)').matches) r.classList.add('motion');
+    /* if the scripts never ran (blocked, or failed to load), the page shows as it is: checked once the
+       parser has run them all, however slow the connection, and after 15 s for a download that stalls */
+    var undo = function () { if (!window.__drawn) r.classList.remove('motion'); };
+    document.addEventListener('DOMContentLoaded', undo);
+    setTimeout(undo, 15000);
+  })(document.documentElement);
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<script src="assets/data/shell.js"></script>
+
+<!-- ======================================================= navigation -->
+<!-- an urgent notice from the City (a typhoon, a class suspension): one at a time, above everything -->
+<div class="alert" id="alert" hidden>
+  <p class="alert__in" role="status"><span class="tag" id="alert-kind"></span> <span id="alert-text"></span> <a class="lk" id="alert-more" href="news.html">Details</a></p>
+  <button type="button" class="alert__close" id="alert-close" aria-label="Dismiss this notice"><svg class="ico" viewBox="0 0 26 26" aria-hidden="true"><use href="#i-close"/></svg></button>
+</div>
+
+<!-- the line above the bar: the official site, the time, the way to 911, accessibility, motion -->
+<aside class="util" id="util" aria-label="Site information">
+  <p class="util__gov">The official website of the City Government of Batangas</p>
+  <p class="util__tools"><time class="util__time" data-pst>Philippine Standard Time</time><a href="tel:911">Call 911</a><a href="accessibility.html">Accessibility</a><button type="button" data-motion aria-pressed="false">Pause motion</button><span class="util__read" role="group" aria-label="Text size"><span aria-hidden="true">Text</span><button type="button" data-size="0" aria-pressed="true">A</button><button type="button" data-size="1" aria-pressed="false">A+</button><button type="button" data-size="2" aria-pressed="false">A++</button></span><button type="button" data-contrast aria-pressed="false">Contrast</button></p>
+</aside>
+
+<header class="nav is-page" id="nav">
+  <a class="nav__brand" href="index.html" aria-label="Batangas City, home">
+    <img src="assets/images/seal-92.webp" width="46" height="46" alt="">
+    <span class="nav__name">Batangas City<small>Republic of the Philippines</small></span>
+  </a>
+  <nav class="nav__links" aria-label="Primary">
+    <a href="services.html" data-nav="services">Services</a>
+    <a href="emergency.html" data-nav="emergency">Emergency</a>
+    <a href="government.html" data-nav="government" aria-current="true">Government</a>
+    <a href="business.html" data-nav="business">Business</a>
+    <a href="visit.html" data-nav="discover">Discover</a>
+    <a href="news.html" data-nav="news">News</a>
+    <a href="contact.html" data-nav="contact">Contact</a>
+  </nav>
+  <div class="nav__tools">
+    <a class="nav__btn" href="services.html" data-open="search">
+      <svg class="ico" viewBox="0 0 28 28"><use href="#i-search"/></svg><span>Search</span>
+    </a>
+    <a class="nav__btn" href="#sitemap" data-open="menu">
+      <svg class="ico" viewBox="0 0 30 24"><use href="#i-menu"/></svg><span>Menu</span>
+    </a>
+  </div>
+  <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 5 150 6Q200 7 250 6Q300 5 350 6Q400 6 450 6Q500 5 550 5Q600 4 650 5Q700 6 750 5Q800 4 850 5Q900 6 950 5Q1000 4 1050 4Q1100 5 1200 6"/></svg>
+</header>
+
+<!-- ============================================================= menu -->
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Site menu" hidden>
+  <div class="menu__wash" aria-hidden="true"><img class="wash" data-w="blot" src="assets/art/wash/menu-blot.webp" alt="" width="678" height="561" loading="lazy" decoding="async" style="left:3.71%;top:0.00%;width:96.86%;height:100.18%"><img class="wash" data-w="gold" src="assets/art/wash/menu-gold.webp" alt="" width="197" height="205" loading="lazy" decoding="async" style="left:67.57%;top:1.96%;width:28.14%;height:36.61%"></div>
+  <button class="menu__close" type="button" data-close>Close <svg class="ico" viewBox="0 0 26 26"><use href="#i-close"/></svg></button>
+  <div class="menu__in">
+    <nav class="menu__main" aria-label="Sections">
+      <a href="services.html">Services</a>
+      <p class="menu__sub"><a href="charter.html">Citizen's Charter</a><a href="forms.html">Forms</a><a href="jobs.html">Jobs</a><a href="services.html#online">Online services</a></p>
+      <a href="emergency.html">Emergency</a>
+      <a href="government.html">Government</a>
+      <p class="menu__sub"><a href="mayor.html">The Mayor</a><a href="congresswoman.html">The Congresswoman</a><a href="officials.html">Officials</a><a href="government.html#departments">Offices</a><a href="barangays.html">Barangays</a><a href="ordinances.html">Ordinances</a><a href="projects.html">Projects</a><a href="bids.html">Bids and awards</a><a href="transparency.html">Transparency</a><a href="about.html">About the City</a></p>
+      <a href="business.html">Business</a>
+      <a href="visit.html">Discover</a>
+      <p class="menu__sub"><a href="visit.html#plan">Plan a visit</a><a href="heritage.html">Heritage</a><a href="visit.html#eat">Where to eat</a><a href="visit.html#fiesta">The fiesta</a><a href="index.html#map">City map</a></p>
+      <a href="news.html">News</a>
+      <p class="menu__sub"><a href="events.html">Events</a><a href="event.html">The Sto. Niño feast</a></p>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="menu__side">
+      <p class="aside menu__hand">most people come for</p>
+      <ul>
+        <li><a href="services.html#mac">EBD and the Mayor's Action Center</a></li>
+        <li><a href="services.html#birth-marriage-death-certificates">Birth, marriage and death certificates</a></li>
+        <li><a href="services.html#business-permit">Business permit, new or renewal</a></li>
+        <li><a href="services.html#real-property-tax">Real property tax</a></li>
+        <li><a href="services.html#job-vacancies">Job vacancies</a></li>
+        <li><a href="news.html">Advisories and notices</a></li>
+      </ul>
+      <p class="menu__call">In an emergency call <a href="tel:911">911</a></p>
+      <p class="menu__util"><time class="util__time" data-pst>Philippine Standard Time</time><a href="accessibility.html">Accessibility</a><button type="button" data-motion aria-pressed="false">Pause motion</button><span class="util__read" role="group" aria-label="Text size"><span aria-hidden="true">Text</span><button type="button" data-size="0" aria-pressed="true">A</button><button type="button" data-size="1" aria-pressed="false">A+</button><button type="button" data-size="2" aria-pressed="false">A++</button></span><button type="button" data-contrast aria-pressed="false">Contrast</button></p>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================== search -->
+<div class="search" id="search" role="dialog" aria-modal="true" aria-label="Search the site" hidden>
+  <button class="menu__close" type="button" data-close>Close <svg class="ico" viewBox="0 0 26 26"><use href="#i-close"/></svg></button>
+  <div class="search__in">
+    <label class="aside" for="q">what are you looking for?</label>
+    <input id="q" type="search" autocomplete="off" placeholder="permit, taxes, ferry, hotline…" aria-controls="q-results">
+    <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 7 150 7Q200 7 250 7Q300 8 350 6Q400 5 450 5Q500 5 550 6Q600 7 650 7Q700 7 750 6Q800 6 850 6Q900 7 950 6Q1000 6 1050 6Q1100 7 1200 4"/></svg>
+    <ul class="search__results" id="q-results"></ul>
+    <p class="sr" id="q-count" role="status"></p>
+    <p class="search__hint">This prototype searches the homepage and its ten pages.</p>
+  </div>
+</div>
+
+<main id="main" class="page">
+
+<header class="wrap rec-head">
+  <nav class="ch__no page__crumb" aria-label="Breadcrumb" data-reveal><span><a href="index.html">Batangas City</a> · <a href="government.html">Government</a> · <a href="ordinances.html">Ordinances</a></span><i class="aside">one record</i></nav>
+  <p class="story__kick" data-reveal>Ordinance · <span class="tag">Sample record</span></p>
+  <h1 data-reveal>An ordinance on the stalls of the public market</h1>
+  <p class="phero__lede" data-reveal>Who may lease a stall, for how long, and what happens to a stall left closed.</p>
+  <p class="sample" data-reveal>Every record in the register opens on a page like this one. The title, number and dates here are placeholders.</p>
+</header>
+
+<section class="sec wrap" id="particulars" aria-labelledby="t-particulars">
+  <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 7 150 7Q200 7 250 7Q300 6 350 5Q400 4 450 6Q500 7 550 7Q600 8 650 7Q700 6 750 6Q800 6 850 5Q900 5 950 4Q1000 4 1050 5Q1100 5 1200 7"/></svg>
+  <h2 class="sr" id="t-particulars">The particulars</h2>
+  <dl class="facts" data-reveal>
+    <div><dt>Number</dt><dd>Sample no. 4, series of 2025</dd></div>
+    <div><dt>Kind</dt><dd>Ordinance</dd></div>
+    <div><dt>Status</dt><dd><span class="tag tag--open">In force</span></dd></div>
+    <div><dt>Author</dt><dd>A councilor <span class="tag">To be supplied</span></dd></div>
+    <div><dt>Committee</dt><dd>Markets and trade</dd></div>
+    <div><dt>Approved</dt><dd>Placeholder date</dd></div>
+    <div><dt>Signed by the Mayor</dt><dd>Placeholder date</dd></div>
+    <div><dt>In force from</dt><dd>Placeholder date</dd></div>
+  </dl>
+</section>
+
+<section class="sec wrap" id="copy" aria-labelledby="t-copy">
+  <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 4 150 5Q200 6 250 5Q300 5 350 5Q400 5 450 5Q500 6 550 6Q600 5 650 5Q700 5 750 5Q800 5 850 7Q900 8 950 6Q1000 4 1050 4Q1100 4 1200 4"/></svg>
+  <header class="sec__head">
+    <div data-reveal><p class="aside">as approved</p><h2 id="t-copy">The official <em>copy</em></h2></div>
+    <p class="sec__lede" data-reveal>The signed text is the law; the summary below only helps you find your way in it.</p>
+  </header>
+  <div class="duo duo--r">
+    <div class="duo__art" data-draw data-total="3">
+      <div class="scene" style="--ar:1000/680"><img class="wash" data-w="brown" src="assets/art/wash/ex2-brown.webp" alt="" width="563" height="215" loading="lazy" decoding="async" style="left:19.75%;top:48.71%;width:70.38%;height:39.52%"><img class="wash" data-w="leaf" src="assets/art/wash/ex2-leaf.webp" alt="" width="316" height="221" loading="lazy" decoding="async" style="left:50.88%;top:14.34%;width:39.50%;height:40.62%"><img class="wash" data-w="red" src="assets/art/wash/ex2-red.webp" alt="" width="172" height="56" loading="lazy" decoding="async" style="left:62.12%;top:29.23%;width:21.50%;height:10.29%"><img class="wash" data-w="table" src="assets/art/wash/ex2-table.webp" alt="" width="639" height="108" loading="lazy" decoding="async" style="left:9.50%;top:85.11%;width:79.88%;height:19.85%"><svg class="ink" viewBox="0 0 1000 680" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><g data-l="draw"><path class="a" pathLength="100" d="M36 470Q59 470 70 469Q82 469 93 469Q105 469 116 469Q128 470 139 470Q150 470 162 470Q173 469 196 470M401 470Q421 470 431 470Q441 469 451 470Q461 470 471 469Q481 469 491 469Q501 469 521 468M836 470Q858 470 868 471Q879 471 890 472Q901 472 911 471Q922 471 933 472Q943 472 965 472"/><path class="b" pathLength="100" d="M28 652Q51 653 63 653Q75 653 87 653Q98 653 110 653Q122 653 134 653Q146 653 157 653Q169 653 181 653Q193 653 204 653Q216 653 228 653Q240 653 252 653Q263 653 275 653Q287 653 299 653Q311 653 322 653Q334 653 346 653Q358 653 370 653Q381 653 393 653Q405 653 417 652Q428 652 440 652Q452 652 464 652Q476 652 487 652Q499 652 511 652Q523 652 535 652Q546 653 558 653Q570 653 582 653Q593 652 605 653Q617 653 629 653Q641 653 652 653Q664 653 676 653Q688 653 700 653Q711 653 723 653Q735 654 747 654Q758 654 770 654Q782 654 794 654Q806 655 817 655Q829 655 841 655Q853 655 865 655Q876 655 888 656Q900 656 912 656Q923 656 935 656Q947 656 971 655"/><path class="b" pathLength="100" d="M222 520Q201 459 205 418Q210 377 240 338"/><path class="b" pathLength="100" d="M379 519Q399 460 395 418Q390 376 360 336"/><path class="b" pathLength="100" d="M379 521Q377 522 375 523Q372 524 370 526Q367 527 363 528Q358 529 354 529Q349 530 344 531Q339 532 333 532Q327 533 320 533Q313 533 306 534Q299 534 293 534Q287 534 280 533Q273 532 267 532Q261 532 255 531Q249 530 245 530Q240 529 237 528Q234 526 231 525Q228 525 226 524Q224 523 223 520"/><path class="a" pathLength="100" d="M361 337Q358 340 355 341Q353 342 349 343Q345 344 340 345Q335 346 329 347Q324 348 317 348Q310 348 303 349Q297 349 290 349Q283 349 276 348Q269 347 264 346Q259 345 255 345Q250 344 248 343Q245 341 243 340Q242 339 241 337Q240 335 241 334Q243 333 246 332Q249 331 254 330Q258 329 264 328Q269 326 276 326Q283 326 289 325Q296 325 303 325Q310 325 317 326Q323 326 330 327Q336 327 342 328Q347 329 351 331Q354 332 357 334Q360 335 361 338"/><path class="b" pathLength="100" d="M250 331Q250 326 253 324Q255 323 259 321Q263 318 269 317Q274 315 281 315Q288 314 294 314Q300 314 306 314Q312 314 319 315Q326 316 331 317Q336 319 340 320Q344 322 347 324Q350 327 351 332"/><path class="a" pathLength="100" d="M307 311Q298 314 295 310Q293 306 296 303Q299 300 303 302Q307 304 304 313"/><path class="b" pathLength="100" d="M390 415Q426 394 432 373Q438 352 456 331"/><path class="b" pathLength="100" d="M392 451Q439 422 447 396Q455 370 468 338"/><path class="a" pathLength="100" d="M453 329Q462 333 471 337"/><path class="b" pathLength="100" d="M246 331Q240 281 270 267Q299 252 329 266Q359 280 354 331"/><path class="a" pathLength="100" d="M377 378Q382 393 388 409M360 369Q368 392 372 404Q377 415 385 439M358 392Q369 423 380 454M358 433Q367 456 375 480M354 455Q359 469 364 483M347 476Q350 482 352 488"/><path class="a" pathLength="100" d="M228 445Q226 406 234 373"/><path class="b" pathLength="100" d="M785 520Q784 523 783 525Q782 526 781 527Q779 528 777 530Q775 531 772 532Q769 533 767 534Q764 536 761 537Q758 538 755 538Q751 539 748 541Q744 542 740 543Q736 543 731 544Q727 545 722 546Q718 547 713 548Q708 549 703 549Q698 549 692 550Q686 550 681 551Q675 552 670 552Q664 552 658 552Q652 553 646 553Q640 553 634 553Q628 553 622 552Q616 552 610 552Q604 552 598 552Q592 551 586 551Q581 551 576 549Q571 548 566 548Q560 548 556 547Q551 546 547 545Q543 544 539 543Q535 542 532 541Q528 540 525 539Q522 538 519 537Q516 535 514 534Q511 533 509 532Q507 530 505 529Q503 528 502 527Q501 526 500 524Q499 523 498 522Q497 520 497 519Q497 518 497 516Q498 515 499 514Q499 513 501 511Q503 510 504 509Q506 508 509 506Q511 505 514 504Q517 503 521 502Q524 501 528 500Q532 499 537 498Q541 496 545 496Q550 495 555 495Q561 494 566 494Q571 493 576 492Q582 492 588 491Q593 490 599 490Q605 489 611 490Q616 490 622 489Q628 489 634 489Q640 489 646 489Q652 489 657 490Q663 490 669 490Q674 491 680 491Q685 491 691 491Q696 492 702 492Q707 493 713 493Q719 494 724 495Q729 496 733 496Q738 497 742 498Q746 499 751 500Q756 501 759 502Q763 503 766 504Q769 506 772 506Q775 507 777 508Q778 510 780 511Q782 513 783 514Q784 515 785 517Q786 518 785 521"/><path class="a" pathLength="100" d="M765 524Q763 525 761 527Q758 528 756 529Q754 530 751 531Q749 532 745 533Q742 534 739 534Q736 535 732 536Q728 537 724 537Q720 538 716 539Q712 540 706 540Q701 541 696 541Q691 542 686 542Q680 543 675 543Q670 543 664 544Q658 544 652 544Q646 544 640 544Q634 544 628 544Q623 544 617 544Q611 544 605 543Q599 543 594 542Q588 542 583 542Q578 541 573 541Q568 540 563 539Q559 538 555 538Q551 537 547 536Q543 536 540 534Q537 533 534 532Q532 531 529 531Q527 530 524 529Q522 527 520 526Q519 525 516 524"/><path class="b" pathLength="100" d="M496 521Q513 569 537 584Q560 598 591 604"/><path class="b" pathLength="100" d="M784 521Q767 569 744 584Q720 599 689 604"/><path class="a" pathLength="100" d="M691 603Q690 605 688 606Q686 607 683 607Q680 607 677 608Q674 609 670 610Q666 610 661 610Q656 610 650 610Q645 611 640 610Q634 610 629 610Q624 610 619 610Q615 610 610 609Q606 609 603 608Q600 608 597 607Q595 607 593 606Q591 605 589 603"/><path class="a" pathLength="100" d="M568 516Q592 489 609 486Q627 484 638 491Q649 498 640 515"/><path class="a" pathLength="100" d="M588 503Q584 511 580 513Q576 515 572 513Q568 510 567 506Q566 501 568 498Q571 494 575 494Q580 494 583 496Q586 499 587 507"/><path class="a" pathLength="100" d="M656 515Q648 515 645 511Q642 507 644 503Q646 499 650 498Q654 497 658 500Q662 502 661 507Q660 511 653 516"/><path class="a" pathLength="100" d="M680 494Q700 494 721 494M718 492Q717 507 718 523M718 521Q698 520 679 520M681 522Q682 507 681 492"/><path class="a" pathLength="100" d="M689 496Q689 507 689 518M696 496Q696 507 696 518M703 496Q703 507 703 518M711 496Q711 507 711 518"/><path class="a" pathLength="100" d="M644 518Q650 518 652 518Q654 519 654 520Q655 521 655 522Q654 523 655 523Q655 524 656 525Q657 525 658 526Q659 527 659 528Q658 529 655 529Q653 530 650 530Q648 530 646 530Q645 531 644 532Q643 533 642 533Q640 534 638 534Q636 535 633 535Q631 534 628 534Q626 533 624 533Q622 533 619 533Q616 533 613 533Q611 533 609 532Q607 532 606 531Q606 530 606 529Q607 528 607 528Q607 527 606 526Q605 526 604 525Q602 524 603 523Q604 523 606 522Q608 521 610 521Q613 521 614 520Q615 520 616 519Q617 518 620 517"/><path class="a" pathLength="100" d="M726 512Q730 512 732 512Q734 512 737 512Q739 511 742 511Q745 511 747 511Q750 512 751 513Q752 513 752 514Q752 515 752 516Q753 517 754 517Q755 518 756 519Q757 520 756 520Q755 521 752 522Q749 522 747 522Q745 523 744 523Q742 523 741 524Q740 525 738 526Q736 526 733 526Q731 526 728 526Q726 526 724 525Q723 524 721 524Q719 523 717 523Q715 523 712 522Q710 522 710 521Q709 520 710 519Q711 518 713 518Q714 517 716 516"/><path class="a" pathLength="100" d="M758 548Q761 554 765 560M745 548Q751 557 756 566M739 553Q745 563 750 573M731 557Q737 567 743 578M723 560Q729 570 735 581M714 564Q719 573 724 582M705 569Q711 579 716 589"/><path class="b" pathLength="100" d="M757 506Q823 462 872 435"/><path class="a" pathLength="100" d="M765 513Q762 519 758 520Q754 521 749 523Q744 524 740 523Q735 522 732 520Q728 518 727 516Q726 514 727 511Q727 508 731 507Q735 505 740 505Q745 504 749 505Q754 505 758 507Q762 508 765 514"/><path class="b" pathLength="100" d="M372 576Q370 578 368 579Q366 580 364 581Q361 582 358 583Q354 584 350 585Q347 586 342 586Q338 585 333 586Q328 586 323 586Q318 585 314 585Q309 584 305 584Q301 583 298 582Q296 581 293 580Q291 579 290 578Q288 577 288 575Q288 574 289 573Q290 571 292 570Q294 569 297 569Q300 568 305 567Q309 566 314 565Q318 565 323 565Q328 565 332 565Q337 565 341 566Q346 566 350 566Q355 566 359 567Q363 568 366 569Q368 570 370 572Q371 573 372 576"/><path class="a" pathLength="100" d="M364 576Q361 577 359 578Q357 578 354 579Q351 581 347 581Q343 581 339 581Q335 581 330 581Q326 582 321 581Q317 581 313 581Q310 580 306 579Q303 579 301 578Q299 577 297 576"/><path class="b" pathLength="100" d="M288 576Q292 603 299 612Q305 621 315 626"/><path class="b" pathLength="100" d="M372 576Q368 602 362 612Q355 621 345 626"/><path class="a" pathLength="100" d="M314 626Q330 626 346 626"/><path class="b" pathLength="100" d="M370 584Q389 584 390 592Q391 601 384 605Q376 609 366 607"/><path class="b" pathLength="100" d="M393 626Q395 628 395 629Q395 630 395 631Q394 631 393 632Q392 633 390 634Q389 634 386 635Q384 636 381 637Q378 638 375 638Q371 639 367 640Q363 640 359 641Q354 641 350 641Q345 641 340 642Q335 642 330 642Q325 642 320 642Q314 642 310 641Q305 641 301 640Q296 640 292 640Q288 639 285 638Q282 637 279 637Q276 636 274 635Q272 635 270 634Q268 633 267 632Q266 631 265 630Q265 630 265 629Q266 628 268 626"/><path class="a" pathLength="100" d="M290 625Q294 624 297 624Q300 623 304 623Q308 622 312 622Q316 622 321 622Q325 622 330 621Q334 621 339 622Q343 622 347 622Q351 623 355 623Q359 623 363 624Q366 624 371 626"/><path class="b" pathLength="100" d="M913 518Q911 521 910 521Q909 522 906 523Q904 524 901 524Q899 524 895 525Q892 526 889 526Q886 526 882 527Q878 527 874 527Q870 526 867 526Q864 525 861 525Q858 524 856 523Q853 523 852 522Q850 521 850 520Q849 519 849 518Q848 518 849 517Q850 516 851 515Q853 514 855 513Q857 512 860 512Q864 511 867 511Q871 511 874 511Q878 511 882 511Q885 511 889 511Q893 511 896 512Q899 512 902 513Q905 513 907 514Q909 515 910 516Q911 516 912 518"/><path class="a" pathLength="100" d="M906 519Q904 520 902 521Q900 521 897 522Q895 522 893 523Q890 523 887 523Q883 523 880 523Q877 523 873 523Q870 523 867 523Q865 522 862 522Q860 521 858 520Q856 520 854 519"/><path class="b" pathLength="100" d="M848 519Q851 539 856 546Q861 554 869 557"/><path class="b" pathLength="100" d="M912 518Q909 539 904 546Q899 554 891 557"/><path class="a" pathLength="100" d="M868 557Q880 557 892 557"/><path class="b" pathLength="100" d="M910 525Q925 525 926 531Q926 538 921 541Q915 544 907 543"/><path class="b" pathLength="100" d="M560 250Q632 228 674 226Q716 223 758 212Q800 202 874 198"/><path class="a" pathLength="100" d="M606 236Q617 226 621 221Q625 216 628 210Q631 204 631 198Q632 192 631 185Q630 178 627 164M606 236Q602 222 601 215Q600 209 601 202Q602 196 605 190Q607 185 612 179Q616 174 627 164M606 236L627 164"/><path class="a" pathLength="100" d="M618 233Q625 246 629 252Q633 258 638 262Q643 266 649 268Q656 271 663 272Q670 272 685 272M618 233Q633 233 640 233Q647 234 653 237Q659 239 664 243Q669 247 673 253Q678 259 685 272M618 233L685 272"/><path class="a" pathLength="100" d="M689 225Q699 216 703 211Q707 205 710 200Q712 195 713 189Q713 183 712 176Q711 170 707 157M689 225Q685 212 684 206Q683 199 684 193Q685 187 687 182Q689 176 693 171Q698 166 707 157M689 225L707 157"/><path class="a" pathLength="100" d="M703 224Q705 239 708 245Q710 252 713 257Q717 262 722 266Q727 270 733 273Q739 276 753 280M703 224Q717 229 723 231Q729 234 734 238Q739 242 742 248Q746 253 748 259Q750 266 753 280M703 224L753 280"/><path class="a" pathLength="100" d="M776 208Q789 199 794 194Q799 189 803 184Q807 178 808 172Q810 165 810 158Q810 151 808 136M776 208Q774 193 774 186Q774 179 776 172Q778 166 781 160Q785 155 790 150Q795 145 808 136M776 208L808 136"/><path class="a" pathLength="100" d="M790 205Q794 222 797 230Q800 238 805 244Q809 250 816 255Q822 259 830 262Q837 265 855 270M790 205Q807 209 815 212Q823 215 829 220Q835 224 840 230Q844 237 847 245Q851 252 855 270M790 205L855 270"/><path class="a" pathLength="100" d="M860 198Q870 186 875 179Q879 173 881 166Q884 159 884 152Q884 145 882 137Q880 130 874 114M860 198Q854 183 852 175Q850 168 850 160Q850 153 852 146Q855 140 859 133Q863 127 874 114M860 198L874 114"/><path class="a" pathLength="100" d="M644 246Q635 247 634 242Q632 238 636 235Q639 233 643 236Q647 239 643 247"/><path class="a" pathLength="100" d="M656 252Q648 254 646 250Q644 246 647 243Q651 241 654 243Q658 245 655 253"/><path class="a" pathLength="100" d="M637 260Q639 251 644 251Q648 251 650 255Q651 259 647 262Q644 265 637 259"/><path class="a" pathLength="100" d="M723 230Q732 229 734 234Q735 238 731 240Q728 243 724 240Q721 237 725 230"/><path class="a" pathLength="100" d="M743 249Q735 248 734 243Q733 239 738 237Q742 236 744 239Q747 243 742 250"/><path class="a" pathLength="100" d="M802 213Q809 207 812 209Q816 211 815 215Q815 219 810 220Q805 220 803 212"/><path class="a" pathLength="100" d="M825 219Q825 228 821 229Q817 231 814 227Q812 223 815 220Q818 217 826 220"/><path class="a" pathLength="100" d="M811 229Q803 233 800 230Q798 226 800 223Q803 219 807 220Q811 222 810 231"/><path class="g" pathLength="100" d="M231 524Q238 526 244 527M202 526Q220 530 237 533M185 528Q201 532 209 533Q216 535 232 538M185 535Q203 539 222 544M171 540Q187 544 204 547M161 546Q165 547 168 548"/><path class="g" pathLength="100" d="M572 613Q580 614 588 616M547 612Q563 616 579 619M521 612Q539 616 549 618Q558 620 576 624M499 613Q517 617 526 619Q535 621 544 623Q553 625 571 629M507 622Q527 627 538 629Q548 631 569 635M489 626Q510 631 521 633Q532 636 554 640M482 632Q501 636 521 640M474 638Q476 639 479 640"/></g><g data-l="notes"><text class="an" x="64" y="250" font-size="34.4" text-anchor="start">barako coffee</text><path class="a" pathLength="100" d="M150 262Q163 266 169 269Q175 272 181 275Q186 278 191 282Q196 286 200 291Q205 295 208 301Q211 306 215 312Q218 318 224 330"/><path class="a" pathLength="100" d="M217 325L225 330M224 330L224 321"/><text class="an" x="800" y="430" font-size="34.4" text-anchor="start">bulalo soup</text><path class="a" pathLength="100" d="M813 440Q804 443 800 445Q795 447 792 450Q789 453 786 456Q784 458 781 462Q778 466 777 469Q775 473 773 477Q772 481 770 490"/><path class="a" pathLength="100" d="M768 481L771 490M770 490L776 483"/></g></svg><svg class="ink mv mv--rise" viewBox="0 0 1000 680" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><g data-l="steam"><path class="g" pathLength="100" d="M625 480Q631 456 625 443Q618 429 624 416Q630 403 623 366"/><path class="g" pathLength="100" d="M640 479Q646 456 640 443Q633 430 640 417Q647 404 640 370"/><path class="g" pathLength="100" d="M656 479Q664 456 657 443Q650 429 656 416Q662 403 656 378"/><path class="g" pathLength="100" d="M322 560Q329 544 323 536Q316 528 323 519Q329 511 320 494"/><path class="g" pathLength="100" d="M338 560Q346 545 339 536Q332 527 338 519Q344 511 336 493"/></g></svg></div>
+    </div>
+    <div class="duo__text" data-reveal>
+      <ul class="docs">
+        <li><svg class="icon"><use href="#i-g-download"/></svg><b>The signed ordinance<small>PDF</small></b><span class="tag">To be supplied</span></li>
+      </ul>
+      <h3 style="font-size:1.5rem;margin:1.6rem 0 .8rem">In short</h3>
+      <ul class="bring">
+        <li>Stalls are leased to residents, one stall a family</li>
+        <li>A lease runs for a year and is renewed at the Market Administrator's office</li>
+        <li>A stall closed for a month without notice may be leased again</li>
+      </ul>
+      <a class="cta" href="services.html#certified-true-copies">Ask for a certified copy <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<section class="sec wrap" id="history" aria-labelledby="t-history">
+  <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 7 150 7Q200 7 250 7Q300 6 350 5Q400 4 450 6Q500 7 550 7Q600 8 650 7Q700 6 750 6Q800 6 850 5Q900 5 950 4Q1000 4 1050 5Q1100 5 1200 7"/></svg>
+  <header class="sec__head">
+    <div data-reveal><p class="aside">its passage</p><h2 id="t-history">Where it <em>stands</em></h2></div>
+    <p class="sec__lede" data-reveal>Each step with its date, as the Secretariat records it.</p>
+  </header>
+  <ol class="track" data-reveal>
+    <li><b>Filed</b><span>placeholder date</span></li>
+    <li><b>Committee</b><span>public hearing, placeholder date</span></li>
+    <li><b>Third reading</b><span>approved, placeholder date</span></li>
+    <li><b>The Mayor</b><span>signed, placeholder date</span></li>
+    <li><b>Posted</b><span>in force from placeholder date</span></li>
+  </ol>
+</section>
+
+<section class="sec wrap" id="related" aria-labelledby="t-related">
+  <svg class="ink rule" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="a" pathLength="100" d="M2 5Q100 4 150 5Q200 6 250 5Q300 5 350 5Q400 5 450 5Q500 6 550 6Q600 5 650 5Q700 5 750 5Q800 5 850 7Q900 8 950 6Q1000 4 1050 4Q1100 4 1200 4"/></svg>
+  <header class="sec__head">
+    <div data-reveal><p class="aside">in the same register</p><h2 id="t-related">Related <em>records</em></h2></div>
+  </header>
+  <ul class="rows">
+    <li class="row"><i>Ordinance</i><h3><a href="ordinance.html">Amending the City's revenue code</a></h3><p>Sample no. 17, series of 2024</p><span class="tag tag--open">In force</span></li>
+    <li class="row"><i>Resolution</i><h3><a href="ordinance.html">Market days in the Poblacion</a></h3><p>Sample no. 61, series of 2025</p><span class="tag tag--done">Adopted</span></li>
+    <li class="row"><i>Ordinance</i><h3><a href="ordinance.html">The annual budget of the City</a></h3><p>Sample no. 1, series of 2025</p><span class="tag tag--open">In force</span></li>
+  </ul>
+  <div class="share" role="group" aria-label="Share this page"><span class="share__lbl" aria-hidden="true">Share</span><button type="button" class="lk" data-share-native hidden>Share…</button><a class="lk" data-share="facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fikdelacruz.github.io%2Fbatangas-city-homepage%2Fordinance.html" target="_blank" rel="noopener">Facebook<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a><a class="lk" data-share="viber" href="viber://forward?text=https%3A%2F%2Fikdelacruz.github.io%2Fbatangas-city-homepage%2Fordinance.html">Viber</a><a class="lk" data-share="x" href="https://x.com/intent/post?url=https%3A%2F%2Fikdelacruz.github.io%2Fbatangas-city-homepage%2Fordinance.html" target="_blank" rel="noopener">X<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a><a class="lk" data-share="email" href="mailto:?body=https%3A%2F%2Fikdelacruz.github.io%2Fbatangas-city-homepage%2Fordinance.html">E-mail</a><button type="button" class="lk" data-share-copy>Copy the link</button></div>
+  <p style="margin-top:1.5rem"><a class="cta" href="ordinances.html">All ordinances <svg class="ico" viewBox="0 0 56 24"><use href="#i-arrow"/></svg></a></p>
+</section>
+
+<p class="page__note wrap"><span class="tag">Sample content</span> The record is a layout sample; the register is to be supplied by the Council Secretariat before launch.</p>
+
+</main>
+
+<!-- ============================================================ footer -->
+<footer class="foot" id="contact">
+  <div class="foot__art" data-draw data-total="2.6">
+    <div class="scene scene--dusk" style="--ar:2000/430" data-shell="dusk"></div>
+  </div>
+  <div class="foot__in">
+    <div class="wrap">
+      <p class="foot__sign aside">and the light goes, and the sketchbook closes.</p>
+      <p class="foot__refrain" lang="fil">Mabuhay ang Lungsod ng Batangas!</p>
+      <div class="foot__grid">
+        <div class="foot__brand">
+          <img src="assets/images/seal-144.webp" width="72" height="72" alt="Official seal of Batangas City" loading="lazy">
+          <p><strong>City Government of Batangas</strong><br>City Hall, P. Burgos Street<br>Batangas City 4200, Philippines</p>
+          <p class="foot__ph"><a href="contact.html">Contact City Hall</a> · trunkline <span class="tag tag--dark">To be supplied</span></p>
+          <p class="foot__badges"><a class="badge" href="transparency.html#disclosure">Transparency Seal</a><a class="badge" href="https://www.foi.gov.ph" target="_blank" rel="noopener">Freedom of Information<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></p>
+        </div>
+        <nav aria-label="Emergency">
+          <h2>Emergency</h2>
+          <ul>
+            <li><a href="tel:911">Call 911</a></li>
+            <li><a href="emergency.html">Rescue, fire and police</a></li>
+            <li><a href="emergency.html#weather">Weather and advisories</a></li>
+          </ul>
+          <p class="foot__ph">City hotlines <span class="tag tag--dark">To be supplied</span></p>
+        </nav>
+        <nav aria-label="City Government" id="government">
+          <h2>City Government</h2>
+          <ul>
+            <li><a href="mayor.html#office">Office of the City Mayor</a></li>
+            <li><a href="congresswoman.html#office">Office of the Representative</a></li>
+            <li><a href="officials.html">Officials and the City Council</a></li>
+            <li><a href="government.html#departments">Departments and offices</a></li>
+            <li><a href="barangays.html">The 105 barangays</a></li>
+            <li><a href="ordinances.html">Ordinances</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="transparency.html">Transparency and full disclosure</a></li>
+            <li><a href="bids.html">Bids and awards</a></li>
+            <li><a href="about.html">About the City</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Government links">
+          <h2>Government links</h2>
+          <ul>
+            <li><a href="https://www.gov.ph" target="_blank" rel="noopener">GOV.PH<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://www.foi.gov.ph" target="_blank" rel="noopener">Freedom of Information<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://www.officialgazette.gov.ph" target="_blank" rel="noopener">Official Gazette<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+            <li><a href="https://data.gov.ph" target="_blank" rel="noopener">Open Data Philippines<span class="sr"> (opens in a new tab)</span><svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.500 2.500h4v4M13.500 2.500l-6 6M11.500 9.500v4h-9v-9h4"/></svg></a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Site map" id="sitemap">
+          <h2>Site map</h2>
+          <ul>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="charter.html">Citizen's Charter</a></li>
+            <li><a href="forms.html">Forms</a></li>
+            <li><a href="jobs.html">Jobs</a></li>
+            <li><a href="emergency.html">Emergency</a></li>
+            <li><a href="government.html">City Government</a></li>
+            <li><a href="business.html">Business</a></li>
+            <li><a href="visit.html">Discover</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="events.html">Events</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="foot__base">
+        <p>© City Government of Batangas. The illustrations are an artist's interpretation of the city, drawn, not photographed.</p>
+        <ul>
+          <li><a href="accessibility.html">Accessibility</a></li>
+          <li><a href="privacy.html">Privacy notice</a></li>
+          <li><a href="terms.html">Terms of use</a></li>
+          <li><button type="button" data-motion aria-pressed="false">Pause motion</button></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#top">Back to top</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- the way back up: in the right-hand gutter on a desktop, with the upward scroll on a phone -->
+<a class="totop rnd" id="totop" href="#top" aria-label="Back to top" data-cursor="Top"><svg class="ico" viewBox="0 0 56 24" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+
+<!-- phones: the four things people come for, within reach of a thumb -->
+<nav class="dock" id="dock" aria-label="Quick access">
+  <a href="services.html"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><path d="M4 24h20M6 24V11.500l8-6.500 8 6.500V24M11.500 24v-7h5v7"/></svg><span>Services</span></a>
+  <a href="services.html" data-open="search"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><use href="#i-search"/></svg><span>Search</span></a>
+  <a href="emergency.html"><svg class="ico" viewBox="0 0 28 28" aria-hidden="true"><path d="M14 4v20M4 14h20M7.500 7.500l13 13M20.500 7.500l-13 13"/></svg><span>Emergency</span></a>
+  <a href="#sitemap" data-open="menu"><svg class="ico" viewBox="0 0 30 24" aria-hidden="true"><use href="#i-menu"/></svg><span>Menu</span></a>
+</nav>
+
+<p class="note" id="note" role="status"></p>
+<div class="cursor" id="cursor" aria-hidden="true"><i></i><svg viewBox="0 0 64 64"><use href="#i-ring"/></svg><b></b></div>
+
+<script src="assets/js/vendor/gsap.min.js"></script>
+<script src="assets/js/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
